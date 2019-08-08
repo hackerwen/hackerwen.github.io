@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>关于 | 海秋</title>
+<title>简单继承 | 海秋</title>
 <meta name="description" content="人潮拥挤你别慌">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -86,27 +86,141 @@
       <div class="content-container">
         <div class="post-detail">
           
-            <div class="feature-container" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5sf3ouncdj318y0u0hdv.jpg')">
-            </div>
-          
-          <h2 class="post-title">关于</h2>
+          <h2 class="post-title">简单继承</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2019-08-08</span>
+            <span><i class="icon-calendar-outline"></i> 2017-07-04</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://worldzhao.github.io/tag/zd4EwIdEDA">
+                    javascript
+                    
+                  </a>
+                
+              </span>
             
           </div>
           <div class="post-content">
-            <p>Web Developor，毕业于2018年，目前就职于喜马拉雅，喜欢<code>React</code>。</p>
-<p><a href="https://github.com/worldzhao">github</a></p>
-<h2 id="开源项目">开源项目</h2>
+            <h2 id="继承">继承</h2>
+<h3 id="混入式继承">混入式继承</h3>
+<p>最简单的继承,使用 for in 循环为对象动态添加成员,代码如下:</p>
+<pre><code class="language-js">var obj1 = {
+  name: 'zzw',
+  age: '18'
+}
+
+console.log(obj1)
+
+var obj2 = {}
+
+for (var k in obj1) {
+  obj2[k] = obj1[k]
+}
+
+console.log(obj2)
+</code></pre>
+<h3 id="原型式继承objectcreate">原型式继承：Object.create</h3>
+<p>ES5 为我们提供了一个方法 Object.create(obj),返回值为一个继承于 obj 对象的对象</p>
+<pre><code class="language-js">var subObj = Object.create(superObj) // subObj继承了superObj的成员
+</code></pre>
+<p>内部实现：</p>
+<pre><code class="language-js">function create(superObj) {
+  var F = function() {}
+  F.prototype = superObj
+  return new F()
+}
+</code></pre>
+<p>由于此方法是 ES5 提供的,所以存在兼容性问题.<br>
+如何解决兼容性问题呢?</p>
+<p>检测浏览器能力.</p>
+<pre><code class="language-js">if (Object.create) {
+  //若浏览器支持
+  var subObj = Object.create(superObj)
+} else {
+  //若浏览器不支持,自己添加这个方法
+  Object.create = function() {
+    var F = function() {}
+    F.prototype = superObj
+    return new F()
+  }
+}
+</code></pre>
+<p>封装成函数:</p>
+<pre><code class="language-js">function create(superObj) {
+  if (Object.create) {
+    return Object.create(superObj)
+  } else {
+    Object.create = function() {
+      var F = function() {}
+      F.prototype = superObj
+      return new F()
+    }
+  }
+}
+</code></pre>
+<h3 id="通过原型继承此处不讨论原型链单纯继承原型对象的成员">通过原型继承(此处不讨论原型链，单纯继承原型对象的成员)</h3>
 <ul>
-<li><a href="https://github.com/worldzhao/dora-ui">dora-ui</a>，移动端组件库</li>
-<li><a href="https://github.com/worldzhao/violet-cli">violet-cli</a>，一个简单的模板管理工具</li>
+<li>给原型对象中添加成员(对象的动态特性,非严格意义上的继承)</li>
 </ul>
+<pre><code class="language-js">Person.prototype.sayHello = function() {
+  console.log('hello')
+}
+
+var p = new Person('冯巩', '50')
+
+p.sayHello() //这里的p对象就继承了原型对象
+</code></pre>
+<ul>
+<li>直接替换原型对象,原型对象原本的属性无法保存</li>
+</ul>
+<pre><code class="language-js">var parent = {
+  saygoodbye: function() {
+    console.log('goodbye')
+  }
+}
+
+Person.prototype = parent
+
+var p1 = new Person('zzw', '20')
+
+p1.saygoodbye() //p对象就继承了原型对象,也就是我们的parent对象
+</code></pre>
+<ul>
+<li>用混入的方式为原型对象添加成员,保存了原型对象原有的属性(sayhi 方法)</li>
+</ul>
+<pre><code class="language-js">Person.prototype.sayhi = function() {
+  console.log('hi')
+}
+
+var parent = {
+  saygoodbye: function() {
+    console.log('goodbye')
+  }
+}
+
+for (var k in parent) {
+  Person.prototype[k] = parent[k]
+}
+
+var p2 = new Person('zzw', '18')
+
+p2.saygoodbye()
+p2.sayhi()
+</code></pre>
 
           </div>
         </div>
 
         
+          <div class="next-post">
+            <a class="purple-link" href="https://worldzhao.github.io/post/jump-jump">
+              <h3 class="post-title">
+                下一篇：我纵身一跃，跳进人的海洋
+              </h3>
+            </a>
+          </div>
+          
       </div>
 
       

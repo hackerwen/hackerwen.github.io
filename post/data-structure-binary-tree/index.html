@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>关于 | 海秋</title>
+<title>数据结构-二叉树 | 海秋</title>
 <meta name="description" content="人潮拥挤你别慌">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -86,27 +86,95 @@
       <div class="content-container">
         <div class="post-detail">
           
-            <div class="feature-container" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5sf3ouncdj318y0u0hdv.jpg')">
-            </div>
-          
-          <h2 class="post-title">关于</h2>
+          <h2 class="post-title">数据结构-二叉树</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2019-08-08</span>
+            <span><i class="icon-calendar-outline"></i> 2017-07-18</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://worldzhao.github.io/tag/iauJzA4HMe">
+                    算法与数据结构
+                    
+                  </a>
+                
+              </span>
             
           </div>
           <div class="post-content">
-            <p>Web Developor，毕业于2018年，目前就职于喜马拉雅，喜欢<code>React</code>。</p>
-<p><a href="https://github.com/worldzhao">github</a></p>
-<h2 id="开源项目">开源项目</h2>
-<ul>
-<li><a href="https://github.com/worldzhao/dora-ui">dora-ui</a>，移动端组件库</li>
-<li><a href="https://github.com/worldzhao/violet-cli">violet-cli</a>，一个简单的模板管理工具</li>
-</ul>
+            <h3 id="二叉树的遍历">二叉树的遍历</h3>
+<h4 id="成果如图">成果如图：</h4>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8l5s0kg30hm06bq44.gif" alt="动态预览.gif"></p>
+<h4 id="思路">思路：</h4>
+<ol>
+<li>先对二叉树进行遍历，按照顺序将节点存入数组</li>
+<li>对数组中的节点进行样式处理（排他以及定时器）</li>
+</ol>
+<h4 id="遍历代码">遍历代码：</h4>
+<ol>
+<li>先序遍历：若二叉树为空，则空操作返回，否则先访问根结点，然后前序遍历左子树，再前序遍历右子树。</li>
+</ol>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8mgj51g30hm06b74l.gif" alt="先序遍历.gif"></p>
+<pre><code class="language-js">function DLR(node) {
+  //先序遍历
+  if (node) {
+    //判断二叉树是否存在，若不存在则结束返回
+    nodeArr.push(node)
+    DLR(node.children[0])
+    DLR(node.children[1])
+  }
+}
+</code></pre>
+<ol start="2">
+<li>中序遍历：若树为空，则空操作返回，否则从根结点开始（注意并不是先访问根结点），中序遍历根结点的左子树，然后是访问根结点，最后中序遍历右子树。</li>
+</ol>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8u2pbtg30hm06bjrn.gif" alt="中序遍历.gif"></p>
+<pre><code class="language-js">function LDR(node) {
+  if (node) {
+    LDR(node.children[0])
+    nodeArr.push(node)
+    LDR(node.children[1])
+  }
+}
+</code></pre>
+<ol start="3">
+<li>后序遍历：若树为空，则空操作返回，否则从左到右先叶子后结点的方式遍历访问左右子树，最后访问根结点。</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8uxe8tg30hm06b74j.gif" alt="后序遍历.gif"></p>
+<pre><code class="language-js">function LRD(node) {
+  if (node) {
+    LRD(node.children[0])
+    LRD(node.children[1])
+    nodeArr.push(node)
+  }
+}
+</code></pre>
+<p>最后我们得到了按照遍历顺序排序的数组，再进行样式处理，代码如下</p>
+<pre><code class="language-js">function activeNode(arr) {
+  for (let i = 0; i &lt; arr.length; i++) {
+    setTimeout(function() {
+      for (let j = 0; j &lt; arr.length; j++) {
+        arr[j].className = ''
+      } //清除所有节点样式
+      arr[i].className = 'active' //给当前节点添加样式
+    }, i * 500) //i*500 给定时器创造时间间隔
+  }
+}
+</code></pre>
+<p><a href="https://segmentfault.com/a/1190000000740261">参考资料</a></p>
 
           </div>
         </div>
 
         
+          <div class="next-post">
+            <a class="purple-link" href="https://worldzhao.github.io/post/event-listener">
+              <h3 class="post-title">
+                下一篇：实现通用的事件注册方法
+              </h3>
+            </a>
+          </div>
+          
       </div>
 
       

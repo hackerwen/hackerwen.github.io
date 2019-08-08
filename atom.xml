@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-08-08T10:15:43.134Z</updated>
+    <updated>2019-08-08T10:26:42.060Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -10,4 +10,1452 @@
     <logo>https://worldzhao.github.io/images/avatar.png</logo>
     <icon>https://worldzhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 海秋</rights>
+    <entry>
+        <title type="html"><![CDATA[关于前端项目部署发布的相关思考]]></title>
+        <id>https://worldzhao.github.io/post/thinking-in-deploy</id>
+        <link href="https://worldzhao.github.io/post/thinking-in-deploy">
+        </link>
+        <updated>2019-07-20T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="公司前端项目部署现状">公司前端项目部署现状</h2>
+<p>将 html 托管给后端，前端只发静态资源（<code>index.js</code>/<code>index.css</code>），然后通过某种方式去刷 html 的静态资源版本号（?version=时间戳或递增数字）。</p>
+<h2 id="比较好的实践">比较好的实践</h2>
+<p>我们先来看看前端项目部署的比较好实践是什么？</p>
+<p>出处：<a href="https://www.zhihu.com/question/20790576/answer/32602154">大公司里怎样开发和部署前端代码？</a></p>
+<p>可以总结出以下四点：</p>
+<blockquote>
+<ol>
+<li>配置超长时间的本地缓存 —— 节省带宽，提高性能</li>
+<li>采用内容摘要作为缓存更新依据 —— 精确的缓存控制</li>
+<li>静态资源 CDN 部署 —— 优化网络请求</li>
+<li>变更资源发布路径实现非覆盖式发布 —— 平滑升级</li>
+</ol>
+</blockquote>
+<p>上面文章可是本文的基石，5 年过去了，更好的方案是什么呢，还希望大佬赐教。</p>
+<p>作为一个毕业 1 年的菜鸟，我就先着上面的文章来看看目前公司发布流程的不足吧。</p>
+<h2 id="公司部署方案优缺点">公司部署方案优缺点</h2>
+<p>前端只发布静态资源，只要 html 引用的资源不刷版本号，对老用户是没有影响的（存在强缓存，直接请求本地缓存，对应实践 1），新用户虽然没有缓存，但由于是静态资源是同名覆盖发布，所以请求新的 <code>index.js</code>/<code>index.css</code> 资源，只要资源不依赖 html 结构，看到新版本功能，也没有影响（注意：如果依赖 html 结构，请求新资源可能就会出现问题，好在目前单页应用基本不依赖 html 结构，一个#root 根节点 就够了）。</p>
+<p><strong>（强行）优点</strong></p>
+<ol>
+<li>覆盖发布。服务器不会有大量静态资源文件积累。（这个很重要？）</li>
+<li>后端可以向 HTML 内注入一些内容，比如用户信息。</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>粗粒度的版本号刷新策略，导致根据文件内容变化选择性更新缓存（对应实践 2）无法实施</li>
+<li>覆盖发布。在 html 刷新版本号前，新用户和老用户可能看到的页面版本（功能）不同</li>
+<li>html 托管在后端，导致一定程度的前后端未分离（譬如打包策略变更需要后端配合更改 html）</li>
+</ol>
+<h2 id="照猫画虎">照猫画虎</h2>
+<p>那么按照上面的实践，如何处理比较好呢？</p>
+<ol>
+<li>前端每次基于 content hash（依赖内容摘要算法） 打包生成静态资源文件名(例如 <code>aaa.[contenthash].js</code> 与 <code>bbb.[contenthash].css</code>)，文件名是否变化取决于文件内容是否变化</li>
+<li>使用前端的 html，前端可在打包过程中自动注入静态资源文件地址</li>
+<li>静态资源先发布，html 后发布</li>
+</ol>
+<p>再来看看上面的缺点是否被解决了？</p>
+<p><em><code>1. 粗粒度的版本号刷新策略，导致根据文件内容变化选择性更新缓存（对应实践 2）无法实施</code></em></p>
+<p><strong>文件名是基于 content hash（依赖内容摘要算法）生成，在发布新的 html 后，若文件内容未发生变化，文件名不会发生改变，依旧使用本地强缓存，若文件内容变化，文件名会发生改变，会请求新的静态资源，达到了选择性更新缓存的效果。</strong></p>
+<p><em><code>2. 覆盖发布。在 html 刷新版本号前，新用户和老用户可能看到的页面版本（功能）不同</code></em></p>
+<p><strong>非覆盖式发布，文件名[contenthash]不同不会覆盖，旧的静态资源文件依旧存在。</strong></p>
+<p><strong>新的静态资源发布后，新的 html 未发布前这个时间段内，老用户请求到旧的 html，请求的是旧的静态资源，文件名(或者说文件路径)未变化，依旧使用本地强缓存，新用户请求到旧的 html，没有本地缓存，但旧的静态资源未被覆盖，依旧可以请求到，此时看到的都是旧版本内容。</strong></p>
+<p><strong>新的 html 发布后，老用户浏览器会选择性更新本地缓存，新用户直接请求新的静态资源，看到的都是新版本内容。</strong></p>
+<p><em><code>3. html 托管在后端，导致一定程度的前后端未分离（譬如打包策略变更需要后端配合更改 html）</code></em></p>
+<p><strong>html 完全由前端控制，后端只需要提供 API 即可，前后端真正意义上的完全分离。</strong></p>
+<p>缺点：</p>
+<ul>
+<li>发生变化的文件 hash 值不同，非覆盖发布，可能造成服务器上无用的静态资源越来越多，但这是可以解决的</li>
+<li>后端不能往 html 注入一些内容</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>经验浅了些，参考的资料古老了些，可能有些地方有失偏颇，请一定要指正。</p>
+<p>而且项目上线是肯定要配 Nginx 的，要去找运维帮忙配，流程上还有可以优化的地方，现在这种形式对前端制约太大了。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[我在喜马拉雅的这俩月]]></title>
+        <id>https://worldzhao.github.io/post/probation-period-in-xmly</id>
+        <link href="https://worldzhao.github.io/post/probation-period-in-xmly">
+        </link>
+        <updated>2019-07-06T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。所有内容仅代表我所在的团队（部分内容仅代表我所在的项目组），纯属个人看法，可能带有较强烈的感情色彩。</p>
+<h2 id="组织结构">组织结构</h2>
+<h3 id="背景">背景</h3>
+<p>我所在的事业部成立于去年八月，属于前台事业部，也就是所谓的“创业部门”，极少同事抽调于其他团队，大部分为新人，最长任职时间不到一年（此处只谈技术相关），以下“业务团队”字样指代我所在的部门，因为我并不了解其他部门。</p>
+<p>部门老大也就是技术老大，下面有若干前端与后端划分在不同的项目，但没有名义上的前端负责人与后端负责人，即使职称不一样，都是一线开发。</p>
+<p>公司内部是有前端架构团队的，提供一些基础类库以及相关服务，譬如 jssdk、埋点、脚手架以及发布工具。</p>
+<h3 id="问题">问题</h3>
+<p>这样的组织架构不少见，上家公司也是基本如此，但存在 2 点差异：</p>
+<ol>
+<li>得益于老东家规模以及业务类型，架构组能够较为容易的推行内部工具；</li>
+<li>业务线前后端是有负责人在的，可以理解为小组长，有一定的话语权。</li>
+</ol>
+<p>这 2 点差异导致了 3 点问题：</p>
+<ol>
+<li>选型不统一，已有项目经验难复用。公司规模大，架构组对业务团队基本没有约束力，导致业务团队除了一些公共基础服务必须使用内部工具，其他技术选型取决于具体项目的第一个开发者（大部分时候一言难尽），换一个项目可能要花一点时间适应一下，backup 困难；</li>
+<li>缺少规范，协作困难。项目内没有代码规范，eslint 存在感极低，缩进、空格混乱且没有<code>precommit lint</code>。说服所有人很难，而协作是可能与所有人发生的。（“每个人风格不一样，很难统一的”，我真的很讨厌这句话，那要团队做什么？规范就是让 <code>1+1&gt;2</code> 的）。</li>
+<li>一些好的实践难以推动。想推 typescript？看你有没有机会成为某一个新项目的第一个开发者吧，并且说服与你协作的同事（如果有的话）。</li>
+</ol>
+<h3 id="思考">思考</h3>
+<p>可能组织结构间接导致了下面我要谈的很多问题吧。</p>
+<p>当然，我资历尚浅，可能有更深的考量是我所不知晓的。可能我所在的部门就是不追求这些东西，抓紧时间完成需求就好了，这些并不重要，其他部门并不存在这些问题（感觉可能性不大），但是部门老大经常强调质量，我认为还是落地方面有些问题。</p>
+<h2 id="组件库">组件库</h2>
+<h3 id="现状">现状</h3>
+<p>没有统一组件库，具体问题表现在以下几点：</p>
+<ol>
+<li>数量：可复用组件少，经常需要造轮子，并且造完没有抽出来以供其他项目复用；</li>
+<li>文档：文档缺失，更换开发者大概率需要摸瞎看源码，而且很可能 A 项目已经存在了解决方案，B 项目的开发者并不知道（或者知道了却根本无从下手拷贝），重复造轮子；</li>
+<li>维护：1 中的轮子复用依靠复制粘贴，可维护性差，出现问题多方同步修改。</li>
+</ol>
+<p>可复用组件类型：</p>
+<ul>
+<li>UI 组件：譬如弹层（Popup）、轻提示(Toast)以及输入框（Input）等组件（往往还存在一些兼容性问题）；</li>
+<li>业务组件：相同业务类型可复用的组件，譬如抽奖转盘组件；</li>
+<li>逻辑组件：譬如传送门（Portal）、切换器（Toggler）以及校验器（Validator）等可以用来优化代码结构并减少重复代码等无形态组件。</li>
+</ul>
+<h3 id="思考-2">思考</h3>
+<p>活动页固然千奇百怪，但总有相似之处，如何与业务结合，分离可变与不可变，提高开发效率，正是工程师存在的意义（当然也需要产品【业务抽象】以及设计【ui 规范】同学的共同参与）。</p>
+<p>如果不同项目设计风格实在差异较大，也能够通过改改样式复用，而非重写一遍逻辑以及兼容性处理。</p>
+<p>既要有造轮子的能力（个人），也要有不造轮子的觉悟（团队）。</p>
+<p>画外音吐槽：为什么把一个组件文件夹在不同项目中拷来拷去？文档也没有，我怎么用，代码质量就不说了，没眼看，都是一个人用的一次性代码。</p>
+<h3 id="行动">行动</h3>
+<p>写了个 dora-ui，目前有以下组件：</p>
+<ul>
+<li>Countdown 倒计时</li>
+<li>Popup 弹层</li>
+<li>Portal 传送门</li>
+<li>Toast 轻提示</li>
+<li>Toggler 切换器</li>
+</ul>
+<p>感觉可以直接使用开源的组件库，为什么要自己写呢？</p>
+<ul>
+<li>反正没啥人用......(扎心了老铁</li>
+<li>后续会以业务组件为主</li>
+<li>也存在一点私心吧，锻炼自己，反正也支持按需加载，想和啥一起用就和啥一起用</li>
+<li>我会用心写好文档和单元测试的</li>
+</ul>
+<h2 id="脚手架模板">脚手架（模板）</h2>
+<h3 id="现状-2">现状</h3>
+<p>目前团队内新建项目都是用 CRA 或者 DVA（为啥不用 Umi）改一改，我还没有机会自己去新建一个项目，但我觉着这也太麻烦了吧。</p>
+<p>为什么不用公司内部的脚手架（框架）？我也不想看着五花八门的项目结构呀。</p>
+<ul>
+<li>我觉得可以用，但是团队内部没啥人用，架构组不强推，也没有前端负责人（话语权）...很难推呀；</li>
+<li>旧版本的 Bug。接的一个旧项目是用内部脚手架旧版本搭的，太多坑了，只能说勉强能用，团队其他人吓怕了，不过现在都修好了；</li>
+<li>公司内部的框架基本上都集成了我上面所说的内容。但框架定位是同构渲染，我们团队基本是纯前端项目，引入的很多概念概念配置增加了心智负担。建议把文档分开，给一个纯前端项目的最小知识集就好；</li>
+</ul>
+<p>用 DVA 搭建项目其实还好，本来就是最佳实践了，只需要自己配些环境变量控制下<code>publicPath</code>以及增加<code>precommit lint</code>就好，但是用<code>CRA</code>就很麻烦了，要自己改很多内容。</p>
+<h3 id="问题-2">问题</h3>
+<p>看项目内部架子（基于 CRA），最想吐槽的有 3 点：</p>
+<ul>
+<li>代码风格。前面说过。</li>
+<li>数据 Mock。为啥要在 src 里面根据环境变量引入 mock 文件，这不是开发时依赖吗？</li>
+<li>接口转发 Proxy。其实这个不算架子的问题。基本所有的架子都内置 Proxy 的，但是一些接口需要授权访问，这就需要鉴权，我们后台服务并没有提供给我们开发鉴权的形式，现在的解决方案比较麻烦：比如测试环境域名为<code>m.test.zzzzz.com</code>，使用<code>SwitchHosts</code>将本地 ip 映射为<code>m.dev.zzzzz.com</code>，前面<code>m.dev</code>可以自定义，后面保证一致，然后去 test 环境登录，这样就给浏览器注入 cookie 了，然后我们 Proxy 转发就能带着 cookie 转发了。可是缺点也很明显，内网 ip 会变化，把电脑带回家再带到公司，就要重新改 host，不知道还有什么好方案解决，感觉后端支持才是王道，也提到过这个问题，但是推不动。</li>
+</ul>
+<h3 id="思考-3">思考</h3>
+<p>我觉得团队内部初始化一个项目，模板必须集成以下功能：</p>
+<ul>
+<li>eslint/editorconfig（必须）</li>
+<li>precommit lint（必须）</li>
+<li>mock（必须）</li>
+<li>proxy（必须）</li>
+<li>自定义 webpack 配置（必须）</li>
+<li>集成 redux（可选）</li>
+<li>commitlint（可选）</li>
+<li>typescript（可选）</li>
+</ul>
+<p>当然有很多同学可能会说选型很多时候要考虑团队成员的能力。</p>
+<p>但是能力是有及格线的呀！能被工业化大规模使用的工具会很难吗？这个太重那个太复杂，又不是引入<code>angular</code> or <code>rxjs</code>，用某位大佬的话就是“你脑袋只有几 kb 吗？”。</p>
+<p>为什么要选择<code>redux-thunk</code>，是<code>dva</code>不好看还是<code>rematch</code>不好听？</p>
+<p>可能仅仅是因为第一个初始化项目的人只知道<code>redux-thunk</code>罢了（当然如果只是一个人开发，随便怎么玩），但如果是协作项目，建议由一个真正深入过思考的人去进行技术选型）。</p>
+<p>所以说脚手架很重要，但是 emmm...架构组的脚手架可能不适合所有业务场景（以及约束力因素），团队内部 emmm...大概率推不动（我正在写），说起来都是泪。</p>
+<h3 id="行动-2">行动</h3>
+<p>正在写一个适合团队内部使用的脚手架，会集成上述内容。</p>
+<p>尤其是预置代码规范以及风格，但是被关掉或者修改就没办法了呀，有些同事就是不喜欢用插件格式化代码，自己写的又达不到代码标准，真的好难。</p>
+<h2 id="前后端分离">前后端分离</h2>
+<p>惊不惊喜，意不意外。</p>
+<h3 id="现状-3">现状</h3>
+<p>前端项目如果初次发布，需要把<code>index.html</code>托管到后端那里，我们虽然把 html/js/css 都上传到了静态资源服务器，但 html 用的是后端托管的，打包出来的内容不能有 hash，如果资源地址变化，需要后端配合修改 html，每次上线要后端刷版本号（就是加个时间戳），避免请求到了缓存的 html。</p>
+<p>更多分析可以看我另外一篇文章——关于前端项目部署发布的相关思考。</p>
+<h3 id="思考-4">思考</h3>
+<p>Nginx 配置代理应当是最优的，不然更改打包策略还需要后端配合，着实无奈，可能的原因就是配置 Nginx 需要找人找人找人，但是后端上线难道就不找人了吗，这里不是很理解，听说有在解决这个问题，可能这种操作背后有什么历史原因吧，但放到今天，实在是很难接受。</p>
+<p>昨天在新生技术培训上向前端老大提了这个问题，听说架构组是有规划解决这个问题的，后面再看吧。</p>
+<h2 id="其他">其他</h2>
+<h3 id="关于上线流程">关于上线流程</h3>
+<p>目前是没有上线流程的，对，没有！</p>
+<ul>
+<li>开发完后一嗓子上线，有些需求少的、关联性不强的开发人员都不知道啥时候上线，上线的时候人不在结果没发；</li>
+<li>对线上发布没有敬畏之心，一天可以发几次。</li>
+</ul>
+<p>上周开了个会想要解决这个问题，希望能落地。</p>
+<p>无非就是固定上线日期以及发布次数，通过邮件以及文档等进行需求生命周期跟踪。</p>
+<pre><code>需求 =&gt; 视觉 =&gt; 开发 =&gt; 测试 =&gt; 预发 =&gt; 正式上线。
+</code></pre>
+<p>不过上线流程在我看来应该是公司统一的吧，不然新团队还要重新建立这些流程规范，一不小心就走偏了，捂脸哭。</p>
+<p>还有一个点就是公司内部没有使用邮件的习惯，见仁见智吧，我觉得比较神奇。</p>
+<h3 id="关于测试环境">关于测试环境</h3>
+<p>我从未见过如此不稳定的测试环境。</p>
+<h3 id="关于代码重构">关于代码重构</h3>
+<p>随着项目迭代，没有意义的代码要及时删除或注释，否则几经转手，没有人知道这些代码到底有没有用，反而还要在这些结构上进行新需求迭代，只会越来越乱，开发人员要有及时掏粪坑的决心与勇气（堆成屎山就完了- -!!），接过来的项目如果可复用程度不大，不如重做，当前项目架构不满足新需求时，应考虑及时扩展。</p>
+<h3 id="关于产品节奏">关于产品节奏</h3>
+<p>产品节奏很迷，一个需求提测后会有接近两周的空档，所以很感谢现在的项目，既让我了解到了一个项目能有多坑，又给我了如此多的时间去发现问题，修复缺陷。</p>
+<p>虽然我们公司基本不咋加班，但是这个节奏着实让我有点不太好意思。技术人员当然需要时间去复盘总结，学习新知识，但团队内部其他项目贼忙，对比起来好惭愧。</p>
+<p>但是心里面还是有些许动摇，虽然说成长靠自己（现在有时间去学习成长），但我还是想有一个更为优秀的团队以及平台，能够去落地一些事情。而现在团队内部，有极个别成员即使有许多时间，但也不见有何产出，一言难尽，虽然我现在有热情，但是我害怕有一天也会这样，可能就是贱吧。</p>
+<h2 id="总结">总结</h2>
+<p>以上就是一些思考以及吐槽，这两个月成长的太多太多，在上一家公司和一个人负责项目，来这边三个人一起负责一个项目（感觉有资源过剩），遇到了种种问题，有的问题解决了，有的问题人言微轻，影响不大。</p>
+<p>也有了 3 点感悟，哈哈。</p>
+<ol>
+<li>办法总比问题多；</li>
+<li>是问题还是绩效取决于自己；</li>
+<li>永远保持好奇心。</li>
+</ol>
+<p>一片荒芜。</p>
+<p>但大有可为。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于组件库的相关思考]]></title>
+        <id>https://worldzhao.github.io/post/thinking-in-ui-library</id>
+        <link href="https://worldzhao.github.io/post/thinking-in-ui-library">
+        </link>
+        <updated>2019-06-01T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="关于组件库的相关思考">关于组件库的相关思考</h1>
+<p>先丢项目地址</p>
+<p>https://github.com/worldzhao/dora-ui</p>
+<p>欢迎 star。</p>
+<h2 id="现状">现状</h2>
+<p>没有统一组件库，具体问题表现在以下几点：</p>
+<ol>
+<li>数量：可复用组件少，经常需要造轮子，并且造完没有抽出来以供其他项目复用；</li>
+<li>文档：文档缺失，更换开发者大概率需要摸瞎看源码，而且很可能 A 项目已经存在了解决方案，B 项目的开发者并不知道（或者知道了却根本无从下手拷贝），重复造轮子；</li>
+<li>维护：1 中的轮子复用依靠复制粘贴，可维护性差，出现问题多方同步修改。</li>
+</ol>
+<h2 id="可复用组件类型">可复用组件类型</h2>
+<ol start="4">
+<li>UI 组件：譬如弹层（Mask,SlideUp）、轻提示(Toast)以及输入框（Input）等组件（往往还存在一些兼容性问题）；</li>
+<li>业务组件：相同业务类型可复用的组件，譬如抽奖转盘组件；</li>
+<li>逻辑组件：譬如传送门（Portal）、切换器（Toggler）以及校验器（Validator）等可以用来优化代码结构并减少重复代码等无形态组件。</li>
+</ol>
+<h2 id="个人思考">个人思考</h2>
+<p>活动页固然千奇百怪，但总有相似之处，如何与业务结合，分离可变与不可变，提高开发效率，正是工程师存在的意义（当然也需要产品【业务抽象】以及设计【ui 规范】同学的共同参与）。</p>
+<p>如果不同项目设计风格实在差异较大，也能够通过改改样式复用，而非重写一遍逻辑以及兼容性处理。</p>
+<p>既要有造轮子的能力（个人），也要有不造轮子的觉悟（团队）。</p>
+<p>当然，很有可能因为设计资源不够导致本项目沦为玩具项目，但是总归是会有成长的。</p>
+<h2 id="技术选型">技术选型</h2>
+<ul>
+<li>开发语言：typescript，可靠、可读以及提示友好；</li>
+<li>测试框架：暂定，倾向于 jest；</li>
+<li>文档系统：docz，支持 mdx，支持预览以及在线编辑；</li>
+<li>打包-ts：babel，同时提供 commonjs 以及 esmodule 两种包；</li>
+<li>打包-less：gulp-less，同时书写 style.ts，用于按需引入。style.ts=&gt;style.js=&gt;css.js（参考 antd）</li>
+<li>其他： editorconfig/eslint/commitlint/commitizen/husky，规范代码风格以及 commit 记录。</li>
+</ul>
+<p><a href="https://dora-ui.netlify.com/">欢迎体验</a>并参与贡献！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[编写干净的代码]]></title>
+        <id>https://worldzhao.github.io/post/write-clean-code-in-react</id>
+        <link href="https://worldzhao.github.io/post/write-clean-code-in-react">
+        </link>
+        <updated>2019-05-14T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="项目基础配置">项目基础配置</h2>
+<p>工欲善其事必先利其器，一个好的项目架子（目录结构以及代码风格，即规范）就是一套教程。</p>
+<p>规范是为了使得团队成员<strong>协作</strong>更为轻松而存在的，应当在个人习惯以及团队协作之间取得平衡，有红线、也有金线。</p>
+<p>统一的规范也是使得团队发挥出 <code>1 + 1 &gt; 2</code> 能力的基础。</p>
+<p>必须遵循两个基本原则：</p>
+<ol>
+<li>少数服从多数（协商讨论）；</li>
+<li>用工具统一风格（lint 工具）。</li>
+</ol>
+<p>常用工具：</p>
+<ul>
+<li>eslint</li>
+<li>editorconfig</li>
+<li>husky[pre-commit]</li>
+<li>vscode plugins</li>
+<li>贯彻执行</li>
+</ul>
+<blockquote>
+<p><a href="https://juejin.im/entry/5b911ff9e51d450e65482870">推荐阅读-如何保障前端项目的代码质量-掘金</a></p>
+</blockquote>
+<h2 id="代码相关">代码相关</h2>
+<blockquote>
+<p>关键字：简单、可读、好维护</p>
+</blockquote>
+<p>一切为了简单、可读，好维护。</p>
+<h3 id="策略模式">策略模式</h3>
+<p>使用策略模式优化 if-else，换汤(switch)不换药(if)，策略(map)更有效</p>
+<pre><code class="language-js">// bad
+const { channel } = this.state;
+let chal = &quot;&quot;;
+switch (channel) {
+  case &quot;weixin&quot;:
+    chal = 1;
+    break;
+  case &quot;weixinGroup&quot;:
+    chal = 2;
+    break;
+  case &quot;qq&quot;:
+    chal = 3;
+    break;
+  case &quot;qrCode&quot;:
+    chal = 4;
+    break;
+}
+</code></pre>
+<pre><code class="language-js">// good
+const { channel } = this.state;
+const channelCodeMap = {
+  weixin: 1,
+  weixinGroup: 2,
+  qq: 3,
+  chal: 4
+};
+const chal = channelCodeMap[channel] || &quot;&quot;;
+</code></pre>
+<p>此处是根据 channel 拿取对应 code，如果是根据后端 code 显示文案同理，如果是根据后端 code 进行不同操作也是同理，只不过将键值对的值更换为我们抽象的方法而已，将不同策略抽取出去，策略对象只负责选取策略，分离可变与不可变，即为策略模式。</p>
+<p>想要深入戳此处：</p>
+<blockquote>
+<p><a href="https://juejin.im/post/5bdfef86e51d453bf8051bf8">推荐阅读-JavaScript 复杂判断的更优雅写法-掘金</a> &gt; <a href="https://worldzhao.github.io/2018/11/23/design-pattern-strategy/">推荐阅读-设计模式-策略模式-我的博客</a></p>
+</blockquote>
+<h3 id="定义常量">定义常量</h3>
+<p>倘若一个字符串或是一个数字在项目中反复被使用（单个文件除外），就应当抽离出配置文件，而非在业务代码中写满意义不明的 number 与 string</p>
+<pre><code class="language-js">// bad
+const { channel } = this.state;
+const channelCodeMap = {
+  weixin: 1,
+  weixinGroup: 2,
+  qq: 3,
+  chal: 4
+};
+const chal = channelCodeMap[channel] || &quot;&quot;;
+</code></pre>
+<pre><code class="language-js">// good
+// constants.js
+export const CHANNEL_CODES = {
+  WEIXIN: 1,
+  WEIXIN_GROUP: 2,
+  QQ: 3,
+  CHAL: 4
+};
+
+// index.js
+import { CHANNEL_CODES } from &quot;path2config/constants&quot;;
+const { channel } = this.state;
+const channelCodeMap = {
+  weixin: CHANNEL_CODES.WEIXIN,
+  weixinGroup: CHANNEL_CODES.WEIXIN_GROUP,
+  qq: CHANNEL_CODES.WEIXIN_QQ,
+  chal: CHANNEL_CODES.WEIXIN_CHAL
+};
+const chal = channelCodeMap[channel] || &quot;&quot;;
+</code></pre>
+<h3 id="使用-asyncawait">使用 async/await</h3>
+<p>除开极其复杂的异步流程（极少情况，我没碰到过）需要使用 Promise，绝大多数情况 async/await 就可以 hold 住，并且少了括号嵌套，可读性极佳。</p>
+<pre><code class="language-js">// bad
+/* 获取用户信息后获取用户提现信息 */
+getWithdrawInfo = () =&gt; {
+  getUserInfo()
+    .then(res =&gt; {
+      return getWithdrawInfo(res.userId);
+    })
+    .then(withdrawInfo =&gt; {
+      this.setState({
+        withdrawInfo
+      });
+    })
+    .catch(err =&gt; {
+      console.log(err);
+    });
+};
+</code></pre>
+<pre><code class="language-js">// good
+/* 获取用户信息后获取用户提现信息 */
+getWithdrawInfo = async () =&gt; {
+  const userInfo = await getUserInfo();
+  const withdrawInfo = await getWithdrawInfo(userInfo.userId);
+  this.setState({
+    withdrawInfo
+  });
+};
+</code></pre>
+<blockquote>
+<p><a href="https://worldzhao.github.io/2019/01/23/pig/">推荐阅读-从 callback 到 async-我的博客</a></p>
+</blockquote>
+<h3 id="单一职责">单一职责</h3>
+<p>一个方法做一件事，生命周期函数力求清晰简单，内部不要有业务逻辑，简单调用业务方法即可。</p>
+<p>bad patter 就是在生命周期内写一大堆业务逻辑，看得头皮发麻，此处不做示例。</p>
+<pre><code class="language-js">// good
+componentDidMount() {
+    // 获取账户信息
+    this.getAccountInfo();
+    // 获取提现配置信息
+    this.getWithdrawConfig();
+    // 获取收听时长
+    this.getListenData();
+}
+</code></pre>
+<h3 id="类名拼接">类名拼接</h3>
+<p>使用 classnames 库（声明式）拼接复杂类名，而非各种拼接字符串（过程式）。</p>
+<pre><code class="language-js">// bad
+// 这个例子写的太累了。。。
+const Button = props =&gt; {
+  const { size, type, openPrefixCl, prefixCl } = props;
+  let btnCls = &quot;test-btn&quot;;
+  if (size === &quot;large&quot;) {
+    btnCls += &quot; test-btn__large&quot;;
+  } else if (size === &quot;medium&quot;) {
+    btnCls += &quot; test-btn__medium&quot;;
+  } else {
+    btnCls += &quot; test-btn__small&quot;;
+  }
+
+  if (type === &quot;primary&quot;) {
+    btnCls += &quot; test-btn__primary&quot;;
+  } else if (type === &quot;warning&quot;) {
+    btnCls += &quot; test-btn__warning&quot;;
+  } else if (type === &quot;danger&quot;) {
+    btnCls += &quot; test-btn__danger&quot;;
+  } else {
+    btnCls += &quot; test-btn__default&quot;;
+  }
+
+  if (openPrefixCl === 1) {
+    // 这个例子放在这里不合理 只是为了说明classnames的好处
+    btnCls += ` ${prefixCl}`;
+  }
+  return &lt;button className={btnCls}&gt;点我&lt;/button&gt;;
+};
+</code></pre>
+<pre><code class="language-js">// good
+import cx from &quot;classnames&quot;;
+
+const sizeClsMap = {
+  small: &quot;test-btn__large&quot;,
+  medium: &quot;test-btn__medium&quot;,
+  large: &quot;test-btn__small&quot;
+};
+
+const typeClsMap = {
+  primary: &quot;test-btn__primary&quot;,
+  warning: &quot;test-btn__warning&quot;,
+  danger: &quot;test-btn__danger&quot;
+};
+
+const Button = props =&gt; {
+  const { size, type, openPrefixCl, prefixCl } = props;
+  const sizeCl = sizeClsMap[size] || &quot;test-btn__medium&quot;;
+  const typeCl = typeClsMap[type] || &quot;test-btn__default&quot;;
+  const btnCls = cx({
+    &quot;test-btn&quot;: true,
+    [typeCl]: true,
+    [sizeCl]: true,
+    [prefixCl]: openPrefixCl === 1
+  });
+  return &lt;button className={btnCls}&gt;点我&lt;/button&gt;;
+};
+</code></pre>
+<h3 id="伪计算属性">（伪）计算属性</h3>
+<p>通过 get 关键字，抽离计算逻辑，根据 state 与 props 计算出衍生值。</p>
+<pre><code class="language-js">// 使用 getters 封装 render 所需要的状态或条件的组合
+// 对于返回 boolean 的 getter 使用 is- 前缀命名
+
+// bad
+render() {
+    const { age } = this.state;
+    const { school } = this.props;
+    return (
+        &lt;&gt;
+        {
+           age &gt; 18 &amp;&amp; (school === 'A' || school === 'B')
+            ? &lt;VipComponent /&gt;
+            : &lt;NormalComponent /&gt;
+        }
+        &lt;/&gt;
+    )
+}
+</code></pre>
+<pre><code class="language-js">// good
+get isVIP() {
+    const { age } = this.state;
+    const { school } = this.props;
+    return age &gt; 18 &amp;&amp; (school === 'A' || school === 'B')
+    }
+
+render() {
+    return (
+        &lt;&gt;
+        {this.isVIP ? &lt;VipComponent /&gt; : &lt;NormalComponent /&gt;}
+        &lt;/&gt;
+    )
+}
+</code></pre>
+<p>为什么是（伪），因为通过这种效果模拟出来的计算属性和 Vue 提供的计算属性有本质区别。</p>
+<p>对于 Vue 计算属性，Vue 官方文档中存在解释：”我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。然而，不同的是计算属性是基于它们的依赖进行缓存的。只在相关依赖发生改变时它们才会重新求值。”</p>
+<p>假使存在两个 state 属性 A.B，计算属性只依赖 A，不依赖 B。倘若 B 变化，计算属性不会重新计算。</p>
+<p>但在 React 中，依旧会执行 render，所以 get 没有缓存，只是个语法糖。</p>
+<blockquote>
+<p><a href="https://worldzhao.github.io/2019/03/16/react-computed/">推荐阅读-使用 get 关键字优雅处理表单联动-我的博客</a></p>
+</blockquote>
+<h3 id="降低-jsx-复杂度">降低 jsx 复杂度</h3>
+<p>render(jsx) 方法复杂到一定程度时，需要合理拆分成不同子组件或子方法（单一职责）。</p>
+<p>bad pattern 不作展示，想像一个 200 行的 render 方法并且 jsx 中充斥着各种判断判断逻辑即可。</p>
+<p>以一个模态框组件为例，模态框 Header 以及 Footer 基本都是可配置的，会存在许多判断，将其抽离分而治之可以更干净。</p>
+<p>只要合理抽象方法，代码基本不会有太大问题。</p>
+<pre><code class="language-js">renderModalHeader = () =&gt; {};
+
+renderModalContent = () =&gt; {};
+
+renderModalFooter = () =&gt; {};
+
+render() {
+    return (
+      &lt;div className=&quot;test-modal--container&quot;&gt;
+        {this.renderModalHeader()}
+        {this.renderModalContent()}
+        {this.renderModalFooter()}
+      &lt;/div&gt;
+    );
+  }
+</code></pre>
+<h3 id="其他">其他</h3>
+<ul>
+<li>
+<p>if 判断语句不通过尽早返回，避免一大堆逻辑后来个 else，很多时候直接 return 更清晰</p>
+</li>
+<li>
+<p>在合适的场景使用 reduce/map/filter/some/every（声明式） 等方法替换 for 循环（过程式）</p>
+</li>
+<li>
+<p>配置 webpack alias 避免导入模块相对路径过长的问题</p>
+</li>
+</ul>
+<pre><code class="language-js">// bad
+import { Modal } from &quot;../../../components/&quot;;
+</code></pre>
+<pre><code class="language-js">// good
+import { Modal } from &quot;@components&quot;;
+</code></pre>
+<ul>
+<li>公共组件需要有 propTypes 以及 defaultPropTypes 静态属性</li>
+</ul>
+<p>看了 propTypes 属性就基本了解了组件的使用方式，代码即文档，如果 typescript 更好（interface）</p>
+<ul>
+<li>相同的组件功能使用 HOC / render props/hooks 优化（高阶组件需要注意属性覆盖与静态方法丢失）</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[编写更快的 React 代码（一）：memoize-one 简介]]></title>
+        <id>https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one</id>
+        <link href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
+        </link>
+        <updated>2019-04-10T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="编写更快的-react-代码一memoize-one-简介">编写更快的 React 代码（一）：memoize-one 简介</h1>
+<h2 id="引言">引言</h2>
+<p>不同类型业务要求的性能标准各不相同。如果对一个 ToB 的后台管理系统要求首屏速度以及 SEO，显然不合理也没必要。</p>
+<p>第一要考虑的不是如何去优化，而是值不值得去优化，React 性能已经足够优秀，毕竟“过早优化是魔鬼”，情况总是“可以，但没必要”。</p>
+<p>作为一个开发人员，深入了解工具不足之处，并拥有对其进行优化的能力，是极其重要的。</p>
+<p>React 性能优化大抵可分为两点：</p>
+<ol>
+<li>减少 rerender 次数 （immutable data、shouldComponentUpdate、PureComponent）</li>
+<li>减轻 rerender 复杂度 （memoize-one）</li>
+</ol>
+<p>本文基于 memoize-one 对 render 方法进行优化，达到减轻不必要 render 复杂度的效果。</p>
+<h2 id="存在的问题">存在的问题</h2>
+<p>先看一个简单的组件，如下所示：</p>
+<pre><code class="language-js">class Example extends Component {
+  state = {
+    filterText: &quot;&quot;
+  };
+
+  handleChange = event =&gt; {
+    this.setState({ filterText: event.target.value });
+  };
+
+  render() {
+    const filteredList = this.props.list.filter(item =&gt;
+      item.text.includes(this.state.filterText)
+    );
+
+    return (
+      &lt;Fragment&gt;
+        &lt;input onChange={this.handleChange} value={this.state.filterText} /&gt;
+        &lt;ul&gt;
+          {filteredList.map(item =&gt; (
+            &lt;li key={item.id}&gt;{item.text}&lt;/li&gt;
+          ))}
+        &lt;/ul&gt;
+      &lt;/Fragment&gt;
+    );
+  }
+}
+</code></pre>
+<p>该组件接收父组件传递的 list，筛选出包含 filterText 的 filteredList 并进行展示。</p>
+<p>问题是什么？</p>
+<p>在未进行任何处理的情况下，父组件 render，总会导致子组件 render，即使子组件的 state/props 并未发生变化，如果筛选的数据量大，筛选逻辑复杂，这将是一个很重要的优化点。</p>
+<p>要达到怎样的效果？</p>
+<ol>
+<li>state(filterText)/props(list)未发生变化时，不进行 render(引言-性能优化第 1 点)， 此处暂不讨论</li>
+<li>state(filterText)/props(list)未发生变化时，进行 render，复用上一次计算结果</li>
+</ol>
+<h2 id="memoize-one">memoize-one</h2>
+<blockquote>
+<p>A memoization library which only remembers the latest invocation</p>
+</blockquote>
+<h3 id="基本使用">基本使用</h3>
+<pre><code class="language-js">import memoize from &quot;memoize-one&quot;;
+
+const add = (a, b) =&gt; a + b; // 基本计算方法
+const memoizedAdd = memoize(add); // 生成可缓存的计算方法
+
+memoizedAdd(1, 2); // 3
+
+memoizedAdd(1, 2); // 3
+// Add 函数没有被执行：上一次的结果直接返回
+
+memoizedAdd(2, 3); // 5
+// Add 函数被调用获取新的结果
+
+memoizedAdd(2, 3); // 5
+// Add 函数没有被执行：上一次的结果直接返回
+
+memoizedAdd(1, 2); // 3
+// Add 函数被调用获取新的结果
+// 即使该结果在之前已经缓存过了
+// 但它并不是最近一次的缓存结果，所以缓存结果丢失了
+</code></pre>
+<p>在了解基本使用后，我们来对上述案例进行优化。</p>
+<h3 id="优化案例">优化案例</h3>
+<pre><code class="language-js">import memoize from &quot;memoize-one&quot;;
+
+class Example extends Component {
+  state = { filterText: &quot;&quot; };
+
+  // 只有在list或filterText改变的时候才会重新调用真正的filter方法（memoize入参）
+  filter = memoize((list, filterText) =&gt;
+    list.filter(item =&gt; item.text.includes(filterText))
+  );
+
+  handleChange = event =&gt; {
+    this.setState({ filterText: event.target.value });
+  };
+
+  render() {
+    // 在上一次render后，如果参数没有发生改变，`memoize-one`会重复使用上一次的返回结果
+    const filteredList = this.filter(this.props.list, this.state.filterText);
+
+    return (
+      &lt;Fragment&gt;
+        &lt;input onChange={this.handleChange} value={this.state.filterText} /&gt;
+        &lt;ul&gt;
+          {filteredList.map(item =&gt; (
+            &lt;li key={item.id}&gt;{item.text}&lt;/li&gt;
+          ))}
+        &lt;/ul&gt;
+      &lt;/Fragment&gt;
+    );
+  }
+}
+</code></pre>
+<h3 id="源码解析">源码解析</h3>
+<p>如果除去 ts 相关以及注释，不到 20 行。memoize-one 本质是一个高阶函数，真正计算函数作为参数，返回一个新的函数，新的函数内部会缓存上一次入参以及上一次返回值，如果本次入参与上一次入参相等，则返回上一次返回值，否则，重新调用真正的计算函数，并缓存入参以及结果，供下一次使用。</p>
+<p>假装这里有一张流程图 :)</p>
+<pre><code class="language-ts">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
+import areInputsEqual from './are-inputs-equal';
+
+// 函数签名
+export default function&lt;ResultFn: (...any[]) =&gt; mixed&gt;(
+  resultFn: ResultFn,
+  isEqual?: EqualityFn = areInputsEqual,
+): ResultFn {
+  // 上一次的this
+  let lastThis: mixed;
+  // 上一次的参数
+  let lastArgs: mixed[] = [];
+  // 上一次的返回值
+  let lastResult: mixed;
+  // 是否已经初次调用过了
+  let calledOnce: boolean = false;
+
+  // 被返回的函数
+  const result = function(...newArgs: mixed[]) {
+    // 如果参数或this没有发生变化或非初次调用
+    if (calledOnce &amp;&amp; lastThis === this &amp;&amp; isEqual(newArgs, lastArgs)) {
+      // 直接返回上一次的计算结果
+      return lastResult;
+    }
+
+    // 参数发生变化或者是初次调用
+    lastResult = resultFn.apply(this, newArgs);
+    calledOnce = true;
+    // 保存当前参数
+    lastThis = this;
+    // 保存当前结果
+    lastArgs = newArgs;
+    // 返回当前结果
+    return lastResult;
+  };
+
+  // 返回新的函数
+  return (result: any);
+}
+</code></pre>
+<h4 id="拓展斐波那契数列">拓展：斐波那契数列</h4>
+<p>下面是一个计算斐波那契数列的例子，该例子使用迭代代替递归，并且利用闭包缓存之前的结果。</p>
+<pre><code class="language-js">const createFab = () =&gt; {
+  const cache = [0, 1, 1];
+  return n =&gt; {
+    if (typeof cache[n] !== &quot;undefined&quot;) {
+      return cache[n];
+    }
+    for (let i = 3; i &lt;= n; i++) {
+      if (typeof cache[i] !== &quot;undefined&quot;) continue;
+      cache[i] = cache[i - 1] + cache[i - 2];
+    }
+    return cache[n];
+  };
+};
+
+const fab = createFab();
+</code></pre>
+<h2 id="总结">总结</h2>
+<p>本文基于 React 介绍了 memoize-one 库的相关使用及其原理，在 React 中实现了类似 Vue 计算属性（computed）的效果 —— 基于依赖缓存计算结果，以减轻不必要 render 复杂度。</p>
+<p>从业务开发角度来讲，Vue 提供的 API 极大地提高了开发效率。</p>
+<p>React 自身解决的问题并不多，但得益于活跃的社区，工作中遇到的问题总能找到解决方案，并且在摸索这些解决方案的同时，我们能够学习到诸多经典的编程思想，从而减轻对框架的依赖。</p>
+<blockquote>
+<p>I’ve always said that React will make you a better JavaScript developer. - Tyler McGinnis</p>
+</blockquote>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a href="https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html">You Probably Don't Need Derived State</a>，by React Team</li>
+<li><a href="https://liyang0207.github.io/2018/10/11/%E3%80%8A%E8%AE%B0%E5%BF%86%E5%8C%96%E6%8A%80%E6%9C%AFmemoize-one%E3%80%8B/">记忆化技术 memoize-one</a>， by Leon</li>
+<li><a href="https://github.com/alexreardon/memoize-one">memoize-one</a>，by alexreardon</li>
+<li><a href="https://cn.vuejs.org/v2/guide/computed.html">计算属性和侦听器</a>，by Vue</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[优雅处理表单联动]]></title>
+        <id>https://worldzhao.github.io/post/react-computed</id>
+        <link href="https://worldzhao.github.io/post/react-computed">
+        </link>
+        <updated>2019-03-16T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="优雅处理表单联动">优雅处理表单联动</h1>
+<h2 id="引言">引言</h2>
+<p>表单之间联动一直是后台管理类项目中的高频场景，简单描述为：一个（源）表单域的变化会导致另外一个（目标）表单域的变化。</p>
+<p>本文基于 antd，结合 get 关键字，提出了一种较为优雅地解决表单联动的手段。</p>
+<h2 id="伪计算属性">（伪）计算属性</h2>
+<p>初次见到计算属性一词是在 Vue 官方文档-<a href="https://cn.vuejs.org/v2/guide/computed.html">计算属性和侦听器</a>一节中。</p>
+<blockquote>
+<p>模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。在模板中放入太多的逻辑会让模板过重且难以维护。</p>
+</blockquote>
+<p>回想我们编写的 React 代码，是否也在 jsx（render 函数）中放入了太多的逻辑导致 jsx（render 函数）过于沉重？</p>
+<p>通过<code>get</code>关键字，我们可以一样效果。</p>
+<p>本例来源：<a href="https://github.com/shimohq/react-cookbook#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">react-cookbook</a>-石墨文档</p>
+<pre><code class="language-jsx">// 使用 getters 封装 render 所需要的状态或条件的组合
+// 对于返回 boolean 的 getter 使用 is- 前缀命名
+
+// bad
+render () {
+    return (
+        &lt;div&gt;
+        {
+            this.state.age &gt; 18
+            &amp;&amp; (this.props.school === 'A'
+                || this.props.school === 'B')
+            ? &lt;VipComponent /&gt;
+            : &lt;NormalComponent /&gt;
+        }
+        &lt;/div&gt;
+    )
+}
+
+// good
+get isVIP() {
+    return
+        this.state.age &gt; 18
+        &amp;&amp; (this.props.school === 'A'
+            || this.props.school === 'B')
+    }
+render() {
+    return (
+        &lt;div&gt;
+        {this.isVIP ? &lt;VipComponent /&gt; : &lt;NormalComponent /&gt;}
+        &lt;/div&gt;
+    )
+}
+</code></pre>
+<p>可以简单理解为：通过<code>get</code>关键字，抽离计算逻辑，根据 state 与 props 计算出衍生值。</p>
+<p>props 以及 state 的变化会导致 render 函数调用，进而重新计算衍生值。与 Vue 中的定义基本一致。</p>
+<pre><code>props/state =&gt; render =&gt; get
+</code></pre>
+<p>可能有同学会问为什么不直接定义一个方法调用呢？</p>
+<p>对于 Vue 计算属性，Vue 官方文档中存在解释：&quot;我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。然而，不同的是计算属性是基于它们的依赖进行缓存的。只在相关依赖发生改变时它们才会重新求值。&quot;</p>
+<p>假使存在两个 state 属性 A.B，计算属性只依赖 A，不依赖 B。倘若 B 变化，计算属性不会重新计算。</p>
+<p>但在 React 中，依旧会执行 render，所以 get 没有缓存，只是个语法糖。</p>
+<h2 id="使用计算属性实现最优雅的表单联动">使用计算属性实现最优雅的表单联动</h2>
+<p>假设存在业务类别以及处罚内容，并且不同类别对应不同的处罚内容，点击不同的业务类别，处罚内容是动态变化的，以业务类别为网上超市为例，见下图：</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></p>
+<p>完整对应关系如下（数字为对应 code）：</p>
+<pre><code>业务类别：网上超市-0
+处罚内容：协议-0 商品-1 店铺-2 搜索-6
+
+业务类别：在线询价-1
+处罚内容：询价单报价-4
+
+业务类别：协议供货-2
+处罚内容：协议-0 商品-1
+
+业务类别：反项竞价-4
+处罚内容：发起竞价-5
+</code></pre>
+<p>现在我们来完成这个小需求 :)</p>
+<h3 id="准备工作-抽象对应数据结构">准备工作-抽象对应数据结构</h3>
+<p><em>为了避免在代码中出现无意义的神仙数字</em>以及<em>大量的 if-else</em>，我们给每一个 code 命名，同时将其文案以及对应内容进行抽象，如下（看个大概结构就好，我也觉得太长了）。</p>
+<pre><code class="language-js">/* 业务类型code */
+export const businessTypeCode = {
+  LUNATONE_CODE: 0, // 网超
+  ENQUIRY_CODE: 1, // 在线询价
+  PROTOCOL_CODE: 2, // 协议供货
+  REVERSE_CODE: 4 // 反向竞价
+};
+
+/* 处罚内容code */
+export const punishContentCode = {
+  PROTOCOL_CODE: 0, // 协议
+  ITEM_CODE: 1, // 商品
+  SHOP_CODE: 2, // 店铺
+  ENQUIRY_CODE: 4, // 询价单报价
+  BIDDING_CODE: 5, // 发起竞价
+  SEARCH_CODE: 6 // 搜索
+};
+
+/* 业务类型 code 及其对应的描述 desc 以及处罚内容 code */
+export const businessTypeMap = {
+  [businessTypeCode.LUNATONE_CODE]: {
+    desc: &quot;网上超市&quot;,
+    matchedPunishContent: [
+      punishContentCode.PROTOCOL_CODE,
+      punishContentCode.ITEM_CODE,
+      punishContentCode.SHOP_CODE,
+      punishContentCode.SEARCH_CODE
+    ]
+  },
+  [businessTypeCode.ENQUIRY_CODE]: {
+    desc: &quot;在线询价&quot;,
+    matchedPunishContent: [punishContentCode.ENQUIRY_CODE]
+  },
+  [businessTypeCode.PROTOCOL_CODE]: {
+    desc: &quot;协议供货&quot;,
+    matchedPunishContent: [
+      punishContentCode.PROTOCOL_CODE,
+      punishContentCode.ITEM_CODE
+    ]
+  },
+  [businessTypeCode.REVERSE_CODE]: {
+    desc: &quot;反向竞价&quot;,
+    matchedPunishContent: [punishContentCode.BIDDING_CODE]
+  }
+};
+/* 处罚内容 code 及其对应的描述 desc */
+export const punishContentMap = {
+  [punishContentCode.PROTOCOL_CODE]: { desc: &quot;协议&quot; },
+  [punishContentCode.ITEM_CODE]: { desc: &quot;商品&quot; },
+  [punishContentCode.SHOP_CODE]: { desc: &quot;店铺&quot; },
+  [punishContentCode.ENQUIRY_CODE]: { desc: &quot;询价单报价&quot; },
+  [punishContentCode.BIDDING_CODE]: { desc: &quot;发起竞价&quot; },
+  [punishContentCode.SEARCH_CODE]: { desc: &quot;搜索&quot; }
+};
+</code></pre>
+<h3 id="巧用计算属性">巧用计算属性</h3>
+<p>通常，我们是通过监听源表单域<code>onChange</code>事件，改变一个 state 属性，目标表单域则根据该 state 进行动态渲染。</p>
+<p>譬如在此例中，我们可以在 state 中维护一个<code>matchedPunishContent</code>的字段，每次改变业务类别时，根据其 code 找到匹配的处罚内容，然后 setState 保存，取出 state 渲染处罚内容。</p>
+<p>大体流程如下：</p>
+<pre><code>粗粒度：ui change =&gt; state change =&gt; ui change
+
+细粒度：Radio=&gt; onChange =&gt; 取得code找到对应处罚内容 =&gt; setState =&gt; 重新渲染处罚内容
+</code></pre>
+<p>如果表单联动关系较多，就会维护很多个 state 以及 onChange 函数，增加维护成本。</p>
+<p>我们可以换一种思路，既然 Radio 的 value 值改变了，那么 getFieldValue 取得对应表单域的值也改变了。</p>
+<p>通过如下方式，我们可以动态计算出处罚内容，而不需要去维护一个中间 state 以及一个 onChange 方法，大大减少了代码量。</p>
+<pre><code class="language-jsx"> /* 根据 businessType 获取 punishContent */
+  get matchedPunishContent() {
+    const businessType = this.props.form.getFieldValue('businessType')
+    return businessTypeMap[businessType].matchedPunishContent
+  }
+</code></pre>
+<p>完整代码见附录。</p>
+<h2 id="回填表单从未如此简单">回填表单，从未如此简单</h2>
+<p>使用计算属性，你甚至可以享受到回填表单的美妙之处。</p>
+<p>每一次回填表单数据，最难熬的莫过于不但要把数据填上去，并且需要还原表单状态，譬如某个表单域是选中的话，会导致一个表单域 disable，另一个表单域 hide 等等，之前是需要去维护 一个一个的 state，而有了计算属性，这一切操作，你只需要进行一次<code>setFieldsValue</code>（以及编写一些计算属性逻辑）。</p>
+<p>以上文为例，回填数据时，对业务类型（bussiness）进行<code>setFieldsValue</code>操作（会导致<code>getFieldValue('businessType')</code>的改变），可以自动计算出处罚内容，而无需手动去还原。</p>
+<h3 id="实战">实战</h3>
+<p>如图，如果勾选了<code>永久</code>(permanent)，该时间选择器禁用。</p>
+<p>同时，回填时如果 permanent 字段为 PERMANENT_CODE，则要将时间选择器还原为禁用状态。</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></p>
+<p>解决如下：</p>
+<pre><code class="language-jsx">  get isDatePickerDisabled() {
+    const { getFieldValue } = this.props.form;
+    const permanent = getFieldValue('permanent') || [];
+    return permanent.includes(PERMANENT_CODE);
+  }
+</code></pre>
+<p>你只需要这般使用：</p>
+<pre><code class="language-jsx">&lt;DatePicker disabled={this.isDatePickerDisabled} /&gt;
+</code></pre>
+<p>不论是用户手动点击亦或是开发者回填表单<code>setFieldsValue({permanent:[PERMANENT_CODE]})</code></p>
+<p>DatePicker 会自己乖乖禁用，而无需手动进行任何操作。</p>
+<p>感谢阅读，欢迎探讨。</p>
+<p>参考文章：</p>
+<ol>
+<li><a href="https://cn.vuejs.org/v2/guide/computed.html">Vue.js-计算属性和侦听器</a></li>
+<li><a href="https://github.com/shimohq/react-cookbook#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">react-cookbook</a></li>
+</ol>
+<hr>
+<p>附录：</p>
+<pre><code class="language-jsx">import React, { Component } from &quot;react&quot;;
+import { Form, Radio } from &quot;doraemon&quot;;
+import {
+  businessTypeCode,
+  punishContentCode,
+  businessTypeMap,
+  punishContentMap
+} from &quot;./config&quot;;
+
+const FormItem = Form.Item;
+const RadioGroup = Radio.Group;
+
+@Form.create()
+class Test extends Component {
+  /* 根据 businessType 动态计算 punishContent */
+  get matchedPunishContent() {
+    const businessType = this.props.form.getFieldValue(&quot;businessType&quot;);
+    return businessTypeMap[businessType].matchedPunishContent;
+  }
+
+  /* 渲染业务类别 */
+  renderBusinessType = () =&gt; {
+    const { getFieldDecorator } = this.props.form;
+    const businessTypeConfig = {
+      rules: [{ required: true, message: &quot;请选择业务类别&quot; }],
+      initialValue: businessTypeCode.LUNATONE_CODE
+    };
+    return (
+      &lt;FormItem label=&quot;业务类别&quot;&gt;
+        {getFieldDecorator(&quot;businessType&quot;, businessTypeConfig)(
+          &lt;RadioGroup&gt;
+            {Object.keys(businessTypeMap).map(value =&gt; {
+              const { desc } = businessTypeMap[value];
+              return (
+                &lt;Radio key={value} value={Number(value)}&gt;
+                  {desc}
+                &lt;/Radio&gt;
+              );
+            })}
+          &lt;/RadioGroup&gt;
+        )}
+      &lt;/FormItem&gt;
+    );
+  };
+
+  /* 渲染处罚内容 */
+  renderPunishContent = () =&gt; {
+    const { getFieldDecorator } = this.props.form;
+    const punishContentConfig = {
+      rules: [{ required: true, message: &quot;请选择处罚内容&quot; }],
+      initialValue: punishContentCode.PROTOCOL_CODE
+    };
+    return (
+      &lt;FormItem label=&quot;处罚内容&quot;&gt;
+        {getFieldDecorator(&quot;punishContent&quot;, punishContentConfig)(
+          &lt;RadioGroup&gt;
+            {this.matchedPunishContent.map(value =&gt; {
+              const { desc } = punishContentMap[value];
+              return (
+                &lt;Radio key={value} value={value}&gt;
+                  {desc}
+                &lt;/Radio&gt;
+              );
+            })}
+          &lt;/RadioGroup&gt;
+        )}
+      &lt;/FormItem&gt;
+    );
+  };
+
+  render() {
+    return (
+      &lt;Form&gt;
+        {this.renderBusinessType()}
+        {this.renderPunishContent()}
+      &lt;/Form&gt;
+    );
+  }
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[从callback到async]]></title>
+        <id>https://worldzhao.github.io/post/pig</id>
+        <link href="https://worldzhao.github.io/post/pig">
+        </link>
+        <updated>2019-01-23T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p>本文不是概念性文章,只是通过一个例子来看看操作异步的一些手段.</p>
+<h2 id="回调函数">回调函数</h2>
+<p>先看一个例子:</p>
+<pre><code class="language-js">const fs = require('fs')
+
+fs.readFile('./file.txt', 'utf-8', (err, res) =&gt; {
+  console.log(res)
+})
+</code></pre>
+<p>通过 node 提供的 fs.readFile 方法打印出<code>file.txt</code>的内容.</p>
+<p>如果<code>readFile</code>可以通过 promise 方式调用就好了, 像下面这样:</p>
+<pre><code class="language-js">readFile('./file.txt', 'utf-8').then(res =&gt; {
+  console.log(res)
+})
+</code></pre>
+<h2 id="promise">promise</h2>
+<p>现在我们将 callback 形式的方法调用 转成 promise 形式的调用,这个过程也成为 promisify</p>
+<pre><code class="language-js">const promisify = fn =&gt; (...args) =&gt;
+  new Promise((reslove, reject) =&gt;
+    func(...args, (err, result) =&gt; (err ? reject(err) : resolve(result)))
+  )
+</code></pre>
+<p>当然,在 node 8 及其以上版本,可以使用<a href="https://nodejs.org/api/util.html#util_util_promisify_original">util.promisify</a></p>
+<p>现在就可以这样做啦</p>
+<pre><code class="language-js">const fs = require('fs')
+const readFile = promisify(fs.readFile)
+readFile('./file.txt', 'utf-8').then(res =&gt; {
+  console.log(res)
+})
+</code></pre>
+<p>统一的 API,线性的调用方式,更为灵活的<a href="https://zhuanlan.zhihu.com/p/29792886">异步控制</a>,exciting!</p>
+<h2 id="async">async</h2>
+<p>ES7(ECMAScript 2016)推出了 Async 函数(async/await),实现了以顺序/同步代码的编写方式来控制异步流程.再来一遍</p>
+<pre><code class="language-js">const fs = require('fs')
+const util = require('util')
+const readFile = util.promisify(fs.readFile)
+
+;(async () =&gt; {
+  const res = await readFile('./package.json', 'utf-8')
+  console.log(res)
+})()
+</code></pre>
+<h2 id="使用-generator-与-promise-模拟-co">使用 generator 与 promise 模拟 co</h2>
+<p>相较于 promise,async/await 更易理解. 如果你听过大名鼎鼎的 co,则会发现这二者使用方式是多么相似啊!</p>
+<pre><code class="language-js">const co = require('co')
+const fs = require('fs')
+const util = require('util')
+const readFile = util.promisify(fs.readFile)
+co(function*() {
+  const res = yield readFile('./package.json', 'utf-8')
+  console.log(res)
+})
+</code></pre>
+<p>不过这并不是什么黑魔法,继续向下看.</p>
+<h3 id="generator">generator</h3>
+<p>首先我们需要一点 generator 的知识,你可以看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator">Generator-MDN</a></p>
+<p>如果你不想看,看下 demo 也可以</p>
+<p>demo 1</p>
+<pre><code class="language-js">function* generatorFn() {
+  yield 1
+  yield 2
+  yield 3
+}
+
+const it = generatorFn()
+
+console.log(it.next()) // { value: 1, done: false }
+console.log(it.next()) // { value: 2, done: false }
+console.log(it.next()) // { value: 3, done: false }
+console.log(it.next()) // { value: undefined, done: true }
+</code></pre>
+<p>demo 2</p>
+<pre><code class="language-js">function* generatorFn() {
+  const a = yield 1
+  console.log(a) // hhh
+  yield 2
+  yield 3
+}
+
+const it = generatorFn()
+console.log(it.next()) // { value: 1, done: false }
+console.log(it.next('hhh')) // { value: 2, done: false }
+console.log(it.next()) // { value: 3, done: false }
+console.log(it.next()) // { value: undefined, done: true }
+</code></pre>
+<p>弄清楚代码执行顺序即可。</p>
+<h4 id="小练习">小练习</h4>
+<pre><code class="language-js">const fs = require('fs')
+const util = require('util')
+const readFile = util.promisify(fs.readFile)
+
+function go() {}
+
+go(function*() {
+  const file1 = yield readFile('./file1.txt', 'utf-8')
+  console.log(file1)
+  const file2 = yield readFile('./file2.txt', 'utf-8')
+  console.log(file2)
+})
+</code></pre>
+<h4 id="解答">解答</h4>
+<p>思路很简单,我们只要在 go 中接住 yield 抛出来的 promise,注册好&quot;解决函数&quot;(resolver),在 resolver 内部将执行结果塞进去即可.</p>
+<p>先写一个最挫的,只能玩 2 层,和我们的代码绑定的死死的.</p>
+<pre><code class="language-js">function go(gen) {
+  const it = gen()
+  const p1 = it.next().value
+  p1.then(res =&gt; {
+    const p2 = it.next(res).value
+    p2.then(res =&gt; {
+      it.next(res)
+    })
+  })
+}
+</code></pre>
+<p>很明显,可以优化一波</p>
+<pre><code class="language-js">function go(gen) {
+  const it = gen()
+
+  const run = p =&gt; {
+    p.then(res =&gt; {
+      const { value, done } = it.next(res)
+      if (done) {
+        // 如果结束了就返回
+        return value
+      }
+      run(value)
+    })
+  }
+  const { value, done } = it.next()
+  if (done) {
+    return value
+  }
+  run(p1)
+}
+</code></pre>
+<p>本文到此为止，代码很粗糙，下一篇文章拿 co 源码来读读。</p>
+<hr>
+<p>推荐阅读：</p>
+<ul>
+<li><a href="https://juejin.im/post/5b7ccc65f265da436631a3d9?utm_source=gold_browser_extension">来尝尝 Async 函数这块语法糖<br>
+</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/29792886">Promise 异步流程控制<br>
+</a></li>
+<li><a href="https://juejin.im/post/5c40484bf265da61171cfb4d?utm_source=gold_browser_extension">从 for of 聊到 Generator<br>
+</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[设计模式-策略模式]]></title>
+        <id>https://worldzhao.github.io/post/design-pattern-strategy</id>
+        <link href="https://worldzhao.github.io/post/design-pattern-strategy">
+        </link>
+        <updated>2018-11-23T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="设计模式-策略模式">设计模式-策略模式</h1>
+<h2 id="策略模式的定义">策略模式的定义</h2>
+<p>定义一系列的算法，把它们一个个封装起来，并使他们可以相互替换。</p>
+<p>将可变的部分和变化的部分隔开，目的就是将算法的使用与算法的实现分离开。</p>
+<blockquote>
+<p>“在函数作为一等对象的语言中，策略模式是隐形的。 strategy 就是值为函数的变量。”</p>
+</blockquote>
+<h2 id="策略模式应用场景">策略模式应用场景</h2>
+<h3 id="优化判断语句">优化判断语句</h3>
+<p>举一个简单的例子：</p>
+<p>后端返回一个 status 字段，如果是 0，就代表停用，如果是 1，就代表启用，要求前端在页面上显示出相应文案。</p>
+<pre><code class="language-js">/* 解法一：三元运算 */
+const text = status === 0 ? &quot;停用&quot; : &quot;启用&quot;;
+document.getElementById(&quot;root&quot;).innerText = &quot;text&quot;;
+
+/* 解法二：if判断 */
+function getText(status) {
+  if (status === 0) {
+    return &quot;停用&quot;;
+  } else if (status === 1) {
+    return &quot;启用&quot;;
+  } else {
+    return null;
+  }
+}
+
+document.getElementById(&quot;root&quot;).innerText = getText(status);
+
+/* 解法三：switch语句*/
+
+// 与if区别不大，就不做演示了
+</code></pre>
+<p>我们很轻松地解决了这个问题，如果 status 的可能的值不再是 0 或 1，而是 0-9，分别代表某个流程的 10 个步骤，对应 10 个不同的文案，上面的写法就有点麻烦了。</p>
+<p>可能会变成下面的样子：</p>
+<pre><code class="language-js">function getText(status) {
+  if (status === 0) {
+    return &quot;文案0&quot;;
+  } else if (status === 1) {
+    return &quot;文案1&quot;;
+  } else if (status === 2) {
+    // ...
+  }
+  // ...
+}
+
+document.getElementById(&quot;root&quot;).innerText = getText(status);
+</code></pre>
+<p>这样编写存在的问题：</p>
+<ul>
+<li>if-else 语句需要覆盖所有逻辑分支</li>
+<li>缺乏弹性，新增一种文案，则要 getText 方法内新增一句 if-else</li>
+</ul>
+<p>我们要使用策略模式优化</p>
+<pre><code class="language-js">// 定义一个策略对象
+const strategies = {
+  0: &quot;文案0&quot;,
+  1: &quot;文案1&quot;,
+  2: &quot;文案2&quot;,
+  // ...
+  9: &quot;文案9&quot;
+};
+// 通过输入[key]的不同，选择不同的策略算法[value]
+const text = strategies[status];
+document.getElementById(&quot;root&quot;).innerText = text;
+</code></pre>
+<p>此处要进行的操作比较简单，根据不同的 status 返回不同普通的 text。</p>
+<p>如果是针对 status 进行不同的操作，我们将字符串换成相应的操作方法即可。</p>
+<pre><code class="language-js">// 定义一个策略对象
+const strategies = {
+  0: function() {},
+  1: function() {},
+  2: function() {},
+  2: function() {}
+  // ...
+};
+strategies[status] &amp;&amp; strategies[status]();
+</code></pre>
+<p>这里是用的是匿名函数，如果将不同条件对应的算法抽出来定义成一个普通函数，算法的复用性也得到了增强。</p>
+<h3 id="表单校验">表单校验</h3>
+<p>在一个 Web 项目中，注册、登录、修改用户信息等功能的实现都离不开提交表单。</p>
+<p>在将用户输入的数据交给后台之前，常常要做一些客户端力所能及的校验工作，比如注册的 时候需要校验是否填写了用户名，密码的长度是否符合规定，等等。这样可以避免因为提交不合 法数据而带来的不必要网络开销。</p>
+<p>假设我们正在编写一个注册的页面，在点击注册按钮之前，有如下几条校验逻辑。</p>
+<ul>
+<li>用户名不能为空。</li>
+<li>密码长度不能少于 6 位。</li>
+<li>手机号码必须符合格式。</li>
+</ul>
+<h4 id="使用-if-else-进行表单校验">使用 if-else 进行表单校验</h4>
+<pre><code class="language-html">&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;title&gt;使用判断语句进行表单校验&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;form action=&quot;http://xxx.com/register&quot; id=&quot;registerForm&quot; method=&quot;post&quot;&gt;
+      请输入用户名: &lt;input type=&quot;text&quot; name=&quot;userName&quot; /&gt; 请输入密码:
+      &lt;input type=&quot;text&quot; name=&quot;password&quot; /&gt;请输入手机号码:
+      &lt;input type=&quot;text&quot; name=&quot;phoneNumber&quot; /&gt; &lt;button&gt;提交&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;script&gt;
+      var registerForm = document.getElementById(&quot;registerForm&quot;);
+      registerForm.onsubmit = function() {
+        if (registerForm.userName.value === &quot;&quot;) {
+          alert(&quot;用户名不能为空&quot;);
+          return false;
+        }
+        if (registerForm.password.value.length &lt; 6) {
+          alert(&quot;密码长度不能少于 6 位&quot;);
+          return false;
+        }
+        if (!/(^1[3|5|8][0-9]{9}$)/.test(registerForm.phoneNumber.value)) {
+          alert(&quot;手机号码格式不正确&quot;);
+          return false;
+        }
+      };
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li>registerForm.onsubmit 函数比较庞大，包含了很多 if-else 语句，这些语句需要覆盖所有的校验规则。</li>
+<li>registerForm.onsubmit 函数缺乏弹性，如果增加了一种新的校验规则，或者想把密码的长度校验从 6 改成 8，我们都必须深入 registerForm.onsubmit 函数的内部实现，这是违反开放—封闭原则的。</li>
+<li>算法的复用性差，如果在程序中增加了另外一个表单，这个表单也需要进行一些类似的校验，那我们很可能将这些校验逻辑复制得漫天遍野</li>
+</ul>
+<h4 id="使用策略模式进行优化">使用策略模式进行优化</h4>
+<h2 id="策略模式的优缺点">策略模式的优缺点</h2>
+<h3 id="优点">优点</h3>
+<ul>
+<li>策略模式可以有效避免多重条件选择语句</li>
+<li>策略模式提供了对开放—封闭原则的完美支持，将算法封装在独立的 strategy 中，使得它<br>
+们易于切换，易于理解，易于扩展</li>
+<li>策略模式的算法可以使用在其他地方，复用性较强</li>
+</ul>
+<h3 id="缺点">缺点</h3>
+<ul>
+<li>需要增加策略对象</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[babel学习笔记]]></title>
+        <id>https://worldzhao.github.io/post/babel-note</id>
+        <link href="https://worldzhao.github.io/post/babel-note">
+        </link>
+        <updated>2018-10-12T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="babel"><a href="https://babeljs.io/">babel</a></h2>
+<pre><code>原始代码 --&gt; [Babel Plugin] --&gt; 转换后的代码
+</code></pre>
+<h3 id="转译">转译</h3>
+<p>安装以下依赖:</p>
+<ol>
+<li><code>@babel/core</code>调用 Babel 的 API 进行转码</li>
+<li><code>babel-loader</code>[webpack 的 loader]（https://github.com/babel/babel-loader)</li>
+<li><code>@babel/preset-env</code> 在没有任何配置选项的情况下, babel-preset-env 与 babel-preset-latest（或者 babel-preset-es2015, babel-preset-es2016 和 babel-preset-es2017 一起）的行为完全相同.</li>
+<li>~~<code>@babel/preset-stage-0</code>稻草人提案(babel7 已移除)~~通过 npx babel-upgrade --write 升级为各种插件</li>
+<li><code>@babel/preset-react</code>react 语法转译<br>
+preset 即 plugin 的套餐, 无需针对一个个语法规则去安装 plugin</li>
+</ol>
+<p>注:<a href="https://babel.docschina.org/docs/en/6.26.3/plugins#es2015">plugin 分为转译 plugin/语法 plugin/混合 plugin</a></p>
+<pre><code>env = es2015 + es2016 + es2017
+stage-0 = stage-1 + stage-2 + stage-3
+</code></pre>
+<p>preset 具体包含了哪些插件可去官网查询.</p>
+<p>通过配置 targets 可以避免浏览器已经支持的特性被转译, 如果同时设置&quot;IE &gt;= 9&quot;与 &quot;chrome &gt;= 66&quot;, 以 &quot;IE &gt;= 9&quot; 为准进行转译</p>
+<h3 id="polyfill">polyfill</h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+<th>推荐使用环境</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@babel/runtime + @babel/plugin-transform-runtime</td>
+<td>按需引入, 打包体积小, 移除冗余工具函数(helper function)</td>
+<td>不模拟实例方法</td>
+<td>开发库、工具中使用</td>
+</tr>
+<tr>
+<td>@babel/polyfill</td>
+<td>完整模拟 ES2015+环境</td>
+<td>体积过大, 污染全局对象和内置的对象原型</td>
+<td>应用中使用</td>
+</tr>
+<tr>
+<td>@babel/preset-env[useBuiltIns:&quot;entry&quot;] + babel-polyfill</td>
+<td>按<s>需</s>浏览器引入, 以 target 最低要求为准</td>
+<td>可配置性高</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>注:方案 1 中的@babel/runtime + @babel/plugin-transform-runtime 在 babel7 下只包含 helper function(即 Babel 进行处理时需要的帮助函数), 如果想实现 polyfill , 需要使用@babel/runtime-corejs2, <a href="https://babel.docschina.org/docs/en/v7-migration#babel-runtime-babel-plugin-transform-runtime">升级详情</a></p>
+<pre><code>[&quot;@babel/plugin-transform-runtime&quot;,  {
+    &quot;corejs&quot;: 2
+}],
+</code></pre>
+<p>要实现真正的按需引入,即使用什么新特性打包什么新特性,可以使用实验性的 useBuildIns:&quot;usage&quot;.</p>
+<h3 id="babel-正在向每个文件中注入-helper-并使代码膨胀"><a href="https://github.com/babel/babel-loader">Babel 正在向每个文件中注入 helper 并使代码膨胀</a></h3>
+<p>解决方案:<a href="https://babeljs.io/docs/en/babel-plugin-transform-runtime">@babel/runtime + @babel/plugin-transform-runtime</a></p>
+<pre><code>{
+  &quot;plugins&quot;:[&quot;@babel/plugin-transform-runtime&quot;, {
+            &quot;corejs&quot;: false,
+            &quot;helpers&quot;: true,
+            &quot;regenerator&quot;: false,
+            &quot;useESModules&quot;: false
+        }],
+}
+</code></pre>
+<h3 id="在-webpack-中正确使用-babel">在 webpack 中正确使用 Babel</h3>
+<ol>
+<li>
+<p>利用环境变量合理使用 babel 对不同环境的代码进行处理,例如在开发环境不要引入 polyfill,在开发环境利用 plugin 将动态 import 转为 require 加快打包速度</p>
+</li>
+<li>
+<p>开启 babel-loader 的缓存加快打包速度</p>
+</li>
+</ol>
+<h3 id="总结">总结</h3>
+<p>最好的学习方式:起一个 webpack 环境,配置不同的.babelrc 观察每次打包后的情况.<br>
+这比任何文章都来得实在,多看官方文档,中文总结只是一个参考,具体表现如何还是看实践+文档.</p>
+<ol>
+<li>转译方案: @babel/preset-env + @babel/preset-react + 通过命令行升级的 stage-0</li>
+<li>polyfill 方案: @babel/polyfill + @babel/preset-env[useBuiltIns:&quot;entry&quot;]</li>
+<li>helpers 重复注入解决: @babel/runtime + @babel/plugin-transform-runtime</li>
+</ol>
+<p>参考文章及推荐阅读:</p>
+<ul>
+<li><a href="https://babeljs.io/">babel</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/44174870">大前端的自动化工厂— babel</a></li>
+<li><a href="https://blog.zfanw.com/babel-js/">babel 7 教程</a></li>
+<li><a href="https://babel.docschina.org/docs/en/v7-migration">升级至 babel 7</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/29506685">再见, babel-preset-2015</a></li>
+<li><a href="https://github.com/sunyongjian/blog/issues/30">你真的会用 babel 吗？ </a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27777995">21 分钟精通前端 Polyfill 方案</a></li>
+<li><a href="https://juejin.im/post/5aefe0a6f265da0b9e64fa54">babel-polyfill VS babel-runtime VS babel-preset-env</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于 git flow 工作流程的一点思考]]></title>
+        <id>https://worldzhao.github.io/post/git-flow</id>
+        <link href="https://worldzhao.github.io/post/git-flow">
+        </link>
+        <updated>2018-08-31T16:00:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="关于-git-flow-工作流程的一点思考">关于 git flow 工作流程的一点思考</h1>
+<p><a href="https://www.jianshu.com/p/9a76e9aa9534">Git Flow 工作流程</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2012/07/git.html">Git 分支管理策略</a></p>
+<p>具体流程暂不细表，参考文章中已经极为详细。</p>
+<h2 id="git-flow-工作流程">Git Flow 工作流程</h2>
+<ol>
+<li>开发阶段：从 develop 分支拉出 feature 分支进行开发</li>
+<li>联调阶段：直接使用 feature 分支进行联调</li>
+<li>提测阶段：将 feature 分支合并入 develop 分支，并基于 develop 分支拉出 release 分支进行提测</li>
+<li>发布阶段：将 release 分支分别合入 master 分支以及 develop 分支，并打上版本号</li>
+</ol>
+<h3 id="碰到的问题">碰到的问题</h3>
+<p>倘若存在 2 个 feature 分支[feature1.0/feature.2.0]</p>
+<p>feature1.0 已经合并入 develop 分支并拉出 release 分支进行提测 bug 修复</p>
+<p>过了不久，feature2.0 开发完毕，合并入 develop 分支并拉出 release 分支进行提测</p>
+<p>如果第二个分支先于第一个分支发布，master 就合并进了还没修复完的 feature1.0 的代码</p>
+<h3 id="解惑">解惑</h3>
+<p>通过第一文章作者留下的联系方式加了他的微信，这是他回复给我的:</p>
+<pre><code>这种工作方式：一般情况要遵循feature1.0分支先于feature2.0发布。
+
+也就是：只要先合并到develop就说明已经具备先发的条件。
+</code></pre>
+<p>同时在第二篇文章阮老师留言下面发现了同样类似的回答：</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8hdvmhj30wr0c0aen.jpg" alt="git-flow-1.png"></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8hdvmhj30wr0c0aen.jpg" alt="git-flow-1.png"></p>
+<p>[第二个回答也是我们小团队目前正在使用的方式]</p>
+<p>感谢前人。</p>
+<h2 id="公司目前使用的流程">公司目前使用的流程</h2>
+<ol>
+<li>开发阶段：从 master 分支拉出 feature 分支进行开发</li>
+<li>联调阶段：直接使用 feature 分支进行联调</li>
+<li>提测阶段：从 master 分支拉出一个 release 分支，使用该 release 合并 feature 分支，然后进行提测</li>
+<li>发布阶段：提测结束后，将 release 分支合并入 master 分支，进行发布，也可直接发布 release 分支再合并入 master 分支，并打上版本号</li>
+</ol>
+<h3 id="好处">好处</h3>
+<p>需求发布无需严格遵循需求先后发布时间，不存在标准 git flow 工作流程碰到的问题</p>
+<h3 id="缺陷">缺陷</h3>
+<p>在标准工作流中</p>
+<p>master 分支用来记录官方发布轨迹；develop 分支是一个集成分支，用来记录开发新功能的轨迹。</p>
+<p>而在实际开发过程中由于没有使用 develop 分支，master 分支 commit 较为混乱，使用标准工作流又会碰到发布冲突的问题</p>
+<ul>
+<li>总结</li>
+</ul>
+<p>来自第一篇文章作者(再次表达感谢)：</p>
+<p>不管用什么方式，能保证工作顺利进行就行。</p>
+<p>每个项目工程的复杂度都不一样，要从实践中找到适合团队协作的方式。</p>
+<p>还就是，有些约定，是必须遵循的。</p>
+<h3 id="后话">后话</h3>
+<p>最近写博客越发觉得自己只是知识的复述者，复述得还没有别人好，开始怀疑自己花时间投入写博客是否值得。</p>
+<p>自己还处于学习阶段，也没有原创输出。</p>
+<p>倘若不写，又感觉自己学习的知识印象不深，写还是要写的，权当学习记录了。</p>
+<p>当然，倘若能够帮助到一些人，我会更开心。</p>
+<p>如果文中有表述不当的地方还望指出。互相学习共同进步。</p>
+]]></content>
+    </entry>
 </feed>
