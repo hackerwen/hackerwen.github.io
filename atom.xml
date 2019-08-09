@@ -2,11 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-08-08T10:26:42.060Z</updated>
+    <updated>2019-08-09T03:03:17.595Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
-    <subtitle>人潮拥挤你别慌</subtitle>
     <logo>https://worldzhao.github.io/images/avatar.png</logo>
     <icon>https://worldzhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 海秋</rights>
@@ -564,7 +563,7 @@ import { Modal } from &quot;@components&quot;;
 <p>本文基于 memoize-one 对 render 方法进行优化，达到减轻不必要 render 复杂度的效果。</p>
 <h2 id="存在的问题">存在的问题</h2>
 <p>先看一个简单的组件，如下所示：</p>
-<pre><code class="language-js">class Example extends Component {
+<pre><code class="language-jsx">class Example extends Component {
   state = {
     filterText: &quot;&quot;
   };
@@ -627,7 +626,7 @@ memoizedAdd(1, 2); // 3
 </code></pre>
 <p>在了解基本使用后，我们来对上述案例进行优化。</p>
 <h3 id="优化案例">优化案例</h3>
-<pre><code class="language-js">import memoize from &quot;memoize-one&quot;;
+<pre><code class="language-jsx">import memoize from &quot;memoize-one&quot;;
 
 class Example extends Component {
   state = { filterText: &quot;&quot; };
@@ -661,7 +660,7 @@ class Example extends Component {
 <h3 id="源码解析">源码解析</h3>
 <p>如果除去 ts 相关以及注释，不到 20 行。memoize-one 本质是一个高阶函数，真正计算函数作为参数，返回一个新的函数，新的函数内部会缓存上一次入参以及上一次返回值，如果本次入参与上一次入参相等，则返回上一次返回值，否则，重新调用真正的计算函数，并缓存入参以及结果，供下一次使用。</p>
 <p>假装这里有一张流程图 :)</p>
-<pre><code class="language-ts">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
+<pre><code class="language-typescript">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
 import areInputsEqual from './are-inputs-equal';
 
 // 函数签名

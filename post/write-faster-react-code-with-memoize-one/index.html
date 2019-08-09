@@ -6,13 +6,13 @@
 <meta charset="utf-8" >
 
 <title>编写更快的 React 代码（一）：memoize-one 简介 | 海秋</title>
-<meta name="description" content="人潮拥挤你别慌">
+<meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565259997178">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565319759625">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
@@ -36,7 +36,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://worldzhao.github.io">
-        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565259997178" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565319759625" alt="" width="32px" height="32px">
       </a>
       <a href="https://worldzhao.github.io">
         <h1 class="site-title">海秋</h1>
@@ -115,7 +115,7 @@
 <p>本文基于 memoize-one 对 render 方法进行优化，达到减轻不必要 render 复杂度的效果。</p>
 <h2 id="存在的问题">存在的问题</h2>
 <p>先看一个简单的组件，如下所示：</p>
-<pre><code class="language-js">class Example extends Component {
+<pre><code class="language-jsx">class Example extends Component {
   state = {
     filterText: &quot;&quot;
   };
@@ -178,7 +178,7 @@ memoizedAdd(1, 2); // 3
 </code></pre>
 <p>在了解基本使用后，我们来对上述案例进行优化。</p>
 <h3 id="优化案例">优化案例</h3>
-<pre><code class="language-js">import memoize from &quot;memoize-one&quot;;
+<pre><code class="language-jsx">import memoize from &quot;memoize-one&quot;;
 
 class Example extends Component {
   state = { filterText: &quot;&quot; };
@@ -212,7 +212,7 @@ class Example extends Component {
 <h3 id="源码解析">源码解析</h3>
 <p>如果除去 ts 相关以及注释，不到 20 行。memoize-one 本质是一个高阶函数，真正计算函数作为参数，返回一个新的函数，新的函数内部会缓存上一次入参以及上一次返回值，如果本次入参与上一次入参相等，则返回上一次返回值，否则，重新调用真正的计算函数，并缓存入参以及结果，供下一次使用。</p>
 <p>假装这里有一张流程图 :)</p>
-<pre><code class="language-ts">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
+<pre><code class="language-typescript">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
 import areInputsEqual from './are-inputs-equal';
 
 // 函数签名
@@ -308,7 +308,7 @@ const fab = createFab();
       
 
       <div class="site-footer">
-  <div class="slogan">人潮拥挤你别慌</div>
+  <div class="slogan"></div>
   <div class="social-container">
     
       
