@@ -1,108 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>数据结构-二叉树 | 海秋</title>
-<meta name="description" content="">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="故人千万里，新蝉三两声。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565433416539">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565412576935">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io">
-        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565412576935" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://worldzhao.github.io">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565433416539" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    故人千万里，新蝉三两声。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">数据结构-二叉树</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2017-07-18</span>
-            
+          <article class="post">
+            <h2 class="post-title">
+              数据结构-二叉树
+            </h2>
+            <div class="post-info">
               <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://worldzhao.github.io/tag/iauJzA4HMe">
-                    算法与数据结构
-                    
-                  </a>
-                
+                2017-07-18
               </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/iauJzA4HMe" class="post-tag">
+                  # 算法与数据结构
+                </a>
+              
+            </div>
             
-          </div>
-          <div class="post-content">
-            <h3 id="二叉树的遍历">二叉树的遍历</h3>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="二叉树的遍历">二叉树的遍历</h3>
 <h4 id="成果如图">成果如图：</h4>
 <p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8l5s0kg30hm06bq44.gif" alt="动态预览.gif"></p>
 <h4 id="思路">思路：</h4>
@@ -119,9 +116,9 @@
   //先序遍历
   if (node) {
     //判断二叉树是否存在，若不存在则结束返回
-    nodeArr.push(node)
-    DLR(node.children[0])
-    DLR(node.children[1])
+    nodeArr.push(node);
+    DLR(node.children[0]);
+    DLR(node.children[1]);
   }
 }
 </code></pre>
@@ -131,9 +128,9 @@
 <p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8u2pbtg30hm06bjrn.gif" alt="中序遍历.gif"></p>
 <pre><code class="language-js">function LDR(node) {
   if (node) {
-    LDR(node.children[0])
-    nodeArr.push(node)
-    LDR(node.children[1])
+    LDR(node.children[0]);
+    nodeArr.push(node);
+    LDR(node.children[1]);
   }
 }
 </code></pre>
@@ -143,9 +140,9 @@
 <p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8uxe8tg30hm06b74j.gif" alt="后序遍历.gif"></p>
 <pre><code class="language-js">function LRD(node) {
   if (node) {
-    LRD(node.children[0])
-    LRD(node.children[1])
-    nodeArr.push(node)
+    LRD(node.children[0]);
+    LRD(node.children[1]);
+    nodeArr.push(node);
   }
 }
 </code></pre>
@@ -154,99 +151,127 @@
   for (let i = 0; i &lt; arr.length; i++) {
     setTimeout(function() {
       for (let j = 0; j &lt; arr.length; j++) {
-        arr[j].className = ''
+        arr[j].className = &quot;&quot;;
       } //清除所有节点样式
-      arr[i].className = 'active' //给当前节点添加样式
-    }, i * 500) //i*500 给定时器创造时间间隔
+      arr[i].className = &quot;active&quot;; //给当前节点添加样式
+    }, i * 500); //i*500 给定时器创造时间间隔
   }
 }
 </code></pre>
 <p><a href="https://segmentfault.com/a/1190000000740261">参考资料</a></p>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86">二叉树的遍历</a>
+<ul>
+<li><a href="#%E6%88%90%E6%9E%9C%E5%A6%82%E5%9B%BE">成果如图：</a></li>
+<li><a href="#%E6%80%9D%E8%B7%AF">思路：</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86%E4%BB%A3%E7%A0%81">遍历代码：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://worldzhao.github.io/post/event-listener">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/event-listener">
               <h3 class="post-title">
-                下一篇：实现通用的事件注册方法
+                实现通用的事件注册方法
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan"></div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

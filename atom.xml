@@ -2,10 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-08-10T04:50:04.221Z</updated>
+    <updated>2019-08-10T10:36:57.544Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
+    <subtitle>故人千万里，新蝉三两声。</subtitle>
     <logo>https://worldzhao.github.io/images/avatar.png</logo>
     <icon>https://worldzhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 海秋</rights>
@@ -80,9 +81,9 @@
         <link href="https://worldzhao.github.io/post/probation-period-in-xmly">
         </link>
         <updated>2019-07-06T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。所有内容仅代表我所在的团队（部分内容仅代表我所在的项目组），纯属个人看法，可能带有较强烈的感情色彩。</p>
+        <summary type="html"><![CDATA[<p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。当然，纯属个人看法。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。所有内容仅代表我所在的团队（部分内容仅代表我所在的项目组），纯属个人看法，可能带有较强烈的感情色彩。</p>
+        <content type="html"><![CDATA[<p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。当然，纯属个人看法。</p>
 <!-- more -->
 <h2 id="组织结构">组织结构</h2>
 <h3 id="背景">背景</h3>
@@ -551,12 +552,15 @@ import { Modal } from &quot;@components&quot;;
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[编写更快的 React 代码（一）：memoize-one 简介]]></title>
+        <title type="html"><![CDATA[memoize-one 简介]]></title>
         <id>https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one</id>
         <link href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
         </link>
         <updated>2019-04-10T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="编写更快的-react-代码一memoize-one-简介">编写更快的 React 代码（一）：memoize-one 简介</h1>
+        <summary type="html"><![CDATA[<p>I’ve always said that React will make you a better JavaScript developer.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>I’ve always said that React will make you a better JavaScript developer.</p>
+<!-- more -->
 <h2 id="引言">引言</h2>
 <p>不同类型业务要求的性能标准各不相同。如果对一个 ToB 的后台管理系统要求首屏速度以及 SEO，显然不合理也没必要。</p>
 <p>第一要考虑的不是如何去优化，而是值不值得去优化，React 性能已经足够优秀，毕竟“过早优化是魔鬼”，情况总是“可以，但没必要”。</p>
@@ -666,7 +670,7 @@ class Example extends Component {
 <h3 id="源码解析">源码解析</h3>
 <p>如果除去 ts 相关以及注释，不到 20 行。memoize-one 本质是一个高阶函数，真正计算函数作为参数，返回一个新的函数，新的函数内部会缓存上一次入参以及上一次返回值，如果本次入参与上一次入参相等，则返回上一次返回值，否则，重新调用真正的计算函数，并缓存入参以及结果，供下一次使用。</p>
 <p>假装这里有一张流程图 :)</p>
-<pre><code class="language-typescript">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
+<pre><code class="language-js">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
 import areInputsEqual from './are-inputs-equal';
 
 // 函数签名

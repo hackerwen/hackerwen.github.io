@@ -1,132 +1,129 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>构造函数、原型与继承（二） | 海秋</title>
-<meta name="description" content="">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="故人千万里，新蝉三两声。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565433416539">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565412576935">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io">
-        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565412576935" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://worldzhao.github.io">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565433416539" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    故人千万里，新蝉三两声。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">构造函数、原型与继承（二）</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2017-07-07</span>
-            
+          <article class="post">
+            <h2 class="post-title">
+              构造函数、原型与继承（二）
+            </h2>
+            <div class="post-info">
               <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://worldzhao.github.io/tag/zd4EwIdEDA">
-                    javascript
-                    
-                  </a>
-                
+                2017-07-07
               </span>
+              <span>
+                2 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
             
-          </div>
-          <div class="post-content">
-            <p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf84bzzgj30g30avt8n.jpg" alt="constructor&amp;prototype&amp;instance.png"></p>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf84bzzgj30g30avt8n.jpg" alt="constructor&amp;prototype&amp;instance.png"></p>
 <h2 id="传统构造函数模式存在的问题">传统构造函数模式存在的问题</h2>
 <p>如果在构造函数中定义某个函数，那么每次创建新的对象,都会创建一遍该函数</p>
 <pre><code class="language-js">function Student(name) {
-  this.name = name
+  this.name = name;
   this.skill = function() {
-    console.log('goodgoodstudy')
-  }
+    console.log(&quot;goodgoodstudy&quot;);
+  };
 }
-var zzw = new Student('zzw')
-var zjj = new student('zjj')
+var zzw = new Student(&quot;zzw&quot;);
+var zjj = new student(&quot;zjj&quot;);
 </code></pre>
 <p>函数内部代码完全相同,而内存中存在了多个相同内容的函数,仅仅是地址不同,造成了资源浪费.</p>
 <p>为了解决这个问题,我们要让所有对象共用一个方法,在构造函数外部定义好该函数.</p>
 <p>将函数赋值给构造函数内部的方法,这样内存内只存在一个方法,对象内部的方法名全都指向该方法.</p>
 <pre><code class="language-js">function studyMethod() {
-  console.log(this.name + 'goodgoodstudy')
+  console.log(this.name + &quot;goodgoodstudy&quot;);
 }
 function Student(name) {
-  this.name = name
-  this.skill = studyMethod
+  this.name = name;
+  this.skill = studyMethod;
 }
-var zzw = new Student('zzw')
-var zjj = new Student('zjj')
-zzw.skill()
+var zzw = new Student(&quot;zzw&quot;);
+var zjj = new Student(&quot;zjj&quot;);
+zzw.skill();
 </code></pre>
 <p>问题又来了:如果对象公用的方法很多,那么就在构造函数外部定义好很多个函数,全局变量增多,造成污染,代码结构混乱,不易维护.</p>
 <p>由此引入原型模式.</p>
@@ -146,28 +143,28 @@ zzw.skill()
 <li>直接重写原型对象(需要添加的成员较多时)</li>
 </ol>
 <pre><code class="language-js">function Person(name, sex, age) {
-  this.name = name
-  this.age = age
-  this.sex = sex
+  this.name = name;
+  this.age = age;
+  this.sex = sex;
 }
 
 Person.prototype.sayHello = function() {
-  console.log('hello')
-} //为原型添加成员方法
+  console.log(&quot;hello&quot;);
+}; //为原型添加成员方法
 
-var p1 = new Person('zzw', 'male', '20')
+var p1 = new Person(&quot;zzw&quot;, &quot;male&quot;, &quot;20&quot;);
 
 Person.prototype = {
   sayGoodBye: function() {
-    console.log('byebye')
+    console.log(&quot;byebye&quot;);
   }
-} //替换原型
+}; //替换原型
 
-var p2 = new Person('zjj', 'female', '19')
+var p2 = new Person(&quot;zjj&quot;, &quot;female&quot;, &quot;19&quot;);
 
-p1.sayHello() //hello
+p1.sayHello(); //hello
 
-p2.sayHello() //undefined
+p2.sayHello(); //undefined
 </code></pre>
 <p>通过以上代码可以得知:</p>
 <p>实例对象可以访问的原型对象的成员以<strong>实例对象创建时</strong>构造函数所关联的原型对象为主,倘若原型对象被<strong>重写</strong>,则重写之前实例化的实例对象依旧访问的是旧原型的成员(为原型新增成员不算重写).</p>
@@ -201,111 +198,135 @@ p2.sayHello() //undefined
 <li>重写构造函数的原型,<code>constructor</code> 属性也被重写,不再指向关联的构造函数需要在新替换的原型中手动添加 <code>constructor</code> 的指向</li>
 </ul>
 <pre><code class="language-js">function Person(name, age) {
-  this.name = name
-  this.age = age
+  this.name = name;
+  this.age = age;
 }
 
-console.log(Person.prototype.constructor) //function Person(...){} 通过构造函数的原型访问构造函数
+console.log(Person.prototype.constructor); //function Person(...){} 通过构造函数的原型访问构造函数
 
-var p = new Person('zzw', '18')
-console.log(p.name) //zzw
+var p = new Person(&quot;zzw&quot;, &quot;18&quot;);
+console.log(p.name); //zzw
 
-var p1 = new p.constructor('zjj', '18') // 通过已经创建好的实例对象调用构造函数
-console.log(p1.name) // zjj
+var p1 = new p.constructor(&quot;zjj&quot;, &quot;18&quot;); // 通过已经创建好的实例对象调用构造函数
+console.log(p1.name); // zjj
 
-Person.prototype = {} // 重写构造函数的原型,constructor属性也被重写,不再指向关联的构造函数,而是指向function Object(){...},与构造函数没有关联了
-console.log(Person.prototype.constructor) // function Object(){...}
+Person.prototype = {}; // 重写构造函数的原型,constructor属性也被重写,不再指向关联的构造函数,而是指向function Object(){...},与构造函数没有关联了
+console.log(Person.prototype.constructor); // function Object(){...}
 </code></pre>
 <p>所以,为了保证重写原型对象后依旧可以形成 构造函数-原型对象-实例对象 的闭环,需要做以下操作:</p>
 <pre><code class="language-js">Person.prototype = {
   constructor: Person //手动添加constructor的指向
-}
+};
 </code></pre>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BC%A0%E7%BB%9F%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%A8%A1%E5%BC%8F%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">传统构造函数模式存在的问题</a></li>
+<li><a href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F">原型模式</a>
+<ul>
+<li><a href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98">原型模式存在的问题</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8E%9F%E5%9E%8B%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F">构造函数与原型组合模式</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://worldzhao.github.io/post/constructor-prototype-extend-1">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/constructor-prototype-extend-1">
               <h3 class="post-title">
-                下一篇：构造函数、原型与继承（一）
+                构造函数、原型与继承（一）
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan"></div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

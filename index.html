@@ -1,369 +1,60 @@
-
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>海秋</title>
-<meta name="description" content="">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="故人千万里，新蝉三两声。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565433416539">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565412576935">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io">
-        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565412576935" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://worldzhao.github.io">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565433416539" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    故人千万里，新蝉三两声。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
   </div>
-</div>
-
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
-        
-        
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/thinking-in-deploy">
-        <h2 class="post-title">关于前端项目部署发布的相关思考</h2>
-      </a>
-      <div class="post-abstract">
-        <p>习惯了前后端完全分离的开发模式，一时难以接受前端html托管在后端这种操作。</p>
-
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-07-21</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/fRl4XqQDL">
-                工程化
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-      <a href="https://worldzhao.github.io/post/thinking-in-deploy">
-        <div class="feature-container" style="background-image: url('http://ww4.sinaimg.cn/large/006tNc79gy1g5uhjzyx5vj318q0u0hdt.jpg')">
-        </div>
-      </a>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/probation-period-in-xmly">
-        <h2 class="post-title">双月谈-试用期思考</h2>
-      </a>
-      <div class="post-abstract">
-        <p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。所有内容仅代表我所在的团队（部分内容仅代表我所在的项目组），纯属个人看法，可能带有较强烈的感情色彩。</p>
-
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-07-07</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/UpATN8Rphb">
-                life
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-      <a href="https://worldzhao.github.io/post/probation-period-in-xmly">
-        <div class="feature-container" style="background-image: url('http://ww2.sinaimg.cn/large/006tNc79gy1g5uhe3gi3qj30u00u04qp.jpg')">
-        </div>
-      </a>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/thinking-in-ui-library">
-        <h2 class="post-title">关于组件库的相关思考</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-06-02</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
-                react
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/write-clean-code-in-react">
-        <h2 class="post-title">编写干净的代码</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-05-15</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
-                react
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
-        <h2 class="post-title">编写更快的 React 代码（一）：memoize-one 简介</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-04-11</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
-                react
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/react-computed">
-        <h2 class="post-title">优雅处理表单联动</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-03-17</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
-                react
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/pig">
-        <h2 class="post-title">从callback到async</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-01-24</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/zd4EwIdEDA">
-                javascript
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/design-pattern-strategy">
-        <h2 class="post-title">设计模式-策略模式</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2018-11-24</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/3U7T0khRv2">
-                设计模式
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/babel-note">
-        <h2 class="post-title">babel学习笔记</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2018-10-13</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/n47DI046wd">
-                babel
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/git-flow">
-        <h2 class="post-title">关于 git flow 工作流程的一点思考</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2018-09-01</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/MJuW_dqVJy">
-                git
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-
-<div class="pagination-container">
-  
-  
-    <a href="https://worldzhao.github.io/page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
-  
-</div>
-
-
-      </div>
-
-      <div class="site-footer">
-  <div class="slogan"></div>
   <div class="social-container">
     
       
@@ -377,30 +68,211 @@
       
     
       
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
     
       
     
   </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
 </div>
 
+    
+        <div class="post-container">
+  
+    <article class="post">
+      <a href="https://worldzhao.github.io/post/thinking-in-deploy">
+        <h2 class="post-title">关于前端项目部署发布的相关思考</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2019-07-21
+        </span>
+        <span>
+          1 min read
+        </span>
+        
+          <a href="https://worldzhao.github.io/tag/fRl4XqQDL" class="post-tag">
+            # 工程化
+          </a>
+        
+      </div>
+      
+        <a href="https://worldzhao.github.io/post/thinking-in-deploy" class="post-feature-image" style="background-image: url('http://ww4.sinaimg.cn/large/006tNc79gy1g5uri7c79oj318y0u0hdt.jpg')">
+        </a>
+      
+      <div class="post-abstract">
+        <p>习惯了前后端完全分离的开发模式，一时难以接受前端html托管在后端这种操作。</p>
 
-    </div>
-    <script type="application/javascript">
+      </di>
+    </article>
+  
+    <article class="post">
+      <a href="https://worldzhao.github.io/post/probation-period-in-xmly">
+        <h2 class="post-title">双月谈-试用期思考</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2019-07-07
+        </span>
+        <span>
+          2 min read
+        </span>
+        
+          <a href="https://worldzhao.github.io/tag/UpATN8Rphb" class="post-tag">
+            # life
+          </a>
+        
+      </div>
+      
+        <a href="https://worldzhao.github.io/post/probation-period-in-xmly" class="post-feature-image" style="background-image: url('http://ww4.sinaimg.cn/large/006tNc79gy1g5urib3b81j31900u0u0y.jpg')">
+        </a>
+      
+      <div class="post-abstract">
+        <p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。当然，纯属个人看法。</p>
 
-hljs.initHighlightingOnLoad()
+      </di>
+    </article>
+  
+    <article class="post">
+      <a href="https://worldzhao.github.io/post/thinking-in-ui-library">
+        <h2 class="post-title">关于组件库的相关思考</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2019-06-02
+        </span>
+        <span>
+          1 min read
+        </span>
+        
+          <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
+            # react
+          </a>
+        
+      </div>
+      
+        <a href="https://worldzhao.github.io/post/thinking-in-ui-library" class="post-feature-image" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5uri4ys5mj31900u01l2.jpg')">
+        </a>
+      
+      <div class="post-abstract">
+        
+      </di>
+    </article>
+  
+    <article class="post">
+      <a href="https://worldzhao.github.io/post/write-clean-code-in-react">
+        <h2 class="post-title">编写干净的代码</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2019-05-15
+        </span>
+        <span>
+          4 min read
+        </span>
+        
+          <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
+            # react
+          </a>
+        
+      </div>
+      
+        <a href="https://worldzhao.github.io/post/write-clean-code-in-react" class="post-feature-image" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5urhwfv5qj31900u0e83.jpg')">
+        </a>
+      
+      <div class="post-abstract">
+        
+      </di>
+    </article>
+  
+    <article class="post">
+      <a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
+        <h2 class="post-title">memoize-one 简介</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2019-04-11
+        </span>
+        <span>
+          3 min read
+        </span>
+        
+          <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
+            # react
+          </a>
+        
+      </div>
+      
+        <a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one" class="post-feature-image" style="background-image: url('http://ww4.sinaimg.cn/large/006tNc79gy1g5urhsq1l5j30u0107kjo.jpg')">
+        </a>
+      
+      <div class="post-abstract">
+        <p>I’ve always said that React will make you a better JavaScript developer.</p>
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+      </di>
+    </article>
+  
+</div>
+
+    
+        <div class="pagination-container">
+  
+  
+    <a href="https://worldzhao.github.io/page/2/" class="prev-page">下一页</a>
+  
+</div>
+
+    
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
 </script>
 
-
-
-
+      </div>
+    </div>
   </body>
 </html>

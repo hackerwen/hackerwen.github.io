@@ -1,108 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>数据结构-栈 | 海秋</title>
-<meta name="description" content="">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="故人千万里，新蝉三两声。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565433416539">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1565412576935">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io">
-        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565412576935" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://worldzhao.github.io">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1565433416539" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    故人千万里，新蝉三两声。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">数据结构-栈</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2017-08-02</span>
-            
+          <article class="post">
+            <h2 class="post-title">
+              数据结构-栈
+            </h2>
+            <div class="post-info">
               <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://worldzhao.github.io/tag/iauJzA4HMe">
-                    算法与数据结构
-                    
-                  </a>
-                
+                2017-08-02
               </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/iauJzA4HMe" class="post-tag">
+                  # 算法与数据结构
+                </a>
+              
+            </div>
             
-          </div>
-          <div class="post-content">
-            <p>初稿于 2017-08-02<br><br>
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>初稿于 2017-08-02<br><br>
 更新于 2019-03-04</p>
 <hr>
 <h2 id="栈结构">栈结构</h2>
@@ -133,39 +130,39 @@
 </ol>
 <h3 id="实现">实现</h3>
 <pre><code class="language-js">function Stack() {
-  this.dataStore = []
+  this.dataStore = [];
 }
 
 // 入栈
 Stack.prototype.push = function(x) {
-  this.dataStore[this.dataStore.length] = x
-}
+  this.dataStore[this.dataStore.length] = x;
+};
 
 // 出栈
 Stack.prototype.pop = function() {
-  return this.dataStore.pop()
-}
+  return this.dataStore.pop();
+};
 
 // 查找
 Stack.prototype.pick = function() {
-  return this.dataStore[this.dataStore.length - 1]
-}
+  return this.dataStore[this.dataStore.length - 1];
+};
 
 Stack.prototype.getLength = function() {
-  return this.dataStore.length
-}
+  return this.dataStore.length;
+};
 
 // s 就是我们的栈 我们操作对象是 s 不是 s 的 dataStore,切记
 
-var s = new Stack()
+var s = new Stack();
 
-s.push('Tencent')
-s.push('Ali')
-s.push('Baidu')
+s.push(&quot;Tencent&quot;);
+s.push(&quot;Ali&quot;);
+s.push(&quot;Baidu&quot;);
 
-console.log(s.pick()) // Baidu
-console.log(s.pop()) // Baidu
-console.log(s.pick()) // Ali
+console.log(s.pick()); // Baidu
+console.log(s.pop()); // Baidu
+console.log(s.pick()); // Ali
 </code></pre>
 <h3 id="应用">应用</h3>
 <h4 id="回文数的判断">回文数的判断</h4>
@@ -173,53 +170,53 @@ console.log(s.pick()) // Ali
 <p>回文最简单的思路就是:把元素反转后如果与原始的元素相等，那么就意味着这就是一个回文了</p>
 <p>这里可以用到这个栈类来操作</p>
 <pre><code class="language-js">// 定义栈
-var Stack = require('./stack.js')
+var Stack = require(&quot;./stack.js&quot;);
 
 function isPalindrome(str) {
-  var s = new Stack()
+  var s = new Stack();
 
   for (var i = 0; i &lt; str.length; i++) {
-    s.push(str[i])
+    s.push(str[i]);
   }
 
-  var newStr = ''
+  var newStr = &quot;&quot;;
 
   for (var j = 0; j &lt; str.length; j++) {
-    newStr += s.pop()
+    newStr += s.pop();
   }
 
   if (str === newStr) {
-    return true
+    return true;
   } else {
-    return false
+    return false;
   }
 }
 
-console.log(isPalindrome('112211'))
+console.log(isPalindrome(&quot;112211&quot;));
 </code></pre>
 <p>看看这个 isPalindrome 函数，其实就是通过调用 Stack 类，然后把传递进来的 str 这个元素给分解后的每一个组成单元给压入到栈了</p>
 <p>根据栈的原理，后入先出的原则，通过 pop 的方法在反组装这个元素，最后比较下之前与组装后的，如果相等就是回文了</p>
 <p>你要是用 reverse 也可以...</p>
 <h4 id="将数字转换为二进制和八进制">将数字转换为二进制和八进制</h4>
-<pre><code class="language-js">var Stack = require('./stack.js')
+<pre><code class="language-js">var Stack = require(&quot;./stack.js&quot;);
 
 var numConvert = function(num, base) {
-  var stack = new Stack()
-  let converted = ''
+  var stack = new Stack();
+  let converted = &quot;&quot;;
 
   while (num &gt; 0) {
-    stack.push(num % base)
-    num = Math.floor(num / base)
+    stack.push(num % base);
+    num = Math.floor(num / base);
   }
 
   while (stack.getLength() &gt; 0) {
-    converted += stack.pop()
+    converted += stack.pop();
   }
 
-  return converted
-}
+  return converted;
+};
 
-console.log(numConvert(10, 2)) // 1010
+console.log(numConvert(10, 2)); // 1010
 </code></pre>
 <h4 id="括号匹配">括号匹配</h4>
 <pre><code class="language-js">/*
@@ -293,26 +290,26 @@ console.log(numConvert(10, 2)) // 1010
 //   return !stack.length
 // }
 const isValid = s =&gt; {
-  if (s === '') return true
-  const leftP = ['(', '[', '{']
+  if (s === &quot;&quot;) return true;
+  const leftP = [&quot;(&quot;, &quot;[&quot;, &quot;{&quot;];
   const map = {
-    ')': '(',
-    ']': '[',
-    '}': '{'
-  }
-  const stack = []
+    &quot;)&quot;: &quot;(&quot;,
+    &quot;]&quot;: &quot;[&quot;,
+    &quot;}&quot;: &quot;{&quot;
+  };
+  const stack = [];
   for (let i = 0; i &lt; s.length; i++) {
     if (leftP.includes(s[i])) {
-      stack.push(s[i])
+      stack.push(s[i]);
     } else {
-      const top = stack.pop()
+      const top = stack.pop();
       if (top !== map[s[i]]) {
-        return false
+        return false;
       }
     }
   }
-  return !stack.length
-}
+  return !stack.length;
+};
 </code></pre>
 <h4 id="用栈实现队列">用栈实现队列</h4>
 <pre><code class="language-js">/*
@@ -355,9 +352,9 @@ const isValid = s =&gt; {
  * Initialize your data structure here.
  */
 var MyQueue = function() {
-  this.stackIn = []
-  this.stackOut = []
-}
+  this.stackIn = [];
+  this.stackOut = [];
+};
 
 /**
  * Push element x to the back of queue.
@@ -365,9 +362,9 @@ var MyQueue = function() {
  * @return {void}
  */
 MyQueue.prototype.push = function(x) {
-  this.stackIn.push(x)
-  return x
-}
+  this.stackIn.push(x);
+  return x;
+};
 
 /**
  * Removes the element from in front of queue and returns that element.
@@ -376,12 +373,12 @@ MyQueue.prototype.push = function(x) {
 MyQueue.prototype.pop = function() {
   if (!this.stackOut.length) {
     while (this.stackIn.length) {
-      const top = this.stackIn.pop()
-      this.stackOut.push(top)
+      const top = this.stackIn.pop();
+      this.stackOut.push(top);
     }
   }
-  return this.stackOut.pop()
-}
+  return this.stackOut.pop();
+};
 
 /**
  * Get the front element.
@@ -390,12 +387,12 @@ MyQueue.prototype.pop = function() {
 MyQueue.prototype.peek = function() {
   if (!this.stackOut.length) {
     while (this.stackIn.length) {
-      const top = this.stackIn.pop()
-      this.stackOut.push(top)
+      const top = this.stackIn.pop();
+      this.stackOut.push(top);
     }
   }
-  return this.stackOut[this.stackOut.length - 1] // 相当于栈的peek
-}
+  return this.stackOut[this.stackOut.length - 1]; // 相当于栈的peek
+};
 
 /**
  * Returns whether the queue is empty.
@@ -403,10 +400,10 @@ MyQueue.prototype.peek = function() {
  */
 MyQueue.prototype.empty = function() {
   if (this.stackIn.length === 0 &amp;&amp; this.stackOut.length === 0) {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 
 /**
  * Your MyQueue object will be instantiated and called as such:
@@ -418,90 +415,122 @@ MyQueue.prototype.empty = function() {
  */
 </code></pre>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%A0%88%E7%BB%93%E6%9E%84">栈结构</a>
+<ul>
+<li><a href="#%E5%AE%9A%E4%B9%89">定义</a></li>
+<li><a href="#%E9%9C%80%E8%A6%81%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%B3%95">需要实现的接口方法</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0">实现</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8">应用</a>
+<ul>
+<li><a href="#%E5%9B%9E%E6%96%87%E6%95%B0%E7%9A%84%E5%88%A4%E6%96%AD">回文数的判断</a></li>
+<li><a href="#%E5%B0%86%E6%95%B0%E5%AD%97%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%92%8C%E5%85%AB%E8%BF%9B%E5%88%B6">将数字转换为二进制和八进制</a></li>
+<li><a href="#%E6%8B%AC%E5%8F%B7%E5%8C%B9%E9%85%8D">括号匹配</a></li>
+<li><a href="#%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97">用栈实现队列</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://worldzhao.github.io/post/data-structure-binary-tree">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/data-structure-binary-tree">
               <h3 class="post-title">
-                下一篇：数据结构-二叉树
+                数据结构-二叉树
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan"></div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>
