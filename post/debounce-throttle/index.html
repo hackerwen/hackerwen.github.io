@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>函数节流与函数防抖 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1567476747630">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1567476986245">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1567476747630" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1567476986245" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -88,7 +88,7 @@
                 2017-09-12
               </span>
               <span>
-                3 min read
+                2 min read
               </span>
               
                 <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="post-tag">
@@ -210,32 +210,6 @@ window.onresize = debounce(resizeDiv)
 <p>throttle-函数节流：一个水龙头在滴水，可能一次性会滴很多滴，但是我们只希望它每隔 500ms 滴一滴水，保持这个频率。即我们希望函数在以一个可以<strong>接受</strong>的频率重复调用。</p>
 <h3 id="基本模式-2">基本模式</h3>
 <pre><code class="language-js">function throttle(fn, interval) {
-  var _self = fn
-  var firstTime = true
-  var timer
-
-  return function() {
-    var args = arguments
-    var _me = this
-    if (firstTime) {
-      _self.call(_me, args)
-		  firstTime = false;
-    }
-
-    if (timer) {
-      return false
-    }
-
-    timer = setTimeout(function() {
-      clearTimeout(timer)
-      timer = null
-      _self.call(_me, args)
-    }, interval || 500)
-  }
-}
-</code></pre>
-<h3 id="解决问题-2">解决问题</h3>
-<pre><code class="language-js">function throttle(fn, interval) {
   var _self = fn // 保存需要被延迟执行的函数引用
   var firstTime = true // 是否初次调用
   var timer // 定时器
@@ -246,6 +220,7 @@ window.onresize = debounce(resizeDiv)
     if (firstTime) {
       // 如果是第一次调用不需要延迟执行
       _self.call(_me, args)
+      firstTime = false
     }
 
     if (timer) {
@@ -261,8 +236,9 @@ window.onresize = debounce(resizeDiv)
     }, interval || 500)
   }
 }
-
-function resizeDiv() {
+</code></pre>
+<h3 id="解决问题-2">解决问题</h3>
+<pre><code class="language-js">function resizeDiv() {
   var div = document.getElementById('mydiv')
   div.style.height = div.offsetWidth + 'px'
   console.log('resize')
