@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>数据结构-二叉树 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1567476986245">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569412952519">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1567476986245" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569412952519" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -88,7 +88,7 @@
                 2017-07-18
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
                 <a href="https://worldzhao.github.io/tag/iauJzA4HMe" class="post-tag">
@@ -101,7 +101,7 @@
               <div class="post-content">
                 <h3 id="二叉树的遍历">二叉树的遍历</h3>
 <h4 id="成果如图">成果如图：</h4>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8l5s0kg30hm06bq44.gif" alt="动态预览.gif"></p>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8l5s0kg30hm06bq44.gif" alt="动态预览.gif"></figure>
 <h4 id="思路">思路：</h4>
 <ol>
 <li>先对二叉树进行遍历，按照顺序将节点存入数组</li>
@@ -111,7 +111,7 @@
 <ol>
 <li>先序遍历：若二叉树为空，则空操作返回，否则先访问根结点，然后前序遍历左子树，再前序遍历右子树。</li>
 </ol>
-<p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8mgj51g30hm06b74l.gif" alt="先序遍历.gif"></p>
+<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8mgj51g30hm06b74l.gif" alt="先序遍历.gif"></figure>
 <pre><code class="language-js">function DLR(node) {
   //先序遍历
   if (node) {
@@ -125,7 +125,7 @@
 <ol start="2">
 <li>中序遍历：若树为空，则空操作返回，否则从根结点开始（注意并不是先访问根结点），中序遍历根结点的左子树，然后是访问根结点，最后中序遍历右子树。</li>
 </ol>
-<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8u2pbtg30hm06bjrn.gif" alt="中序遍历.gif"></p>
+<figure data-type="image" tabindex="3"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8u2pbtg30hm06bjrn.gif" alt="中序遍历.gif"></figure>
 <pre><code class="language-js">function LDR(node) {
   if (node) {
     LDR(node.children[0]);
@@ -137,7 +137,7 @@
 <ol start="3">
 <li>后序遍历：若树为空，则空操作返回，否则从左到右先叶子后结点的方式遍历访问左右子树，最后访问根结点。</li>
 </ol>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8uxe8tg30hm06b74j.gif" alt="后序遍历.gif"></p>
+<figure data-type="image" tabindex="4"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8uxe8tg30hm06b74j.gif" alt="后序遍历.gif"></figure>
 <pre><code class="language-js">function LRD(node) {
   if (node) {
     LRD(node.children[0]);

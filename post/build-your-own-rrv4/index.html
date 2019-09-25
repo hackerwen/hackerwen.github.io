@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>【转】Build your own React Router v4 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1567476986245">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569412952519">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1567476986245" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569412952519" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -88,7 +88,7 @@
                 2018-01-11
               </span>
               <span>
-                9 min read
+                19 min read
               </span>
               
                 <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
@@ -278,7 +278,7 @@ const App = () =&gt; (
 <blockquote>
 <p>只有当所给路径精确匹配上 location.pathname 时才返回 true。</p>
 </blockquote>
-<p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf7v0hdfj30m80aimxm.jpg" alt="exact"></p>
+<figure data-type="image" tabindex="1"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf7v0hdfj30m80aimxm.jpg" alt="exact"></figure>
 <p>接下来就来具体实现 <code>matchPath</code> 函数。如果你回头看一下上面 <code>Route</code> 组件的代码，你可以看到 <code>matchPath</code> 函数是这样的：</p>
 <pre><code class="language-js">const match = matchPath(window.location.pathname, { path, exact });
 </code></pre>
@@ -303,7 +303,7 @@ const App = () =&gt; (
 </code></pre>
 <p>如果匹配上了，那么返回一个包含有所有匹配串的数组，否则返回 null。</p>
 <p>下面是我们示例 app 的路由 '/topics/components' 的一些匹配项。</p>
-<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf7x7hnaj30m80juta2.jpg" alt="return value"></p>
+<figure data-type="image" tabindex="2"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf7x7hnaj30m80juta2.jpg" alt="return value"></figure>
 <blockquote>
 <p>注意：每个 <code>&lt;Route&gt;</code> 都在自己的渲染方法里调用 <code>matchPath</code>，所以要为每个 <code>&lt;Route&gt;</code> 配一个 <code>match</code>。</p>
 </blockquote>

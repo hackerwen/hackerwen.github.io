@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>浅克隆与深克隆 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1567476986245">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569412952519">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1567476986245" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569412952519" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -88,7 +88,7 @@
                 2017-09-13
               </span>
               <span>
-                3 min read
+                7 min read
               </span>
               
                 <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="post-tag">
@@ -122,7 +122,7 @@ console.log(person.name)
 <p>以上代码的弹出值是:我是传递的，很多人可能会以为将会弹出“我是 new 出来的”，下面进行一下简单的分析:</p>
 <p>在函数外面创建一个对象，并将对象的引用赋值给变量 person，person 中存储的是对象在内存中的存储地址，当为函数传递参数时，就是传递的在函数外面创建的对象的地址。<br>
 在函数中，obj 的值即为 person 的值，指向外面创建的对象，并为其创建一个自定义属性 name，然后又创建一个新的对象，并将新对象的地址赋值给 obj(person 一直没有变化，始终指向原来的对象)，这个时候 obj 指向的并不是函数外面创建的对象，所以外面对象 name 属性不会被改变。</p>
-<p><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8gif2wj30i408w0sk.jpg" alt="image.png"></p>
+<figure data-type="image" tabindex="1"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8gif2wj30i408w0sk.jpg" alt="image.png"></figure>
 <p>总的来说，就是函数内创建 object 对象不会改变外面的属性值。最好画个内存图，马老师教我的，碰到值传递和引用传递一图足矣。当然，这个小例子只是为了让大家复习一下克隆的前置知识。</p>
 <h2 id="克隆的概念">克隆的概念</h2>
 <ul>

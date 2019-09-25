@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>优雅处理表单联动 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1567476986245">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569412952519">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1567476986245" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569412952519" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -88,7 +88,7 @@
                 2019-03-17
               </span>
               <span>
-                4 min read
+                8 min read
               </span>
               
                 <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
@@ -156,7 +156,7 @@ render() {
 <p>但在 React 中，依旧会执行 render，所以 get 没有缓存，只是个语法糖。</p>
 <h2 id="使用计算属性实现最优雅的表单联动">使用计算属性实现最优雅的表单联动</h2>
 <p>假设存在业务类别以及处罚内容，并且不同类别对应不同的处罚内容，点击不同的业务类别，处罚内容是动态变化的，以业务类别为网上超市为例，见下图：</p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></p>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></figure>
 <p>完整对应关系如下（数字为对应 code）：</p>
 <pre><code>业务类别：网上超市-0
 处罚内容：协议-0 商品-1 店铺-2 搜索-6
@@ -170,7 +170,7 @@ render() {
 业务类别：反项竞价-4
 处罚内容：发起竞价-5
 </code></pre>
-<p>现在我们来完成这个小需求 :)</p>
+<p>现在我们来完成这个小需求 😃</p>
 <h3 id="准备工作-抽象对应数据结构">准备工作-抽象对应数据结构</h3>
 <p><em>为了避免在代码中出现无意义的神仙数字</em>以及<em>大量的 if-else</em>，我们给每一个 code 命名，同时将其文案以及对应内容进行抽象，如下（看个大概结构就好，我也觉得太长了）。</p>
 <pre><code class="language-js">/* 业务类型code */
@@ -253,7 +253,7 @@ export const punishContentMap = {
 <h3 id="实战">实战</h3>
 <p>如图，如果勾选了<code>永久</code>(permanent)，该时间选择器禁用。</p>
 <p>同时，回填时如果 permanent 字段为 PERMANENT_CODE，则要将时间选择器还原为禁用状态。</p>
-<p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></p>
+<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></figure>
 <p>解决如下：</p>
 <pre><code class="language-jsx">  get isDatePickerDisabled() {
     const { getFieldValue } = this.props.form;
