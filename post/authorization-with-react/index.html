@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>基于React的权限系统设计 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569412952519">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569549274760">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569412952519" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569549274760" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -101,7 +101,7 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>前端进行权限控制只是为了用户体验，对应的角色渲染对应的视图，真正的安全保障在后端。</p>
+                <p>前端进行权限控制只是为了用户体验，对应的角色渲染对应的视图，真正的安全保障安全在后端。</p>
 <!-- more -->
 <h2 id="前言">前言</h2>
 <p>毕业之初，工作的主要内容便是开发一个后台管理系统，当时存在的一个现象是：</p>
@@ -127,7 +127,7 @@
 <blockquote>
 <p>本文在权限信息获取上，通过接口异步获取，存放至 redux（和 v4 版本有些类似，见<code>@/pages/Authorized</code>以及<code>@/layouts/SecurityLayout</code>）。</p>
 </blockquote>
-<p>本文完全从零开始，👆 一大段很绕，但是一点影响都没有！只是我自己的一些梳理，可略过。</p>
+<p>完全从零开始，👆 一大段很绕，但是一点影响都没有！只是我自己的一点碎碎念，可略过。</p>
 <p>如果有错误以及理解偏差请轻捶并指正，谢谢。</p>
 <h2 id="模块级别的权限处理">模块级别的权限处理</h2>
 <p>假设存在以下关系：</p>
@@ -229,7 +229,7 @@ function Authorized(props) {
   return noMatch;
 }
 
-export default connect(store =&gt; ({ userInfo: store.common.userInfo }));
+export default connect(store =&gt; ({ userInfo: store.common.userInfo }))(Authorized);
 </code></pre>
 <p>现在我们无需手动传递<code>currentAuthority</code>：</p>
 <pre><code class="language-jsx">&lt;Authorized authority={&quot;admin&quot;} noMatch={null}&gt;
@@ -263,7 +263,7 @@ function Router() {
           authority={[&quot;admin&quot;, &quot;user&quot;]}
           noMatch={
             &lt;Route
-              path=&quot;/admin-page&quot;
+              path=&quot;/user-page&quot;
               render={() =&gt; &lt;Redirect to={{ pathname: &quot;/login&quot; }} /&gt;}
             /&gt;
           }
