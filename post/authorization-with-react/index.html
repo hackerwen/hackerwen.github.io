@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>基于React的权限系统设计 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569549274760">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569560057895">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569549274760" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569560057895" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -101,7 +101,7 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>前端进行权限控制只是为了用户体验，对应的角色渲染对应的视图，真正的安全保障安全在后端。</p>
+                <p>前端进行权限控制只是为了用户体验，对应的角色渲染对应的视图，真正的安全保障在后端。</p>
 <!-- more -->
 <h2 id="前言">前言</h2>
 <p>毕业之初，工作的主要内容便是开发一个后台管理系统，当时存在的一个现象是：</p>
@@ -115,19 +115,6 @@
 </ol>
 <p>最近也在看<code>Ant Design Pro</code>的权限相关处理，有必要进行一次总结。</p>
 <p>需要注意的是，本文虽然基于<code>Ant Design Pro</code>的权限设计思路，但并不是完全对其源码的解读（可能更偏向于 v1 的涉及思路，不涉及 umi）。</p>
-<blockquote>
-<p><code>Ant Design Pro</code>从 v2 开始底层基于 <code>umi</code>实现，通过路由配置的 <code>Routes</code> 属性，结合<code>@/pages/Authorized</code>组件（该组件基于<code>@/utils/Authorized</code>组件——<code>@/components/Authorized</code>的二次封装，注入<code>currentAuthority</code>（当前权限））实现主要流程。 同时，权限信息存放于<code>localStorage</code>，通过<code>@/utils/authority.js</code>提供的工具方法进行权限 <code>get</code> 以及 <code>set</code>。</p>
-</blockquote>
-<blockquote>
-<p>仔细看了下<code>@/components/Authorized</code>文件下的内容，发现还提供了<code>AuthorizedRoute</code>组件，但是并未在代码中使用（取而代之的是<code>@/pages/Authorized</code>组件），翻了 issue 才了解到，v1 没有基于<code>umi</code>的时候，是基于<code>AuthorizedRoute</code>进行路由权限管理的，升级了之后，<code>AuthorizedRoute</code>则并没有用于路由权限管理。</p>
-</blockquote>
-<blockquote>
-<p>涉及到的相关文件比较多（components/pages/utils），v4 的文档又有些缺失，看源码的话，若没有理清版本之间差异，着实会有些费力。</p>
-</blockquote>
-<blockquote>
-<p>本文在权限信息获取上，通过接口异步获取，存放至 redux（和 v4 版本有些类似，见<code>@/pages/Authorized</code>以及<code>@/layouts/SecurityLayout</code>）。</p>
-</blockquote>
-<p>完全从零开始，👆 一大段很绕，但是一点影响都没有！只是我自己的一点碎碎念，可略过。</p>
 <p>如果有错误以及理解偏差请轻捶并指正，谢谢。</p>
 <h2 id="模块级别的权限处理">模块级别的权限处理</h2>
 <p>假设存在以下关系：</p>
@@ -229,7 +216,9 @@ function Authorized(props) {
   return noMatch;
 }
 
-export default connect(store =&gt; ({ userInfo: store.common.userInfo }))(Authorized);
+export default connect(store =&gt; ({ userInfo: store.common.userInfo }))(
+  Authorized
+);
 </code></pre>
 <p>现在我们无需手动传递<code>currentAuthority</code>：</p>
 <pre><code class="language-jsx">&lt;Authorized authority={&quot;admin&quot;} noMatch={null}&gt;
@@ -392,6 +381,11 @@ export default Router;
 <h3 id="异步获取权限">异步获取权限</h3>
 <p>解决思路很简单：保证相关权限组件挂载时，redux 中已经存在用户权限信息。换句话说，接口数据返回后，再进行相关渲染。</p>
 <p>我们可以在 Layout 中进行用户信息的获取，数据获取完毕后渲染<code>children</code>。</p>
+<h2 id="结语">结语</h2>
+<p><code>Ant Design Pro</code>从 v2 开始底层基于 <code>umi</code>实现，通过路由配置的 <code>Routes</code> 属性，结合<code>@/pages/Authorized</code>组件（该组件基于<code>@/utils/Authorized</code>组件——<code>@/components/Authorized</code>的二次封装，注入<code>currentAuthority</code>（当前权限））实现主要流程。 同时，权限信息存放于<code>localStorage</code>，通过<code>@/utils/authority.js</code>提供的工具方法进行权限 <code>get</code> 以及 <code>set</code>。</p>
+<p>仔细看了下<code>@/components/Authorized</code>文件下的内容，发现还提供了<code>AuthorizedRoute</code>组件，但是并未在代码中使用（取而代之的是<code>@/pages/Authorized</code>组件），翻了 issue 才了解到，v1 没有基于<code>umi</code>的时候，是基于<code>AuthorizedRoute</code>进行路由权限管理的，升级了之后，<code>AuthorizedRoute</code>则并没有用于路由权限管理。</p>
+<p>涉及到的相关文件比较多（components/pages/utils），v4 的文档又有些缺失，看源码的话，若没有理清版本之间差异，着实会有些费力。</p>
+<p>本文在权限信息获取上，通过接口异步获取，存放至 redux（和 v4 版本有些类似，见<code>@/pages/Authorized</code>以及<code>@/layouts/SecurityLayout</code>）。</p>
 
               </div>
               <div class="toc-container">
@@ -413,6 +407,7 @@ export default Router;
 <li><a href="#%E5%BC%82%E6%AD%A5%E8%8E%B7%E5%8F%96%E6%9D%83%E9%99%90">异步获取权限</a></li>
 </ul>
 </li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
 </ul>
 </li>
 </ul>
