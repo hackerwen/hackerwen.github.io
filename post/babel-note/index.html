@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>babel学习笔记 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1569560057895">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1571025033017">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1569560057895" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1571025033017" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -88,7 +88,7 @@
                 2018-10-13
               </span>
               <span>
-                4 min read
+                3 min read
               </span>
               
                 <a href="https://worldzhao.github.io/tag/n47DI046wd" class="post-tag">
@@ -108,7 +108,7 @@
 <li><code>@babel/core</code>调用 Babel 的 API 进行转码</li>
 <li><code>babel-loader</code>[webpack 的 loader]（https://github.com/babel/babel-loader)</li>
 <li><code>@babel/preset-env</code> 在没有任何配置选项的情况下, babel-preset-env 与 babel-preset-latest（或者 babel-preset-es2015, babel-preset-es2016 和 babel-preset-es2017 一起）的行为完全相同.</li>
-<li>~~<code>@babel/preset-stage-0</code>稻草人提案(babel7 已移除)~~通过 npx babel-upgrade --write 升级为各种插件</li>
+<li>~~<code>@babel/preset-stage-0</code>稻草人提案(babel7 已移除)~~拆散为升级为各种插件</li>
 <li><code>@babel/preset-react</code>react 语法转译<br>
 preset 即 plugin 的套餐, 无需针对一个个语法规则去安装 plugin</li>
 </ol>
@@ -117,7 +117,6 @@ preset 即 plugin 的套餐, 无需针对一个个语法规则去安装 plugin</
 stage-0 = stage-1 + stage-2 + stage-3
 </code></pre>
 <p>preset 具体包含了哪些插件可去官网查询.</p>
-<p>通过配置 targets 可以避免浏览器已经支持的特性被转译, 如果同时设置&quot;IE &gt;= 9&quot;与 &quot;chrome &gt;= 66&quot;, 以 &quot;IE &gt;= 9&quot; 为准进行转译</p>
 <h3 id="polyfill">polyfill</h3>
 <table>
 <thead>
@@ -154,7 +153,7 @@ stage-0 = stage-1 + stage-2 + stage-3
     &quot;corejs&quot;: 2
 }],
 </code></pre>
-<p>要实现真正的按需引入,即使用什么新特性打包什么新特性,可以使用实验性的 useBuildIns:&quot;usage&quot;.</p>
+<p>要实现真正的按需引入,即使所使用的特性以及结合目标浏览器范围进行打包，可以使用实验性的 useBuildIns:&quot;usage&quot;.</p>
 <h3 id="babel-正在向每个文件中注入-helper-并使代码膨胀"><a href="https://github.com/babel/babel-loader">Babel 正在向每个文件中注入 helper 并使代码膨胀</a></h3>
 <p>解决方案:<a href="https://babeljs.io/docs/en/babel-plugin-transform-runtime">@babel/runtime + @babel/plugin-transform-runtime</a></p>
 <pre><code>{
