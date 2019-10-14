@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-10-14T03:50:38.888Z</updated>
+    <updated>2019-10-14T04:00:25.195Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -38,7 +38,7 @@
 <p>TO C 业务固然千奇百怪，但总有相似之处，如何与业务结合，分离可变与不可变，提高开发效率，正是工程师存在的意义（当然也需要产品【业务抽象】以及设计【ui 规范】同学的共同参与）。</p>
 <p>如果不同项目设计风格实在差异较大，也能够通过改改样式复用，而非重写一遍逻辑以及兼容性处理。</p>
 <p>既要有造轮子的能力（个人），也要有不造轮子的觉悟（团队）。</p>
-<h2 id="开发总结">开发总结</h2>
+<h2 id="开发相关">开发相关</h2>
 <h3 id="模块处理">模块处理</h3>
 <p>通常我们一般会提供三种形式的模块：</p>
 <ul>
