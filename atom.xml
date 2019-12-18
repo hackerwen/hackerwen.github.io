@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-18T04:15:41.031Z</updated>
+    <updated>2019-12-18T04:21:00.437Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -153,7 +153,7 @@ yarn add prop-types            # 运行时依赖，宿主环境可能不存在 �
 <p>此处依旧安装了<code>prop-types</code>这个库，因为无法保证宿主环境也使用<code>typescript</code>，从而能够进行静态检查，故使用<code>prop-types</code>保证<code>javascript</code>用户也能得到友好的运行时报错信息。</p>
 </blockquote>
 <p><strong>components/alert/interface.ts</strong></p>
-<pre><code class="language-ts">export type Kind = 'info' | 'positive' | 'negative' | 'warning';
+<pre><code class="language-js">export type Kind = 'info' | 'positive' | 'negative' | 'warning';
 export type KindMap = Record&lt;Kind, string&gt;;
 
 export interface AlertProps {
@@ -165,7 +165,7 @@ export interface AlertProps {
 }
 </code></pre>
 <p><strong>components/alert/alter.tsx</strong></p>
-<pre><code class="language-ts">import React from 'react';
+<pre><code class="language-jsx">import React from 'react';
 import t from 'prop-types';
 
 import { AlertProps, KindMap } from './interface';
@@ -198,7 +198,7 @@ Alert.propTypes = {
 export default Alert;
 </code></pre>
 <p><strong>components/alert/index.ts</strong></p>
-<pre><code class="language-ts">import Alert from './alert';
+<pre><code class="language-js">import Alert from './alert';
 
 export default Alert;
 
@@ -215,10 +215,10 @@ export * from './interface';
 }
 </code></pre>
 <p><strong>components/alert/style/index.ts</strong></p>
-<pre><code class="language-ts">import './index.less';
+<pre><code class="language-js">import './index.less';
 </code></pre>
 <p><strong>components/index.ts</strong></p>
-<pre><code class="language-ts">export { default as Alert } from './alert';
+<pre><code class="language-js">export { default as Alert } from './alert';
 </code></pre>
 <blockquote>
 <p>此处组件参考的<code>docz</code>的<code>typescript</code>以及<code>less</code>示例。</p>
