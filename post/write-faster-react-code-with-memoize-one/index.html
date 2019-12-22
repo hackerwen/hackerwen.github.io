@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>memoize-one 简介 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1576642857652">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1576998940336">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1576642857652" alt="">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1576998940336" alt="">
   </a>
   <h1 class="site-title">
     海秋
@@ -88,7 +88,7 @@
                 2019-04-11
               </span>
               <span>
-                6 min read
+                3 min read
               </span>
               
                 <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
@@ -211,7 +211,7 @@ class Example extends Component {
 </code></pre>
 <h3 id="源码解析">源码解析</h3>
 <p>如果除去 ts 相关以及注释，不到 20 行。memoize-one 本质是一个高阶函数，真正计算函数作为参数，返回一个新的函数，新的函数内部会缓存上一次入参以及上一次返回值，如果本次入参与上一次入参相等，则返回上一次返回值，否则，重新调用真正的计算函数，并缓存入参以及结果，供下一次使用。</p>
-<p>假装这里有一张流程图 😃</p>
+<p>假装这里有一张流程图 :)</p>
 <pre><code class="language-js">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
 import areInputsEqual from './are-inputs-equal';
 
