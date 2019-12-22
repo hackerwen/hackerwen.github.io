@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-22T07:15:49.000Z</updated>
+    <updated>2019-12-22T11:17:09.708Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -11,12 +11,328 @@
     <icon>https://worldzhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 海秋</rights>
     <entry>
+        <title type="html"><![CDATA[React 组件库搭建指南-开发调试与文档编写]]></title>
+        <id>https://worldzhao.github.io/post/react-ui-library-tutorial-dev-and-doc</id>
+        <link href="https://worldzhao.github.io/post/react-ui-library-tutorial-dev-and-doc">
+        </link>
+        <updated>2019-12-22T11:05:45.000Z</updated>
+        <summary type="html"><![CDATA[<p>MDX，文档生花。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>MDX，文档生花。</p>
+<!-- more -->
+<h2 id="概览">概览</h2>
+<p><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare/">上一篇文章</a>中进行了项目的初始化，同时编写了一个<code>&lt;Alert/&gt;</code>组件，遗留了一个问题：</p>
+<p><strong>编写时完全无法进行预览调试</strong></p>
+<p>此处选择<a href="https://github.com/doczjs/docz">docz</a>来辅助预览调试。</p>
+<blockquote>
+<p><code>docz</code>基于<code>MDX</code>（Markdown + JSX），可以在 Markdown 中引入 React 组件，使得一边编写文档，一边预览调试成为了可能。而且得益于 React 组件生态，我们可以像编写应用一般编写文档，不仅仅是枯燥的文字。<code>docz</code> 也内置了一些组件，比如<code>&lt;Playground&gt;</code>。</p>
+</blockquote>
+<p>本节所有代码可在仓库<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-2/dev-and-doc">chapter-2</a>分支中获取。</p>
+<h2 id="安装-docz-以及自定义配置">安装 docz 以及自定义配置</h2>
+<pre><code class="language-bash">yarn add docz --dev
+
+yarn add rimraf --dev # 清空目录的一个辅助库
+</code></pre>
+<p>增加 <code>npm scripts</code> 至 <code>package.json</code>。</p>
+<pre><code class="language-json">&quot;scripts&quot;: {
+  &quot;dev&quot;: &quot;docz dev&quot;, // 启动本地开发环境
+  &quot;start&quot;: &quot;npm run dev&quot;, // dev命令别名
+  &quot;build:doc&quot;: &quot;rimraf doc-site &amp;&amp; docz build&quot;, // 后续会配置打包出来的文件目录名为doc-site，故每次build前删除
+  &quot;preview:doc&quot;: &quot;docz serve&quot; // 预览文档站点
+},
+</code></pre>
+<blockquote>
+<p>注意：本节所有操作都是针对站点应用。<code>打包</code>指代文档站点打包，而非组件库。</p>
+</blockquote>
+<p>新建<code>doczrc.js</code>配置文件，并写入以下内容：</p>
+<p><strong>doczrc.js</strong></p>
+<pre><code class="language-js">export default {
+  files: './components/**/*.{md,markdown,mdx}', // 识别的文件后缀
+  dest: 'doc-site', // 打包出来的文件目录名
+  title: 'happy-ui', // 站点标题
+  typescript: true, // 组件源文件是通过typescript开发，需要打开此选项
+};
+</code></pre>
+<p>由于使用了<code>less</code>作为样式预处理器，故需要安装 less 插件。</p>
+<pre><code class="language-bash">yarn add less gatsby-plugin-less --dev
+</code></pre>
+<p>新建<code>gatsby-config.js</code>，并写入以下内容：</p>
+<p><strong>gatsby-config.js</strong></p>
+<pre><code class="language-js">module.exports = {
+  plugins: ['gatsby-theme-docz', 'gatsby-plugin-less'],
+};
+</code></pre>
+<h2 id="编写文档">编写文档</h2>
+<p>新建<code>components/alert/index.mdx</code>，并写入以下内容：</p>
+<pre><code>---
+name: Alert 警告提示
+route: /Alert
+menu: 组件
+---
+
+import { Playground } from 'docz';
+import Alert from './alert'; // 引入组件
+import './style'; // 引入组件样式
+
+# Alert 警告提示
+
+警告提示，展现需要关注的信息。
+
+## 代码演示
+
+### 基本用法
+
+&lt;Playground&gt;
+  &lt;Alert kind=&quot;warning&quot;&gt;这是一条警告提示&lt;/Alert&gt;
+&lt;/Playground&gt;
+
+## API
+
+| 属性 | 说明     | 类型                                         | 默认值 |
+| ---- | -------- | -------------------------------------------- | ------ |
+| kind | 警告类型 | 'info'/'positive'/'negative'/'warning'非必填 | 'info' |
+</code></pre>
+<p>执行脚本命令：</p>
+<pre><code class="language-bash">yarn start # or yarn dev
+</code></pre>
+<p>可以在<code>localhost:3000</code>看到如下页面 ：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></p>
+<p>现在可以在<code>index.mdx</code>中愉快地进行文档编写和调试了！</p>
+<p>倘若本文到了这里就结束（其实也可以结束了<code>(_^▽^_)</code>），那我只是官方文档的翻译复读机罢了，有兴趣的同学可以继续向下看。</p>
+<h2 id="优化文档编写">优化文档编写</h2>
+<p>如果<code>代码演示</code>部分的<code>demo</code>较多（比如基本用法、高级用法以及各种用法等等），在组件复杂的情况下（毕竟<code>&lt;Alert/&gt;</code>着实太简单了），会导致文档很长难以维护，你到底是在写文档呢还是在写代码呢？</p>
+<p>那就抽离吧。</p>
+<p>在<code>components/alert/</code>文件夹下新建<code>demo</code>文件夹，存放我们在编写文档时需要引用的 <code>demo</code>。</p>
+<p><strong>components/alert/demo/1-demo-basic.tsx</strong></p>
+<pre><code class="language-jsx">import React from 'react';
+import Alert from '../alert';
+import '../style';
+
+export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
+</code></pre>
+<p><strong>components/alert/index.mdx</strong></p>
+<pre><code class="language-diff">- import Alert from './alert'; // 引入组件
+- import './style'; // 引入组件样式
++ import BasicDemo from './demo/1-demo-basic';
+
+...
+
+&lt;Playground&gt;
+- &lt;Alert kind=&quot;warning&quot;&gt;这是一条警告提示&lt;/Alert&gt;
++ &lt;BasicDemo /&gt;
+&lt;/Playground&gt;
+</code></pre>
+<p>这样我们就将 demo 与文档进行了分隔。预览如下：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></p>
+<p>等等，你下面显示的那个<code>&lt;BasicDemo /&gt;</code>有点撩人，这里应该是给用户爸爸们<code>copy</code>的<code>demo</code>源码，你弄一个标签在这里，用户爸爸肯定不开心 🙅‍♀️。</p>
+<p>然而<code>&lt;Playground /&gt;</code>组件暂时无法支持上述形式的展示：自定义下方展示的代码，而非<code>&lt;Playground /&gt;</code>内部的代码。相关讨论如下：</p>
+<ul>
+<li><a href="https://github.com/doczjs/docz/pull/907">Allow to hide the LiveError overlay #907 </a></li>
+<li><a href="https://github.com/doczjs/docz/pull/906">Allow to override the playground's editor's code #906 </a></li>
+</ul>
+<p>其实第一条 <code>PR</code> 已经解决了问题，但是被关闭了，无奈。</p>
+<p>不过既然都能引入 React 组件了，在<code>MDX</code>的环境下自定义一个<code>Playground</code>组件又有何难呢，无非就是渲染组件（MDX 自带）和展示源码，简单开放的东西大家都是喜闻乐见的，就叫<code>HappyBox</code>吧。</p>
+<h2 id="优化代码展示">优化代码展示</h2>
+<h3 id="编写-happybox-组件">编写 <code>&lt;HappyBox /&gt;</code>组件</h3>
+<p>安装依赖：</p>
+<pre><code>yarn add react-use antd react-simple-code-editor prismjs react-copy-to-clipboard raw-loader --dev
+</code></pre>
+<ul>
+<li><a href="https://github.com/streamich/react-use">react-use</a> - 2020 年了，当然要用<code>hooks</code></li>
+<li><a href="https://ant.design/">antd</a> - 使用一些辅助组件</li>
+<li><a href="https://github.com/satya164/react-simple-code-editor">react-simple-code-editor</a> - 代码展示区域</li>
+<li><a href="https://github.com/PrismJS/prism">prismjs</a> - 代码高亮</li>
+<li><a href="https://github.com/webpack-contrib/raw-loader">raw-loader</a> - 将源码转成字符串</li>
+<li><a href="https://github.com/nkbt/react-copy-to-clipboard">react-copy-to-clipboard</a> - 让用户爸爸们能够 copy demo 代码</li>
+</ul>
+<blockquote>
+<p>这些依赖都是服务于文档站点应用，和组件库自身毫无关联。</p>
+</blockquote>
+<p>最终效果如下：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></p>
+<p>根目录下新建<code>doc-comps</code>文件夹，存放文档中使用的一些工具组件，比如<code>&lt;HappyBox /&gt;</code>。</p>
+<p><strong>doc-comps</strong></p>
+<pre><code>├── happy-box
+│   ├── index.less
+│   └── index.tsx
+└── index.ts
+</code></pre>
+<p><strong>components/doc-comps/happy-box/index.tsx</strong></p>
+<pre><code class="language-jsx">import React from 'react';
+import Editor from 'react-simple-code-editor';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import useToggle from 'react-use/esm/useToggle';
+import { Divider, Typography, Icon, Tooltip, message } from 'antd';
+import { highlight, languages } from 'prismjs/components/prism-core';
+
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-markup';
+import './index.less';
+
+require('prismjs/components/prism-jsx');
+
+const { Text } = Typography;
+interface Props {
+  code: string;
+  title?: React.ReactNode;
+  desc?: React.ReactNode;
+}
+
+export const HappyBox: React.FC&lt;Props&gt; = ({ code, title, desc, children }) =&gt; {
+  const [isEditVisible, toggleEditVisible] = useToggle(false);
+
+  return (
+    &lt;div className=&quot;code-box&quot;&gt;
+      &lt;section className=&quot;code-box-demo&quot;&gt; {children}&lt;/section&gt;
+      &lt;section className=&quot;code-box-meta&quot;&gt;
+        &lt;Divider orientation=&quot;left&quot;&gt;{title || '示例'}&lt;/Divider&gt;
+        &lt;div className=&quot;code-box-description&quot;&gt;
+          &lt;Text&gt;{desc || '暂无描述'}&lt;/Text&gt;
+        &lt;/div&gt;
+        &lt;Divider dashed&gt;&lt;/Divider&gt;
+        &lt;div className=&quot;code-box-action&quot;&gt;
+          &lt;Tooltip placement=&quot;top&quot; title={'复制代码'}&gt;
+            &lt;CopyToClipboard text={code} onCopy={() =&gt; message.success('复制成功')}&gt;
+              &lt;Icon type=&quot;copy&quot; /&gt;
+            &lt;/CopyToClipboard&gt;
+          &lt;/Tooltip&gt;
+          &lt;Tooltip placement=&quot;top&quot; title={isEditVisible ? '收起代码' : '显示代码'}&gt;
+            &lt;Icon type=&quot;code&quot; onClick={toggleEditVisible} /&gt;
+          &lt;/Tooltip&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+      {renderEditor()}
+    &lt;/div&gt;
+  );
+
+  /* 代码展示区域 */
+  function renderEditor() {
+    if (!isEditVisible) return null;
+    return (
+      &lt;div className=&quot;container_editor_area&quot;&gt;
+        &lt;Editor
+          readOnly
+          value={code}
+          onValueChange={() =&gt; {}}
+          highlight={code =&gt; highlight(code, languages.jsx)}
+          padding={10}
+          className=&quot;container__editor&quot;
+          style={{
+            fontFamily: '&quot;Fira code&quot;, &quot;Fira Mono&quot;, monospace',
+            fontSize: 14,
+          }}
+        /&gt;
+      &lt;/div&gt;
+    );
+  }
+};
+
+export default HappyBox;
+</code></pre>
+<h3 id="相关配置变更">相关配置变更</h3>
+<ul>
+<li>增加 <code>alias</code>别名，源码展示相对路径不够友好；</li>
+<li>antd 按需引入，即使是站点应用。</li>
+</ul>
+<p>新建<code>gatsby-node.js</code>，写入以下内容以开启<code>alias</code>：</p>
+<pre><code class="language-js">const path = require('path');
+
+exports.onCreateWebpackConfig = args =&gt; {
+  args.actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, '../src'), 'node_modules'],
+      alias: {
+        'happy-ui/lib': path.resolve(__dirname, '../components/'),
+      },
+    },
+  });
+};
+</code></pre>
+<p><code>antd</code> 按需引入，安装依赖，并配置<code>gatsby-config.js</code>：</p>
+<pre><code class="language-bash">yarn add babel-plugin-import gatsby-plugin-import --dev
+</code></pre>
+<p><strong>gatsby-config.js</strong></p>
+<pre><code class="language-js">module.exports = {
+  plugins: [
+    'gatsby-theme-docz',
+    'gatsby-plugin-less',
+    {
+      resolve: 'gatsby-plugin-import',
+      options: {
+        libraryName: 'antd',
+        style: 'css',
+      },
+    },
+  ],
+};
+</code></pre>
+<p><code>tsconfig.json</code> 忽略<code>demo</code>以及<code>doc-comps</code>，避免组件库打包生成<code>types</code>时包含其中：</p>
+<p><strong>tsconfig.json</strong></p>
+<pre><code class="language-diff">{
+  &quot;compilerOptions&quot;: {
+    &quot;rootDir&quot;: &quot;components&quot;,
+    &quot;baseUrl&quot;: &quot;components&quot;,
+    &quot;target&quot;: &quot;esnext&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;jsx&quot;: &quot;react&quot;,
+    &quot;declaration&quot;: true,
+    &quot;outDir&quot;: &quot;types&quot;,
+    &quot;strict&quot;: true,
+    &quot;moduleResolution&quot;: &quot;node&quot;,
+    &quot;allowSyntheticDefaultImports&quot;: true,
+    &quot;esModuleInterop&quot;: true
+  },
++ &quot;exclude&quot;: [&quot;components/**/demo&quot;, &quot;doc-comps&quot;]
+}
+
+</code></pre>
+<h3 id="改造相关文件">改造相关文件</h3>
+<p><strong>components/alert/demo/1-demo-basic.tsx</strong></p>
+<pre><code class="language-diff">- import Alert from '../alert';
++ import Alert from 'happy-ui/lib/alert';
+
+- import '../style';
++ import 'happy-ui/lib/alert/style';
+</code></pre>
+<p><strong>components/alert/index.mdx</strong></p>
+<pre><code class="language-diff">- import { Playground } from 'docz';
++ import { HappyBox } from '../../doc-comps';
+
++ import BasicDemoCode from '!raw-loader!./demo/1-demo-basic.tsx';
+
+...
+
+- &lt;Playground&gt;
+-   &lt;BasicDemo /&gt;
+- &lt;/Playground&gt;
+
++ &lt;HappyBox code={BasicDemoCode} title=&quot;基本用法&quot; desc=&quot;使用kind控制Alert类型&quot;&gt;
++  &lt;BasicDemo /&gt;
++ &lt;/HappyBox&gt;
+</code></pre>
+<h3 id="其他">其他</h3>
+<p><strong>.eslintignore</strong></p>
+<pre><code class="language-diff">+ doc-comps
++ demo
+</code></pre>
+<p><code>yarn start</code>卡住时尝试删除根目录<code>.docz</code>文件夹，而后重新执行命令。</p>
+<p>更多详见<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-2/dev-and-doc">仓库</a>。</p>
+<p>开发调试与文档编写结束，欢迎指点交流。</p>
+<p>To be Continued...</p>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[React 组件库搭建指南-准备工作]]></title>
         <id>https://worldzhao.github.io/post/react-ui-library-tutorial-prepare</id>
         <link href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare">
         </link>
         <updated>2019-12-18T04:12:25.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+        <summary type="html"><![CDATA[<p>凡事预则立不预则废。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>凡事预则立不预则废。</p>
+<!--more -->
+<h2 id="概览">概览</h2>
 <p>本系列文章主要是开发组件库<a href="https://github.com/worldzhao/dora-ui">dora-ui</a>过程中的一些经验总结，大致包含以下内容：</p>
 <ul>
 <li>prepare: 组件库前期开发准备工作。<code>eslint</code>/<code>commit lint</code>/<code>typescript</code>等等；</li>
@@ -221,7 +537,7 @@ export * from './interface';
 <pre><code class="language-js">export { default as Alert } from './alert';
 </code></pre>
 <blockquote>
-<p>此处组件参考的<code>docz</code>的<code>typescript</code>以及<code>less</code>示例。</p>
+<p>此处组件参考的<code>docz</code>项目<code>typescript</code>以及<code>less</code>示例。</p>
 </blockquote>
 <p>git 一把梭，可以看到控制台已经进行钩子检测了。</p>
 <pre><code class="language-bash">git add .
@@ -1740,150 +2056,6 @@ go(function*() {
 </a></li>
 <li><a href="https://juejin.im/post/5c40484bf265da61171cfb4d?utm_source=gold_browser_extension">从 for of 聊到 Generator<br>
 </a></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[设计模式-策略模式]]></title>
-        <id>https://worldzhao.github.io/post/design-pattern-strategy</id>
-        <link href="https://worldzhao.github.io/post/design-pattern-strategy">
-        </link>
-        <updated>2018-11-23T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="设计模式-策略模式">设计模式-策略模式</h1>
-<h2 id="策略模式的定义">策略模式的定义</h2>
-<p>定义一系列的算法，把它们一个个封装起来，并使他们可以相互替换。</p>
-<p>将可变的部分和变化的部分隔开，目的就是将算法的使用与算法的实现分离开。</p>
-<blockquote>
-<p>“在函数作为一等对象的语言中，策略模式是隐形的。 strategy 就是值为函数的变量。”</p>
-</blockquote>
-<h2 id="策略模式应用场景">策略模式应用场景</h2>
-<h3 id="优化判断语句">优化判断语句</h3>
-<p>举一个简单的例子：</p>
-<p>后端返回一个 status 字段，如果是 0，就代表停用，如果是 1，就代表启用，要求前端在页面上显示出相应文案。</p>
-<pre><code class="language-js">/* 解法一：三元运算 */
-const text = status === 0 ? &quot;停用&quot; : &quot;启用&quot;;
-document.getElementById(&quot;root&quot;).innerText = &quot;text&quot;;
-
-/* 解法二：if判断 */
-function getText(status) {
-  if (status === 0) {
-    return &quot;停用&quot;;
-  } else if (status === 1) {
-    return &quot;启用&quot;;
-  } else {
-    return null;
-  }
-}
-
-document.getElementById(&quot;root&quot;).innerText = getText(status);
-
-/* 解法三：switch语句*/
-
-// 与if区别不大，就不做演示了
-</code></pre>
-<p>我们很轻松地解决了这个问题，如果 status 的可能的值不再是 0 或 1，而是 0-9，分别代表某个流程的 10 个步骤，对应 10 个不同的文案，上面的写法就有点麻烦了。</p>
-<p>可能会变成下面的样子：</p>
-<pre><code class="language-js">function getText(status) {
-  if (status === 0) {
-    return &quot;文案0&quot;;
-  } else if (status === 1) {
-    return &quot;文案1&quot;;
-  } else if (status === 2) {
-    // ...
-  }
-  // ...
-}
-
-document.getElementById(&quot;root&quot;).innerText = getText(status);
-</code></pre>
-<p>这样编写存在的问题：</p>
-<ul>
-<li>if-else 语句需要覆盖所有逻辑分支</li>
-<li>缺乏弹性，新增一种文案，则要 getText 方法内新增一句 if-else</li>
-</ul>
-<p>我们要使用策略模式优化</p>
-<pre><code class="language-js">// 定义一个策略对象
-const strategies = {
-  0: &quot;文案0&quot;,
-  1: &quot;文案1&quot;,
-  2: &quot;文案2&quot;,
-  // ...
-  9: &quot;文案9&quot;
-};
-// 通过输入[key]的不同，选择不同的策略算法[value]
-const text = strategies[status];
-document.getElementById(&quot;root&quot;).innerText = text;
-</code></pre>
-<p>此处要进行的操作比较简单，根据不同的 status 返回不同普通的 text。</p>
-<p>如果是针对 status 进行不同的操作，我们将字符串换成相应的操作方法即可。</p>
-<pre><code class="language-js">// 定义一个策略对象
-const strategies = {
-  0: function() {},
-  1: function() {},
-  2: function() {},
-  2: function() {}
-  // ...
-};
-strategies[status] &amp;&amp; strategies[status]();
-</code></pre>
-<p>这里是用的是匿名函数，如果将不同条件对应的算法抽出来定义成一个普通函数，算法的复用性也得到了增强。</p>
-<h3 id="表单校验">表单校验</h3>
-<p>在一个 Web 项目中，注册、登录、修改用户信息等功能的实现都离不开提交表单。</p>
-<p>在将用户输入的数据交给后台之前，常常要做一些客户端力所能及的校验工作，比如注册的 时候需要校验是否填写了用户名，密码的长度是否符合规定，等等。这样可以避免因为提交不合 法数据而带来的不必要网络开销。</p>
-<p>假设我们正在编写一个注册的页面，在点击注册按钮之前，有如下几条校验逻辑。</p>
-<ul>
-<li>用户名不能为空。</li>
-<li>密码长度不能少于 6 位。</li>
-<li>手机号码必须符合格式。</li>
-</ul>
-<h4 id="使用-if-else-进行表单校验">使用 if-else 进行表单校验</h4>
-<pre><code class="language-html">&lt;html lang=&quot;en&quot;&gt;
-  &lt;head&gt;
-    &lt;title&gt;使用判断语句进行表单校验&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;form action=&quot;http://xxx.com/register&quot; id=&quot;registerForm&quot; method=&quot;post&quot;&gt;
-      请输入用户名: &lt;input type=&quot;text&quot; name=&quot;userName&quot; /&gt; 请输入密码:
-      &lt;input type=&quot;text&quot; name=&quot;password&quot; /&gt;请输入手机号码:
-      &lt;input type=&quot;text&quot; name=&quot;phoneNumber&quot; /&gt; &lt;button&gt;提交&lt;/button&gt;
-    &lt;/form&gt;
-    &lt;script&gt;
-      var registerForm = document.getElementById(&quot;registerForm&quot;);
-      registerForm.onsubmit = function() {
-        if (registerForm.userName.value === &quot;&quot;) {
-          alert(&quot;用户名不能为空&quot;);
-          return false;
-        }
-        if (registerForm.password.value.length &lt; 6) {
-          alert(&quot;密码长度不能少于 6 位&quot;);
-          return false;
-        }
-        if (!/(^1[3|5|8][0-9]{9}$)/.test(registerForm.phoneNumber.value)) {
-          alert(&quot;手机号码格式不正确&quot;);
-          return false;
-        }
-      };
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<ul>
-<li>registerForm.onsubmit 函数比较庞大，包含了很多 if-else 语句，这些语句需要覆盖所有的校验规则。</li>
-<li>registerForm.onsubmit 函数缺乏弹性，如果增加了一种新的校验规则，或者想把密码的长度校验从 6 改成 8，我们都必须深入 registerForm.onsubmit 函数的内部实现，这是违反开放—封闭原则的。</li>
-<li>算法的复用性差，如果在程序中增加了另外一个表单，这个表单也需要进行一些类似的校验，那我们很可能将这些校验逻辑复制得漫天遍野</li>
-</ul>
-<h4 id="使用策略模式进行优化">使用策略模式进行优化</h4>
-<h2 id="策略模式的优缺点">策略模式的优缺点</h2>
-<h3 id="优点">优点</h3>
-<ul>
-<li>策略模式可以有效避免多重条件选择语句</li>
-<li>策略模式提供了对开放—封闭原则的完美支持，将算法封装在独立的 strategy 中，使得它<br>
-们易于切换，易于理解，易于扩展</li>
-<li>策略模式的算法可以使用在其他地方，复用性较强</li>
-</ul>
-<h3 id="缺点">缺点</h3>
-<ul>
-<li>需要增加策略对象</li>
 </ul>
 ]]></content>
     </entry>
