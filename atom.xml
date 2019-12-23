@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-23T04:13:01.711Z</updated>
+    <updated>2019-12-23T06:37:40.268Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -64,7 +64,7 @@ yarn add rimraf --dev # 清空目录的一个辅助库
 </code></pre>
 <h2 id="编写文档">编写文档</h2>
 <p>新建<code>components/alert/index.mdx</code>，并写入以下内容：</p>
-<pre><code>---
+<pre><code class="language-md">---
 name: Alert 警告提示
 route: /Alert
 menu: 组件
@@ -179,7 +179,7 @@ interface Props {
   desc?: React.ReactNode;
 }
 
-export const HappyBox: React.FC&lt;Props&gt; = ({ code, title, desc, children }) =&gt; {
+const HappyBox: React.FC&lt;Props&gt; = ({ code, title, desc, children }) =&gt; {
   const [isEditVisible, toggleEditVisible] = useToggle(false);
 
   return (
