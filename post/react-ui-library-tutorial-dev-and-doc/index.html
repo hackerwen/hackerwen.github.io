@@ -1,107 +1,52 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>React 组件库搭建指南-开发调试与文档编写 | 海秋</title>
-<meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1577013424472">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+      <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <meta name="referrer" content="never">
+        <title>React 组件库搭建指南-开发调试与文档编写 | 海秋</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css">
+        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+          <script src="https://worldzhao.github.io/media/scripts/mdui.min.js"></script>
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Ma+Shan+Zheng&display=swap" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+        <script src="https://worldzhao.github.io/media/scripts/script.js"></script>
+        <script >hljs.initHighlightingOnLoad();</script>
+        
 
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+    </head>
+    <body class="mdui-theme-primary-purple mdui-theme-accent-purple">
+        <header class="index-img mdui-m-b-3"  style="background-image: url(https://tva1.sinaimg.cn/large/006tNbRwgy1ga5pq8mkfbj31910u0186.jpg);" >
+                          <button class="mdui-btn  mdui-btn-icon mdui-btn-dense mdui-color-theme-500 mdui-ripple yinying mdui-m-t-1 mdui-m-l-1" mdui-menu="{target: '#demo-attr-cascade'}"><i class="mdui-icon material-icons">&#xe5d2;</i></button>
+                <ul class="mdui-menu" id="demo-attr-cascade">
+                
+                        <li class="mdui-menu-item">
+                          <a href="/" class="mdui-ripple">首页</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/archives" class="mdui-ripple">归档</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/tags" class="mdui-ripple">标签</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/post/about" class="mdui-ripple">关于</a>
+                        </li>
+                
+                      </ul>
 
-
-
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1577013424472" alt="">
-  </a>
-  <h1 class="site-title">
-    海秋
-  </h1>
-  <p class="site-description">
-    故人千万里，新蝉三两声。
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
-          <i class="fab fa-zhihu"></i>
-        </a>
-      
-    
-      
-    
-  </div>
-</div>
-
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              React 组件库搭建指南-开发调试与文档编写
-            </h2>
-            <div class="post-info">
-              <span>
-                2019-12-22
-              </span>
-              <span>
-                4 min read
-              </span>
-              
-                <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
-                  # react
-                </a>
-              
-            </div>
-            
-              <img class="post-feature-image" src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga5pq8mkfbj31910u0186.jpg" alt="">
-            
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <p>MDX，文档生花。</p>
+        </header>
+        <div class="mdui-container post">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                         <article class="mdui-shadow-10 mdui-p-a-2 post-list">
+                           <div class="mdui-typo-display-1 mdui-m-b-3">React 组件库搭建指南-开发调试与文档编写</div>
+                           <a  class="index-list-biaoqian ">2019-12-22</a>
+                           <div class="mdui-typo mdui-m-t-3 post-neirong"><p>MDX，文档生花。</p>
 <!-- more -->
 <h2 id="概览">概览</h2>
 <p><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare/">上一篇文章</a>中进行了项目的初始化，同时编写了一个<code>&lt;Alert/&gt;</code>组件，遗留了一个问题：</p>
@@ -179,7 +124,7 @@ import './style'; // 引入组件样式
 <pre><code class="language-bash">yarn start # or yarn dev
 </code></pre>
 <p>可以在<code>localhost:3000</code>看到如下页面 ：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></figure>
 <p>现在可以在<code>index.mdx</code>中愉快地进行文档编写和调试了！</p>
 <p>倘若本文到了这里就结束（其实也可以结束了<code>(_^▽^_)</code>），那我只是官方文档的翻译复读机罢了，有兴趣的同学可以继续向下看。</p>
 <h2 id="优化文档编写">优化文档编写</h2>
@@ -206,7 +151,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 &lt;/Playground&gt;
 </code></pre>
 <p>这样我们就将 demo 与文档进行了分隔。预览如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></figure>
 <p>等等，你下面显示的那个<code>&lt;BasicDemo /&gt;</code>有点撩人，这里应该是给用户爸爸们<code>copy</code>的<code>demo</code>源码，你弄一个标签在这里，用户爸爸肯定不开心 🙅‍♀️。</p>
 <p>然而<code>&lt;Playground /&gt;</code>组件暂时无法支持上述形式的展示：自定义下方展示的代码，而非<code>&lt;Playground /&gt;</code>内部的代码。相关讨论如下：</p>
 <ul>
@@ -232,7 +177,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 <p>这些依赖都是服务于文档站点应用，和组件库自身毫无关联。</p>
 </blockquote>
 <p>最终效果如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></figure>
 <p>根目录下新建<code>doc-comps</code>文件夹，存放文档中使用的一些工具组件，比如<code>&lt;HappyBox /&gt;</code>。</p>
 <p><strong>doc-comps</strong></p>
 <pre><code>├── happy-box
@@ -403,45 +348,14 @@ exports.onCreateWebpackConfig = args =&gt; {
 <p>更多详见<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-2/dev-and-doc">仓库</a>。</p>
 <p>开发调试与文档编写结束，欢迎指点交流。</p>
 <p>To be Continued...</p>
-
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E6%A6%82%E8%A7%88">概览</a></li>
-<li><a href="#%E5%AE%89%E8%A3%85-docz-%E4%BB%A5%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE">安装 docz 以及自定义配置</a></li>
-<li><a href="#%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3">编写文档</a></li>
-<li><a href="#%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3%E7%BC%96%E5%86%99">优化文档编写</a></li>
-<li><a href="#%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81%E5%B1%95%E7%A4%BA">优化代码展示</a>
-<ul>
-<li><a href="#%E7%BC%96%E5%86%99-happybox-%E7%BB%84%E4%BB%B6">编写 <code>&lt;HappyBox /&gt;</code>组件</a></li>
-<li><a href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%8F%98%E6%9B%B4">相关配置变更</a></li>
-<li><a href="#%E6%94%B9%E9%80%A0%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6">改造相关文件</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-              </div>
-            </div>
-          </article>
-        </div>
-
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare">
-              <h3 class="post-title">
-                React 组件库搭建指南-准备工作
-              </h3>
-            </a>
-          </div>
-        
-
-        
+</div>
+                              <div class="mdui-divider mdui-m-t-3"></div>
+                              <div class="mdui-row-xs-2 mdui-m-t-2">
+  <div class="mdui-col"> </div>
+ <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare">React 组件库搭建指南-准备工作</a></div> </div>
+                                </div>
+                                <div class="mdui-divider mdui-m-t-2"></div>
+   
           
             <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
@@ -468,55 +382,109 @@ exports.onCreateWebpackConfig = args =&gt; {
 
           
         
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+ <script src="https://worldzhao.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
 
 <script>
-  hljs.initHighlightingOnLoad()
+      new Valine({
+            el: '.comment',
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
 
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
-
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
 </script>
+                         </article>
+                 <div class="toc-container mdui-float-right">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%A6%82%E8%A7%88">概览</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-docz-%E4%BB%A5%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE">安装 docz 以及自定义配置</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3">编写文档</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3%E7%BC%96%E5%86%99">优化文档编写</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81%E5%B1%95%E7%A4%BA">优化代码展示</a>
+<ul>
+<li><a href="#%E7%BC%96%E5%86%99-happybox-%E7%BB%84%E4%BB%B6">编写 <code>&lt;HappyBox /&gt;</code>组件</a></li>
+<li><a href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%8F%98%E6%9B%B4">相关配置变更</a></li>
+<li><a href="#%E6%94%B9%E9%80%A0%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6">改造相关文件</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-      </div>
-    </div>
-  </body>
+              </div>
+
+                        </div>
+                 </div>
+          
+        </div>
+        <script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $.viewImage({
+                    'target'  : '.post-neirong img',
+                    'exclude' : '.vsmile-icons img , .song-links-item img',
+                    'delay'   : 300
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+        <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                            
+                           
+                            
+                           
+                            	
+                        <li class="social-link"><a href="https://github.com/worldzhao" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                         
+                           
+                            	
+                        <li class="social-link"><a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a></li>
+                         
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> <br/> Theme <a href="https://github.com/shanbufun/gridea-theme-jia" target="_blank"  title="佳"  >Jia</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >Shanbufun</a> </p>
+                  </div>
+              </footer>
+    </body>
 </html>

@@ -1,105 +1,52 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Linux学习笔记-SSH | 海秋</title>
-<meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1577013424472">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+      <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <meta name="referrer" content="never">
+        <title>Linux学习笔记-SSH | 海秋</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css">
+        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+          <script src="https://worldzhao.github.io/media/scripts/mdui.min.js"></script>
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Ma+Shan+Zheng&display=swap" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+        <script src="https://worldzhao.github.io/media/scripts/script.js"></script>
+        <script >hljs.initHighlightingOnLoad();</script>
+        
 
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+    </head>
+    <body class="mdui-theme-primary-purple mdui-theme-accent-purple">
+        <header class="index-img mdui-m-b-3" >
+                          <button class="mdui-btn  mdui-btn-icon mdui-btn-dense mdui-color-theme-500 mdui-ripple yinying mdui-m-t-1 mdui-m-l-1" mdui-menu="{target: '#demo-attr-cascade'}"><i class="mdui-icon material-icons">&#xe5d2;</i></button>
+                <ul class="mdui-menu" id="demo-attr-cascade">
+                
+                        <li class="mdui-menu-item">
+                          <a href="/" class="mdui-ripple">首页</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/archives" class="mdui-ripple">归档</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/tags" class="mdui-ripple">标签</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/post/about" class="mdui-ripple">关于</a>
+                        </li>
+                
+                      </ul>
 
-
-
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1577013424472" alt="">
-  </a>
-  <h1 class="site-title">
-    海秋
-  </h1>
-  <p class="site-description">
-    故人千万里，新蝉三两声。
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
-          <i class="fab fa-zhihu"></i>
-        </a>
-      
-    
-      
-    
-  </div>
-</div>
-
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              Linux学习笔记-SSH
-            </h2>
-            <div class="post-info">
-              <span>
-                2018-07-09
-              </span>
-              <span>
-                2 min read
-              </span>
-              
-                <a href="https://worldzhao.github.io/tag/k7ci5OYA1u" class="post-tag">
-                  # linux
-                </a>
-              
-            </div>
-            
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h1 id="准备工作">准备工作</h1>
+        </header>
+        <div class="mdui-container post">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                         <article class="mdui-shadow-10 mdui-p-a-2 post-list">
+                           <div class="mdui-typo-display-1 mdui-m-b-3">Linux学习笔记-SSH</div>
+                           <a  class="index-list-biaoqian ">2018-07-09</a>
+                           <div class="mdui-typo mdui-m-t-3 post-neirong"><h1 id="准备工作">准备工作</h1>
 <h2 id="替换默认源">替换默认源</h2>
 <ul>
 <li>http://mirrors.163.com/.help/centos.html</li>
@@ -113,7 +60,7 @@
 <li>个性化脚本一键登录服务器</li>
 </ul>
 <h3 id="ssh-是什么">SSH 是什么</h3>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8yy6xlj30ie0bqq79.jpg" alt="ssh.png"></p>
+<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8yy6xlj30ie0bqq79.jpg" alt="ssh.png"></figure>
 <ul>
 <li>Secure Shell 安全外壳协议</li>
 <li>建立在应用层基础上的安全协议</li>
@@ -160,7 +107,7 @@
 </ul>
 <p>需要依靠密匙，也就是你必须为自己创建一对密匙，并把公用密匙放在需要访问的服务器上。如果你要连接到 SSH 服务器上，客户端软件就会向服务器发出请求，请求用你的密匙进行安全验证。服务器收到请求之后，先在该服务器上你的主目录下寻找你的公用密匙，然后把它和你发送过来的公用密匙进行比较。如果两个密匙一致，服务器就用公用密匙加密“质询”（challenge）并把它发送给客户端软件。客户端软件收到“质询”之后就可以用你的私人密匙解密再把它发送给服务器。<br>
 用这种方式，你必须知道自己密匙的口令。但是，与第一种级别相比，第二种级别不需要在网络上传送口令。</p>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf90jtvtj30yg0l0ahb.jpg" alt="基于密钥的安全验证.png"></p>
+<figure data-type="image" tabindex="2"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf90jtvtj30yg0l0ahb.jpg" alt="基于密钥的安全验证.png"></figure>
 <p>第二种级别不仅加密所有传送的数据，而且“中间人”这种攻击方式也是不可能的（因为他没有你的私人密匙）。但是整个登录的过程可能需要 10 秒</p>
 <p><strong>其实每一个新手配置 github 的过程都走过这些路</strong></p>
 <h3 id="ssh-config-讲解">SSH config 讲解</h3>
@@ -268,52 +215,21 @@ Host centos
 </ul>
 <pre><code>/etc/ssh/sshd_config
 </code></pre>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf92ih5tj30u20p10wf.jpg" alt="/etc/ssh/sshd_config.png"></p>
+<figure data-type="image" tabindex="3"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf92ih5tj30u20p10wf.jpg" alt="/etc/ssh/sshd_config.png"></figure>
 <ul>
 <li>可以同时监听多个端口</li>
 <li>修改完文件后记得重启服务</li>
 </ul>
 <pre><code>service sshd restart
 </code></pre>
-
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">准备工作</a>
-<ul>
-<li><a href="#%E6%9B%BF%E6%8D%A2%E9%BB%98%E8%AE%A4%E6%BA%90">替换默认源</a></li>
-<li><a href="#ssh-%E5%B7%A5%E5%85%B7">SSH 工具</a>
-<ul>
-<li><a href="#ssh-%E6%98%AF%E4%BB%80%E4%B9%88">SSH 是什么</a></li>
-<li><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85-ssh-%E6%9C%8D%E5%8A%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%89%88%E6%9C%AC%E5%B7%B2%E5%AE%89%E8%A3%85">服务器安装 SSH 服务（服务器版本已安装）</a></li>
-<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-ssh-%E5%B7%A5%E5%85%B7">客户端安装 SSH 工具</a></li>
-<li><a href="#%E9%AA%8C%E8%AF%81">验证</a></li>
-<li><a href="#ssh-config-%E8%AE%B2%E8%A7%A3">SSH config 讲解</a></li>
-<li><a href="#%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86%E6%96%B9%E6%A1%88%E4%B9%8B-ssh-key">免密码登陆方案之 SSH Key</a></li>
-<li><a href="#ssh-%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3">ssh 安全端口</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-              </div>
-            </div>
-          </article>
-        </div>
-
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://worldzhao.github.io/post/linux-command">
-              <h3 class="post-title">
-                Linux学习笔记-常用命令
-              </h3>
-            </a>
-          </div>
-        
-
-        
+</div>
+                              <div class="mdui-divider mdui-m-t-3"></div>
+                              <div class="mdui-row-xs-2 mdui-m-t-2">
+  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/nginx-deploy">Nginx学习笔记-项目部署</a></div></div>
+ <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/linux-command">Linux学习笔记-常用命令</a></div> </div>
+                                </div>
+                                <div class="mdui-divider mdui-m-t-2"></div>
+   
           
             <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
@@ -340,55 +256,109 @@ Host centos
 
           
         
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+ <script src="https://worldzhao.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
 
 <script>
-  hljs.initHighlightingOnLoad()
+      new Valine({
+            el: '.comment',
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
 
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
-
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
 </script>
+                         </article>
+                 <div class="toc-container mdui-float-right">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">准备工作</a>
+<ul>
+<li><a href="#%E6%9B%BF%E6%8D%A2%E9%BB%98%E8%AE%A4%E6%BA%90">替换默认源</a></li>
+<li><a href="#ssh-%E5%B7%A5%E5%85%B7">SSH 工具</a>
+<ul>
+<li><a href="#ssh-%E6%98%AF%E4%BB%80%E4%B9%88">SSH 是什么</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85-ssh-%E6%9C%8D%E5%8A%A1%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%89%88%E6%9C%AC%E5%B7%B2%E5%AE%89%E8%A3%85">服务器安装 SSH 服务（服务器版本已安装）</a></li>
+<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-ssh-%E5%B7%A5%E5%85%B7">客户端安装 SSH 工具</a></li>
+<li><a href="#%E9%AA%8C%E8%AF%81">验证</a></li>
+<li><a href="#ssh-config-%E8%AE%B2%E8%A7%A3">SSH config 讲解</a></li>
+<li><a href="#%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86%E6%96%B9%E6%A1%88%E4%B9%8B-ssh-key">免密码登陆方案之 SSH Key</a></li>
+<li><a href="#ssh-%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3">ssh 安全端口</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-      </div>
-    </div>
-  </body>
+              </div>
+
+                        </div>
+                 </div>
+          
+        </div>
+        <script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $.viewImage({
+                    'target'  : '.post-neirong img',
+                    'exclude' : '.vsmile-icons img , .song-links-item img',
+                    'delay'   : 300
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+        <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                            
+                           
+                            
+                           
+                            	
+                        <li class="social-link"><a href="https://github.com/worldzhao" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                         
+                           
+                            	
+                        <li class="social-link"><a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a></li>
+                         
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> <br/> Theme <a href="https://github.com/shanbufun/gridea-theme-jia" target="_blank"  title="佳"  >Jia</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >Shanbufun</a> </p>
+                  </div>
+              </footer>
+    </body>
 </html>

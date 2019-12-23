@@ -1,105 +1,52 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>前端路由总结 | 海秋</title>
-<meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1577013424472">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+      <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <meta name="referrer" content="never">
+        <title>前端路由总结 | 海秋</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css">
+        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+          <script src="https://worldzhao.github.io/media/scripts/mdui.min.js"></script>
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Ma+Shan+Zheng&display=swap" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+        <script src="https://worldzhao.github.io/media/scripts/script.js"></script>
+        <script >hljs.initHighlightingOnLoad();</script>
+        
 
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+    </head>
+    <body class="mdui-theme-primary-purple mdui-theme-accent-purple">
+        <header class="index-img mdui-m-b-3" >
+                          <button class="mdui-btn  mdui-btn-icon mdui-btn-dense mdui-color-theme-500 mdui-ripple yinying mdui-m-t-1 mdui-m-l-1" mdui-menu="{target: '#demo-attr-cascade'}"><i class="mdui-icon material-icons">&#xe5d2;</i></button>
+                <ul class="mdui-menu" id="demo-attr-cascade">
+                
+                        <li class="mdui-menu-item">
+                          <a href="/" class="mdui-ripple">首页</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/archives" class="mdui-ripple">归档</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/tags" class="mdui-ripple">标签</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/post/about" class="mdui-ripple">关于</a>
+                        </li>
+                
+                      </ul>
 
-
-
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1577013424472" alt="">
-  </a>
-  <h1 class="site-title">
-    海秋
-  </h1>
-  <p class="site-description">
-    故人千万里，新蝉三两声。
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
-          <i class="fab fa-zhihu"></i>
-        </a>
-      
-    
-      
-    
-  </div>
-</div>
-
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              前端路由总结
-            </h2>
-            <div class="post-info">
-              <span>
-                2017-10-22
-              </span>
-              <span>
-                3 min read
-              </span>
-              
-                <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="post-tag">
-                  # javascript
-                </a>
-              
-            </div>
-            
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <blockquote>
+        </header>
+        <div class="mdui-container post">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                         <article class="mdui-shadow-10 mdui-p-a-2 post-list">
+                           <div class="mdui-typo-display-1 mdui-m-b-3">前端路由总结</div>
+                           <a  class="index-list-biaoqian ">2017-10-22</a>
+                           <div class="mdui-typo mdui-m-t-3 post-neirong"><blockquote>
 <p>本文总结自：</p>
 </blockquote>
 <ul>
@@ -244,47 +191,14 @@ Router.route(&quot;/green&quot;, function() {
 <p>众所周知，Ajax 可以实现页面的无刷新操作——优点；但是，也会造成另外的问题，无法前进与后退！曾几何时，Gmail 似乎借助 iframe 搞定，如今，HTML5 让事情变得如同过家家般简单。</p>
 <p>当执行 Ajax 操作的时候，往浏览器 history 中塞入一个地址（使用 pushState）（这是无刷新的）；于是，返回的时候，通过 URL 或其他传参，我们就可以还原到 Ajax 之前的模样。</p>
 <p><a href="http://www.zhangxinxu.com/wordpress/2013/06/html5-history-api-pushstate-replacestate-ajax/">ajax 与 HTML5 history pushState/replaceState 实例-张鑫旭</a></p>
-
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%90%8E%E7%AB%AF%E8%B7%AF%E7%94%B1">路由/前端路由/后端路由？</a></li>
-<li><a href="#%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1">实现简易前端路由</a>
-<ul>
-<li><a href="#%E6%96%B9%E5%BC%8F%E4%B8%80html5-history">方式一：html5 history</a>
-<ul>
-<li><a href="#historypushstate">history.pushState</a></li>
-<li><a href="#historyreplacestate">history.replaceState</a></li>
-<li><a href="#windowonpopstate">window.onpopstate</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BD%BF%E7%94%A8-hash-%E5%AE%8C%E6%88%90%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1">使用 hash 完成前端路由</a></li>
-<li><a href="#%E5%B0%8F%E7%9F%A5%E8%AF%86-pjax">小知识-pjax</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-              </div>
-            </div>
-          </article>
-        </div>
-
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://worldzhao.github.io/post/some-css">
-              <h3 class="post-title">
-                最近遇到的一些css题目
-              </h3>
-            </a>
-          </div>
-        
-
-        
+</div>
+                              <div class="mdui-divider mdui-m-t-3"></div>
+                              <div class="mdui-row-xs-2 mdui-m-t-2">
+  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/raining">遇雨</a></div></div>
+ <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/some-css">最近遇到的一些css题目</a></div> </div>
+                                </div>
+                                <div class="mdui-divider mdui-m-t-2"></div>
+   
           
             <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
@@ -311,55 +225,111 @@ Router.route(&quot;/green&quot;, function() {
 
           
         
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+ <script src="https://worldzhao.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
 
 <script>
-  hljs.initHighlightingOnLoad()
+      new Valine({
+            el: '.comment',
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
 
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
-
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
 </script>
+                         </article>
+                 <div class="toc-container mdui-float-right">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%90%8E%E7%AB%AF%E8%B7%AF%E7%94%B1">路由/前端路由/后端路由？</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1">实现简易前端路由</a>
+<ul>
+<li><a href="#%E6%96%B9%E5%BC%8F%E4%B8%80html5-history">方式一：html5 history</a>
+<ul>
+<li><a href="#historypushstate">history.pushState</a></li>
+<li><a href="#historyreplacestate">history.replaceState</a></li>
+<li><a href="#windowonpopstate">window.onpopstate</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8-hash-%E5%AE%8C%E6%88%90%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1">使用 hash 完成前端路由</a></li>
+<li><a href="#%E5%B0%8F%E7%9F%A5%E8%AF%86-pjax">小知识-pjax</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-      </div>
-    </div>
-  </body>
+              </div>
+
+                        </div>
+                 </div>
+          
+        </div>
+        <script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $.viewImage({
+                    'target'  : '.post-neirong img',
+                    'exclude' : '.vsmile-icons img , .song-links-item img',
+                    'delay'   : 300
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+        <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                            
+                           
+                            
+                           
+                            	
+                        <li class="social-link"><a href="https://github.com/worldzhao" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                         
+                           
+                            	
+                        <li class="social-link"><a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a></li>
+                         
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> <br/> Theme <a href="https://github.com/shanbufun/gridea-theme-jia" target="_blank"  title="佳"  >Jia</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >Shanbufun</a> </p>
+                  </div>
+              </footer>
+    </body>
 </html>

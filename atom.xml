@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-22T11:17:09.708Z</updated>
+    <updated>2019-12-23T03:55:12.763Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -96,7 +96,7 @@ import './style'; // 引入组件样式
 <pre><code class="language-bash">yarn start # or yarn dev
 </code></pre>
 <p>可以在<code>localhost:3000</code>看到如下页面 ：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></figure>
 <p>现在可以在<code>index.mdx</code>中愉快地进行文档编写和调试了！</p>
 <p>倘若本文到了这里就结束（其实也可以结束了<code>(_^▽^_)</code>），那我只是官方文档的翻译复读机罢了，有兴趣的同学可以继续向下看。</p>
 <h2 id="优化文档编写">优化文档编写</h2>
@@ -123,7 +123,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 &lt;/Playground&gt;
 </code></pre>
 <p>这样我们就将 demo 与文档进行了分隔。预览如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></figure>
 <p>等等，你下面显示的那个<code>&lt;BasicDemo /&gt;</code>有点撩人，这里应该是给用户爸爸们<code>copy</code>的<code>demo</code>源码，你弄一个标签在这里，用户爸爸肯定不开心 🙅‍♀️。</p>
 <p>然而<code>&lt;Playground /&gt;</code>组件暂时无法支持上述形式的展示：自定义下方展示的代码，而非<code>&lt;Playground /&gt;</code>内部的代码。相关讨论如下：</p>
 <ul>
@@ -149,7 +149,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 <p>这些依赖都是服务于文档站点应用，和组件库自身毫无关联。</p>
 </blockquote>
 <p>最终效果如下：</p>
-<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></figure>
 <p>根目录下新建<code>doc-comps</code>文件夹，存放文档中使用的一些工具组件，比如<code>&lt;HappyBox /&gt;</code>。</p>
 <p><strong>doc-comps</strong></p>
 <pre><code>├── happy-box
@@ -1569,7 +1569,7 @@ class Example extends Component {
 </code></pre>
 <h3 id="源码解析">源码解析</h3>
 <p>如果除去 ts 相关以及注释，不到 20 行。memoize-one 本质是一个高阶函数，真正计算函数作为参数，返回一个新的函数，新的函数内部会缓存上一次入参以及上一次返回值，如果本次入参与上一次入参相等，则返回上一次返回值，否则，重新调用真正的计算函数，并缓存入参以及结果，供下一次使用。</p>
-<p>假装这里有一张流程图 :)</p>
+<p>假装这里有一张流程图 😃</p>
 <pre><code class="language-js">// 默认比较先后入参是否相等的方法，使用者可自定义比较方法
 import areInputsEqual from './are-inputs-equal';
 
@@ -1705,7 +1705,7 @@ render() {
 <p>但在 React 中，依旧会执行 render，所以 get 没有缓存，只是个语法糖。</p>
 <h2 id="使用计算属性实现最优雅的表单联动">使用计算属性实现最优雅的表单联动</h2>
 <p>假设存在业务类别以及处罚内容，并且不同类别对应不同的处罚内容，点击不同的业务类别，处罚内容是动态变化的，以业务类别为网上超市为例，见下图：</p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></p>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></figure>
 <p>完整对应关系如下（数字为对应 code）：</p>
 <pre><code>业务类别：网上超市-0
 处罚内容：协议-0 商品-1 店铺-2 搜索-6
@@ -1719,7 +1719,7 @@ render() {
 业务类别：反项竞价-4
 处罚内容：发起竞价-5
 </code></pre>
-<p>现在我们来完成这个小需求 :)</p>
+<p>现在我们来完成这个小需求 😃</p>
 <h3 id="准备工作-抽象对应数据结构">准备工作-抽象对应数据结构</h3>
 <p><em>为了避免在代码中出现无意义的神仙数字</em>以及<em>大量的 if-else</em>，我们给每一个 code 命名，同时将其文案以及对应内容进行抽象，如下（看个大概结构就好，我也觉得太长了）。</p>
 <pre><code class="language-js">/* 业务类型code */
@@ -1802,7 +1802,7 @@ export const punishContentMap = {
 <h3 id="实战">实战</h3>
 <p>如图，如果勾选了<code>永久</code>(permanent)，该时间选择器禁用。</p>
 <p>同时，回填时如果 permanent 字段为 PERMANENT_CODE，则要将时间选择器还原为禁用状态。</p>
-<p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></p>
+<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></figure>
 <p>解决如下：</p>
 <pre><code class="language-jsx">  get isDatePickerDisabled() {
     const { getFieldValue } = this.props.form;

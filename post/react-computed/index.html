@@ -1,107 +1,52 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>优雅处理表单联动 | 海秋</title>
-<meta name="description" content="故人千万里，新蝉三两声。" />
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1577013424472">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+      <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <meta name="referrer" content="never">
+        <title>优雅处理表单联动 | 海秋</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css">
+        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+          <script src="https://worldzhao.github.io/media/scripts/mdui.min.js"></script>
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Ma+Shan+Zheng&display=swap" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+        <script src="https://worldzhao.github.io/media/scripts/script.js"></script>
+        <script >hljs.initHighlightingOnLoad();</script>
+        
 
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+    </head>
+    <body class="mdui-theme-primary-purple mdui-theme-accent-purple">
+        <header class="index-img mdui-m-b-3"  style="background-image: url(http://ww2.sinaimg.cn/large/006tNc79gy1g5uhe3gi3qj30u00u04qp.jpg);" >
+                          <button class="mdui-btn  mdui-btn-icon mdui-btn-dense mdui-color-theme-500 mdui-ripple yinying mdui-m-t-1 mdui-m-l-1" mdui-menu="{target: '#demo-attr-cascade'}"><i class="mdui-icon material-icons">&#xe5d2;</i></button>
+                <ul class="mdui-menu" id="demo-attr-cascade">
+                
+                        <li class="mdui-menu-item">
+                          <a href="/" class="mdui-ripple">首页</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/archives" class="mdui-ripple">归档</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/tags" class="mdui-ripple">标签</a>
+                        </li>
+                
+                        <li class="mdui-menu-item">
+                          <a href="/post/about" class="mdui-ripple">关于</a>
+                        </li>
+                
+                      </ul>
 
-
-
-  </head>
-  <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://worldzhao.github.io">
-  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1577013424472" alt="">
-  </a>
-  <h1 class="site-title">
-    海秋
-  </h1>
-  <p class="site-description">
-    故人千万里，新蝉三两声。
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
-          <i class="fab fa-zhihu"></i>
-        </a>
-      
-    
-      
-    
-  </div>
-</div>
-
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              优雅处理表单联动
-            </h2>
-            <div class="post-info">
-              <span>
-                2019-03-17
-              </span>
-              <span>
-                4 min read
-              </span>
-              
-                <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
-                  # react
-                </a>
-              
-            </div>
-            
-              <img class="post-feature-image" src="http://ww2.sinaimg.cn/large/006tNc79gy1g5uhe3gi3qj30u00u04qp.jpg" alt="">
-            
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h1 id="优雅处理表单联动">优雅处理表单联动</h1>
+        </header>
+        <div class="mdui-container post">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                         <article class="mdui-shadow-10 mdui-p-a-2 post-list">
+                           <div class="mdui-typo-display-1 mdui-m-b-3">优雅处理表单联动</div>
+                           <a  class="index-list-biaoqian ">2019-03-17</a>
+                           <div class="mdui-typo mdui-m-t-3 post-neirong"><h1 id="优雅处理表单联动">优雅处理表单联动</h1>
 <h2 id="引言">引言</h2>
 <p>表单之间联动一直是后台管理类项目中的高频场景，简单描述为：一个（源）表单域的变化会导致另外一个（目标）表单域的变化。</p>
 <p>本文基于 antd，结合 get 关键字，提出了一种较为优雅地解决表单联动的手段。</p>
@@ -156,7 +101,7 @@ render() {
 <p>但在 React 中，依旧会执行 render，所以 get 没有缓存，只是个语法糖。</p>
 <h2 id="使用计算属性实现最优雅的表单联动">使用计算属性实现最优雅的表单联动</h2>
 <p>假设存在业务类别以及处罚内容，并且不同类别对应不同的处罚内容，点击不同的业务类别，处罚内容是动态变化的，以业务类别为网上超市为例，见下图：</p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></p>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></figure>
 <p>完整对应关系如下（数字为对应 code）：</p>
 <pre><code>业务类别：网上超市-0
 处罚内容：协议-0 商品-1 店铺-2 搜索-6
@@ -170,7 +115,7 @@ render() {
 业务类别：反项竞价-4
 处罚内容：发起竞价-5
 </code></pre>
-<p>现在我们来完成这个小需求 :)</p>
+<p>现在我们来完成这个小需求 😃</p>
 <h3 id="准备工作-抽象对应数据结构">准备工作-抽象对应数据结构</h3>
 <p><em>为了避免在代码中出现无意义的神仙数字</em>以及<em>大量的 if-else</em>，我们给每一个 code 命名，同时将其文案以及对应内容进行抽象，如下（看个大概结构就好，我也觉得太长了）。</p>
 <pre><code class="language-js">/* 业务类型code */
@@ -253,7 +198,7 @@ export const punishContentMap = {
 <h3 id="实战">实战</h3>
 <p>如图，如果勾选了<code>永久</code>(permanent)，该时间选择器禁用。</p>
 <p>同时，回填时如果 permanent 字段为 PERMANENT_CODE，则要将时间选择器还原为禁用状态。</p>
-<p><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></p>
+<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></figure>
 <p>解决如下：</p>
 <pre><code class="language-jsx">  get isDatePickerDisabled() {
     const { getFieldValue } = this.props.form;
@@ -354,46 +299,14 @@ class Test extends Component {
   }
 }
 </code></pre>
-
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li><a href="#%E4%BC%98%E9%9B%85%E5%A4%84%E7%90%86%E8%A1%A8%E5%8D%95%E8%81%94%E5%8A%A8">优雅处理表单联动</a>
-<ul>
-<li><a href="#%E5%BC%95%E8%A8%80">引言</a></li>
-<li><a href="#%E4%BC%AA%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">（伪）计算属性</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%AE%9E%E7%8E%B0%E6%9C%80%E4%BC%98%E9%9B%85%E7%9A%84%E8%A1%A8%E5%8D%95%E8%81%94%E5%8A%A8">使用计算属性实现最优雅的表单联动</a>
-<ul>
-<li><a href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C-%E6%8A%BD%E8%B1%A1%E5%AF%B9%E5%BA%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">准备工作-抽象对应数据结构</a></li>
-<li><a href="#%E5%B7%A7%E7%94%A8%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">巧用计算属性</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9B%9E%E5%A1%AB%E8%A1%A8%E5%8D%95%E4%BB%8E%E6%9C%AA%E5%A6%82%E6%AD%A4%E7%AE%80%E5%8D%95">回填表单，从未如此简单</a>
-<ul>
-<li><a href="#%E5%AE%9E%E6%88%98">实战</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-              </div>
-            </div>
-          </article>
-        </div>
-
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://worldzhao.github.io/post/pig">
-              <h3 class="post-title">
-                从callback到async
-              </h3>
-            </a>
-          </div>
-        
-
-        
+</div>
+                              <div class="mdui-divider mdui-m-t-3"></div>
+                              <div class="mdui-row-xs-2 mdui-m-t-2">
+  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">memoize-one 简介</a></div></div>
+ <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/pig">从callback到async</a></div> </div>
+                                </div>
+                                <div class="mdui-divider mdui-m-t-2"></div>
+   
           
             <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
@@ -420,55 +333,110 @@ class Test extends Component {
 
           
         
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+ <script src="https://worldzhao.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
 
 <script>
-  hljs.initHighlightingOnLoad()
+      new Valine({
+            el: '.comment',
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
 
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      console.log('section.offsetHeight', section.offsetHeight);
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
-
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
 </script>
+                         </article>
+                 <div class="toc-container mdui-float-right">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E4%BC%98%E9%9B%85%E5%A4%84%E7%90%86%E8%A1%A8%E5%8D%95%E8%81%94%E5%8A%A8">优雅处理表单联动</a>
+<ul>
+<li><a href="#%E5%BC%95%E8%A8%80">引言</a></li>
+<li><a href="#%E4%BC%AA%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">（伪）计算属性</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%AE%9E%E7%8E%B0%E6%9C%80%E4%BC%98%E9%9B%85%E7%9A%84%E8%A1%A8%E5%8D%95%E8%81%94%E5%8A%A8">使用计算属性实现最优雅的表单联动</a>
+<ul>
+<li><a href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C-%E6%8A%BD%E8%B1%A1%E5%AF%B9%E5%BA%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">准备工作-抽象对应数据结构</a></li>
+<li><a href="#%E5%B7%A7%E7%94%A8%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">巧用计算属性</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9E%E5%A1%AB%E8%A1%A8%E5%8D%95%E4%BB%8E%E6%9C%AA%E5%A6%82%E6%AD%A4%E7%AE%80%E5%8D%95">回填表单，从未如此简单</a>
+<ul>
+<li><a href="#%E5%AE%9E%E6%88%98">实战</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-      </div>
-    </div>
-  </body>
+              </div>
+
+                        </div>
+                 </div>
+          
+        </div>
+        <script data-no-instant>
+    (function ($) {
+        $.extend({
+            adamsOverload: function () {
+                $.viewImage({
+                    'target'  : '.post-neirong img',
+                    'exclude' : '.vsmile-icons img , .song-links-item img',
+                    'delay'   : 300
+                });
+            }
+        });
+    })(jQuery);
+    jQuery.adamsOverload();
+</script>
+        <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                            
+                           
+                            
+                           
+                            	
+                        <li class="social-link"><a href="https://github.com/worldzhao" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                         
+                           
+                            	
+                        <li class="social-link"><a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a></li>
+                         
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                            
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> <br/> Theme <a href="https://github.com/shanbufun/gridea-theme-jia" target="_blank"  title="佳"  >Jia</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >Shanbufun</a> </p>
+                  </div>
+              </footer>
+    </body>
 </html>
