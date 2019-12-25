@@ -63,10 +63,9 @@
 <li>prepare: 组件库前期开发准备工作。<code>eslint</code>/<code>commit lint</code>/<code>typescript</code>等等；</li>
 <li>dev: 使用<a href="https://github.com/doczjs/docz">docz</a>进行开发调试以及文档编写；</li>
 <li>build: <s><code>umd</code></s>/<code>cjs</code>/<code>esm</code>、types、polyfill 以及按需加载；</li>
-<li>test: 组件测试；</li>
 <li>deploy: 使用<a href="https://zeit.co/home">now</a>部署文档站点；</li>
 <li>publish: 发布组件库至<code>npm</code>；</li>
-<li>others: 编写个性化<code>Playground</code>组件，优化示例以及文档结构。</li>
+<li>others: 组件测试</li>
 </ul>
 <p>注意：<code>.gitignore</code>、<code>.eslintignore</code>以及<code>.editorconfig</code>等更多文件可在<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-1/before-start">chapter-1</a>章节代码中获取。</p>
 <h2 id="初始化项目">初始化项目</h2>
@@ -161,8 +160,7 @@ module.exports = {
 <p>新建<code>tsconfig.json</code>并写入以下内容</p>
 <pre><code class="language-json">{
   &quot;compilerOptions&quot;: {
-    &quot;rootDir&quot;: &quot;components&quot;,
-    &quot;baseUrl&quot;: &quot;components&quot;,
+    &quot;allowJs&quot;: false,
     &quot;target&quot;: &quot;esnext&quot;,
     &quot;module&quot;: &quot;commonjs&quot;,
     &quot;jsx&quot;: &quot;react&quot;,
@@ -172,7 +170,8 @@ module.exports = {
     &quot;moduleResolution&quot;: &quot;node&quot;,
     &quot;allowSyntheticDefaultImports&quot;: true,
     &quot;esModuleInterop&quot;: true
-  }
+  },
+  &quot;include&quot;: [&quot;components&quot;]
 }
 </code></pre>
 <h2 id="测试">测试</h2>
@@ -276,7 +275,7 @@ git push
 </div>
                               <div class="mdui-divider mdui-m-t-3"></div>
                               <div class="mdui-row-xs-2 mdui-m-t-2">
-  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-dev-and-doc">React 组件库搭建指南-开发调试与文档编写</a></div></div>
+  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-dev-and-doc">React 组件库搭建指南-开发调试</a></div></div>
  <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/thinking-in-ui-library">组件（库）开发相关总结</a></div> </div>
                                 </div>
                                 <div class="mdui-divider mdui-m-t-2"></div>

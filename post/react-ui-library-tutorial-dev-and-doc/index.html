@@ -6,7 +6,7 @@
   />
   <meta charset="utf-8" />
   <meta name="referrer" content="never" />
-  <title>React 组件库搭建指南-开发调试与文档编写 | 海秋</title>
+  <title>React 组件库搭建指南-开发调试 | 海秋</title>
   <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css" />
@@ -53,12 +53,12 @@
                 <div class="mdui-row">
                         <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
                          <article class="mdui-shadow-10 mdui-p-a-2 post-list">
-                           <div class="mdui-typo-display-1 mdui-m-b-3">React 组件库搭建指南-开发调试与文档编写</div>
+                           <div class="mdui-typo-display-1 mdui-m-b-3">React 组件库搭建指南-开发调试</div>
                            <a  class="index-list-biaoqian ">2019-12-22</a>
                            <div class="mdui-typo mdui-m-t-3 post-neirong"><p>MDX，文档生花。</p>
 <!-- more -->
 <h2 id="概览">概览</h2>
-<p><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare/">上一篇文章</a>中进行了项目的初始化，同时编写了一个<code>&lt;Alert/&gt;</code>组件，遗留了一个问题：</p>
+<p>本文解决开发组件时的预览以及调试问题，顺路解决文档编写。</p>
 <p><strong>编写时完全无法进行预览调试</strong></p>
 <p>此处选择<a href="https://github.com/doczjs/docz">docz</a>来辅助预览调试。</p>
 <blockquote>
@@ -107,9 +107,7 @@ route: /Alert
 menu: 组件
 ---
 
-import { Playground } from 'docz';
-import Alert from './alert'; // 引入组件
-import './style'; // 引入组件样式
+import { Playground } from 'docz'; import Alert from './alert'; // 引入组件 import './style'; // 引入组件样式
 
 # Alert 警告提示
 
@@ -304,12 +302,11 @@ exports.onCreateWebpackConfig = args =&gt; {
   ],
 };
 </code></pre>
-<p><code>tsconfig.json</code> 忽略<code>demo</code>以及<code>doc-comps</code>，避免组件库打包生成<code>types</code>时包含其中：</p>
+<p><code>tsconfig.json</code> 忽略<code>demo</code>，避免组件库打包生成<code>types</code>时包含其中：</p>
 <p><strong>tsconfig.json</strong></p>
 <pre><code class="language-diff">{
   &quot;compilerOptions&quot;: {
-    &quot;rootDir&quot;: &quot;components&quot;,
-    &quot;baseUrl&quot;: &quot;components&quot;,
+    &quot;allowJs&quot;: false,
     &quot;target&quot;: &quot;esnext&quot;,
     &quot;module&quot;: &quot;commonjs&quot;,
     &quot;jsx&quot;: &quot;react&quot;,
@@ -320,9 +317,9 @@ exports.onCreateWebpackConfig = args =&gt; {
     &quot;allowSyntheticDefaultImports&quot;: true,
     &quot;esModuleInterop&quot;: true
   },
-+ &quot;exclude&quot;: [&quot;components/**/demo&quot;, &quot;doc-comps&quot;]
+  &quot;include&quot;: [&quot;components&quot;],
++ &quot;exclude&quot;: [&quot;components/**/demo&quot;]
 }
-
 </code></pre>
 <h3 id="改造相关文件">改造相关文件</h3>
 <p><strong>components/alert/demo/1-demo-basic.tsx</strong></p>
@@ -360,7 +357,7 @@ exports.onCreateWebpackConfig = args =&gt; {
 </div>
                               <div class="mdui-divider mdui-m-t-3"></div>
                               <div class="mdui-row-xs-2 mdui-m-t-2">
-  <div class="mdui-col"> </div>
+  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-3">React组件库搭建指南-打包输出</a></div></div>
  <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare">React 组件库搭建指南-准备工作</a></div> </div>
                                 </div>
                                 <div class="mdui-divider mdui-m-t-2"></div>

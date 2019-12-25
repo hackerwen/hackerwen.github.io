@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-24T01:35:52.968Z</updated>
+    <updated>2019-12-25T07:16:47.526Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -11,7 +11,438 @@
     <icon>https://worldzhao.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, 海秋</rights>
     <entry>
-        <title type="html"><![CDATA[React 组件库搭建指南-开发调试与文档编写]]></title>
+        <title type="html"><![CDATA[React组件库搭建指南-打包输出]]></title>
+        <id>https://worldzhao.github.io/post/react-ui-library-tutorial-3</id>
+        <link href="https://worldzhao.github.io/post/react-ui-library-tutorial-3">
+        </link>
+        <updated>2019-12-25T07:15:14.000Z</updated>
+        <summary type="html"><![CDATA[<p>重头戏来了。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>重头戏来了。</p>
+<!--more -->
+<h2 id="概览">概览</h2>
+<p><strong>宿主环境各不相同，为了保证使用者良好的开发体验，需要将源码进行相关处理后发布至 npm。</strong></p>
+<p>明确以下目标：</p>
+<ol>
+<li>导出类型声明文件</li>
+<li>导出 <code>umd</code>/<code>Commonjs module</code>/<code>ES module</code> 等 3 种形式供使用者引入</li>
+<li>支持样式文件 <code>css</code> 引入，而非只有<code>less</code></li>
+<li>支持按需加载</li>
+</ol>
+<p>本节所有代码可在仓库<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-3/build">chapter-3</a>分支中获取。</p>
+<h3 id="导出类型声明文件">导出类型声明文件</h3>
+<p>既然是使用<code>typescript</code>编写的组件库，那么使用者应当享受到类型系统的好处。</p>
+<p>我们可以生成类型声明文件，并在<code>package.json</code>中定义入口，如下：</p>
+<p><strong>package.json</strong></p>
+<pre><code class="language-json">{
+  &quot;typings&quot;: &quot;types/index.d.ts&quot;, // 定义类型入口文件
+  &quot;scripts&quot;: {
+    &quot;build:types&quot;: &quot;tsc --emitDeclarationOnly&quot; // 执行tsc命令 只生成声明文件
+  }
+}
+</code></pre>
+<p>执行<code>yarn build:types</code>，可以发现根目录下已经生成了<code>types</code>文件夹（<code>tsconfig.json</code>中定义的<code>outDir</code>字段），目录结构与<code>components</code>文件夹保持一致，如下：</p>
+<p><strong>types</strong></p>
+<pre><code>├── alert
+│   ├── alert.d.ts
+│   ├── index.d.ts
+│   ├── interface.d.ts
+│   └── style
+│       └── index.d.ts
+└── index.d.ts
+</code></pre>
+<p>这样使用者引入<code>npm</code> 包时，便能得到自动提示，也能够复用相关组件的类型定义。</p>
+<p>接下来将<code>ts(x)</code>等文件处理成<code>js</code>文件。</p>
+<blockquote>
+<p>需要注意的是，我们需要输出<code>Commonjs module</code>以及<code>ES module</code>两种模块类型的文件（暂不考虑<code>umd</code>），以下使用<code>cjs</code>指代<code>Commonjs module</code>，<code>esm</code>指代<code>ES module</code>。<br/> 对此有疑问的同学推荐阅读：<a href="https://github.com/ShowJoy-com/showjoy-blog/issues/39">import、require、export、module.exports 混合详解</a></p>
+</blockquote>
+<h3 id="导出-commonjs-模块">导出 Commonjs 模块</h3>
+<p>其实完全可以使用<code>babel</code>以及<code>tsc</code>命令行工具进行代码编译处理（实际上很多工具库就是这样做的），但考虑到还要<strong>处理样式及其按需加载</strong>，我们借助 <code>gulp</code> 来串起这个流程。</p>
+<h4 id="babel-配置">babel 配置</h4>
+<p>首先安装<code>babel</code>及其相关依赖</p>
+<pre><code class="language-bash">yarn add @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript @babel/plugin-proposal-class-properties  @babel/plugin-transform-runtime --dev
+</code></pre>
+<pre><code class="language-bash">yarn add @babel/runtime-corejs3
+</code></pre>
+<p>新建<code>.babelrc.js</code>文件，写入以下内容：</p>
+<p><strong>.babelrc.js</strong></p>
+<pre><code class="language-js">module.exports = {
+  presets: ['@babel/env', '@babel/typescript', '@babel/react'],
+  plugins: [
+    '@babel/proposal-class-properties',
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        corejs: 3,
+        helpers: true,
+      },
+    ],
+  ],
+};
+</code></pre>
+<p><code>@babel/plugin-transform-runtime</code>与<code>@babel/runtime-corejs3</code></p>
+<ul>
+<li>若<code>helpers</code>选项设置为<code>true</code>，可抽离代码编译过程重复生成的 <code>helper</code> 函数（<code>classCallCheck</code>,<code>extends</code>等），减小生成的代码体积；</li>
+<li>若<code>corejs</code>设置为<code>3</code>，可引入不污染全局的按需<code>polyfill</code>，常用于类库编写（也可以不引入<code>polyfill</code>，转而告知使用者需要引入何种<code>polyfill</code>，避免重复引入或产生冲突）。</li>
+</ul>
+<p>更多参见<a href="https://babeljs.io/docs/en/next/babel-plugin-transform-runtime">官方文档-@babel/plugin-transform-runtime </a></p>
+<p><strong>配置目标环境</strong></p>
+<p>为了避免转译浏览器原生支持的语法，新建<code>.browserslistrc</code>文件，根据适配需求，写入支持浏览器范围，作用于<code>@babel/preset-env</code>。</p>
+<p><strong>.browserslistrc</strong></p>
+<pre><code>&gt;0.2%
+not dead
+not op_mini all
+</code></pre>
+<p>很遗憾的是，<code>@babel/runtime-corejs3</code>无法在按需引入的基础上根据目标浏览器支持程度再次减少<code>polyfill</code>的引入，参见<a href="https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelruntime-for-target-environment">@babel/runtime for target environment </a>。</p>
+<p>这意味着<code>@babel/runtime-corejs3</code> 甚至会在针对现代引擎的情况下注入所有可能的 <code>polyfill</code>：不必要地增加了最终捆绑包的大小。</p>
+<p>开发过程中尤其需要注意。</p>
+<h4 id="gulp-配置">gulp 配置</h4>
+<p>再来安装<code>gulp</code>相关依赖</p>
+<pre><code class="language-bash">yarn add gulp gulp-babel --dev
+</code></pre>
+<p>新建<code>gulpfile.js</code>，写入以下内容：</p>
+<p><strong>gulpfile.js</strong></p>
+<pre><code class="language-js">const gulp = require('gulp');
+const babel = require('gulp-babel');
+
+const paths = {
+  dest: {
+    lib: 'lib', // commonjs 文件存放的目录名 - 本块关注
+    esm: 'esm', // ES module 文件存放的目录名 - 暂时不关心
+    dist: 'dist', // umd文件存放的目录名 - 暂时不关心
+  },
+  styles: 'components/**/*.less', // 样式文件路径 - 暂时不关心
+  scripts: ['components/**/*.{ts,tsx}', '!components/**/demo/*.{ts,tsx}'], // 脚本文件路径
+};
+
+function compileCJS() {
+  const { dest, scripts } = paths;
+  return gulp
+    .src(scripts)
+    .pipe(babel()) // 使用gulp-babel处理
+    .pipe(gulp.dest(dest.lib));
+}
+
+// 并行任务 后续加入样式处理 可以并行处理
+const build = gulp.parallel(compileCJS);
+
+exports.build = build;
+
+exports.default = build;
+</code></pre>
+<p>修改<code>package.json</code></p>
+<p><strong>package.json</strong></p>
+<pre><code class="language-diff">{
+- &quot;main&quot;: &quot;index.js&quot;,
++ &quot;main&quot;: &quot;lib/index.js&quot;,
+  &quot;scripts&quot;: {
+    ...
++   &quot;clean&quot;: &quot;rimraf types lib esm dist&quot;,
++   &quot;build&quot;: &quot;npm run clean &amp;&amp; npm run build:types &amp;&amp; gulp&quot;,
+    ...
+  },
+}
+</code></pre>
+<p>执行<code>yarn build</code>，得到如下内容：</p>
+<p><strong>lib</strong></p>
+<pre><code>├── alert
+│   ├── alert.js
+│   ├── index.js
+│   ├── interface.js
+│   └── style
+│       └── index.js
+└── index.js
+</code></pre>
+<p>观察编译后的源码，可以发现：诸多<code>helper</code>方法已被抽离至<code>@babel/runtime-corejs3</code>中，模块导入导出形式也是<code>commonjs</code>规范。</p>
+<p><strong>lib/alert/alert.js</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga7zwrhkbaj30u00u9wsv.jpg" alt="lib/alert/alert.js"></figure>
+<h3 id="导出-es-module">导出 ES module</h3>
+<p>基于上一步的<code>babel</code>配置，生成<code>ES module</code>，我们需要更新以下内容：</p>
+<ol>
+<li>配置<code>@babel/preset-env</code>的<code>modules</code>选项为<code>false</code>，关闭模块转换；</li>
+<li>配置<code>@babel/runtime-corejs3</code>的<code>useESModules</code>选项为<code>true</code>，使用<code>ES module</code>形式引入<code>helper</code>函数以及相关<code>polyfill</code>。</li>
+</ol>
+<p><strong>.babelrc.js</strong></p>
+<pre><code class="language-diff">module.exports = {
+-  presets: ['@babel/env', '@babel/typescript', '@babel/react'],
++  presets: [
++   [
++     '@babel/env',
++     {
++       modules: false, // 关闭模块转换
++     },
++   ],
+    '@babel/typescript',
+    '@babel/react',
+  ],
+  plugins: [
+    '@babel/proposal-class-properties',
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        corejs: 3,
+        helpers: true,
++       useESModules: true, // 使用esm形式的helper
+      },
+    ],
+  ],
+};
+</code></pre>
+<p>得到生成<code>esm</code>的配置，也不能丢失之前的配置，此处可以使用环境变量进行区分（执行任务时设置对应的环境变量即可），最终<code>babel</code>配置如下：</p>
+<p><strong>.babelrc.js</strong></p>
+<pre><code class="language-js">module.exports = {
+  presets: ['@babel/typescript', '@babel/react'],
+  plugins: ['@babel/proposal-class-properties'],
+  env: {
+    CJS: {
+      presets: [['@babel/env']],
+      plugins: [
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            corejs: 3,
+            helpers: true,
+          },
+        ],
+      ],
+    },
+    ESM: {
+      presets: [
+        [
+          '@babel/env',
+          {
+            modules: false,
+          },
+        ],
+      ],
+      plugins: [
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            corejs: 3,
+            helpers: true,
+            useESModules: true,
+          },
+        ],
+      ],
+    },
+  },
+};
+</code></pre>
+<p>接下来修改<code>gulp</code>相关配置，抽离<code>compileScripts</code>任务，增加<code>compileESM</code>任务。</p>
+<p><strong>gulpfile.js</strong></p>
+<pre><code class="language-js">// ...
+
+/**
+ * 编译脚本文件
+ * @param {string} babelEnv babel环境变量
+ * @param {string} destDir 目标目录
+ */
+function compileScripts(babelEnv, destDir) {
+  const { scripts } = paths;
+  // 设置环境变量
+  process.env.BABEL_ENV = babelEnv;
+  return gulp
+    .src(scripts)
+    .pipe(babel()) // 使用gulp-babel处理
+    .pipe(gulp.dest(destDir));
+}
+
+/**
+ * 编译cjs
+ */
+function compileCJS() {
+  const { dest } = paths;
+  return compileScripts('CJS', dest.lib);
+}
+
+/**
+ * 编译esm
+ */
+function compileESM() {
+  const { dest } = paths;
+  return compileScripts('ESM', dest.esm);
+}
+
+// 串行执行编译脚本任务（cjs,esm） 避免环境变量影响
+const buildScripts = gulp.series(compileCJS, compileESM);
+
+// 整体并行执行任务
+const build = gulp.parallel(buildScripts);
+
+// ...
+</code></pre>
+<p>执行<code>yarn build</code>，可以发现生成了<code>types</code>/<code>lib</code>/<code>esm</code>三个文件夹，观察<code>esm</code>目录，结构同<code>lib</code>/<code>types</code>一致，js 文件都是以<code>ES module</code>模块形式导入导出。</p>
+<p><strong>esm/alert/alert.js</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga8spy8422j314a0u0wnl.jpg" alt="esm/alert/alert.js"></figure>
+<p>别忘了给<code>package.json</code>增加相关入口。</p>
+<p><strong>package.json</strong></p>
+<pre><code class="language-diff">{
++ &quot;module&quot;: &quot;esm/index.js&quot;
+}
+</code></pre>
+<h3 id="处理样式文件">处理样式文件</h3>
+<h4 id="拷贝-less-文件">拷贝 less 文件</h4>
+<p>我们会将<code>less</code>文件包含在<code>npm</code>包中，用户可以通过<code>happy-ui/lib/alert/style/index.js</code>的形式按需引入<code>less</code>文件，此处可以直接将 less 文件拷贝至目标文件夹。</p>
+<p>在<code>gulpfile.js</code>中新建<code>copyLess</code>任务。</p>
+<p><strong>gulpfile.js</strong></p>
+<pre><code class="language-js">// ...
+
+/**
+ * 拷贝less文件
+ */
+function copyLess() {
+  return gulp
+    .src(paths.styles)
+    .pipe(gulp.dest(paths.dest.lib))
+    .pipe(gulp.dest(paths.dest.esm));
+}
+
+const build = gulp.parallel(buildScripts, copyLess);
+
+// ...
+</code></pre>
+<p>观察<code>lib</code>目录，可以发现 less 文件已经被移过去了。</p>
+<p><strong>lib</strong></p>
+<pre><code>├── alert
+│   ├── alert.js
+│   ├── index.js
+│   ├── interface.js
+│   └── style
+│       ├── index.js
+│       └── index.less # less文件
+└── index.js
+</code></pre>
+<p>可能有些同学已经发现问题：若使用者没有使用<code>less</code>预处理器，使用的是<code>sass</code>方案甚至原生<code>css</code>方案，那现有方案就搞不定了。经分析，有以下 3 种预选方案：</p>
+<ol>
+<li>告知用户增加<code>less-loader</code>；</li>
+<li>打包出一份完整的 <code>css</code> 文件，进行<strong>全量</strong>引入；</li>
+<li>单独提供一份<code>style/css.js</code>文件，引入的是组件 <code>css</code>文件依赖，而非 <code>less</code> 依赖，组件库底层抹平差异。</li>
+</ol>
+<p>方案 1 会导致使用成本增加。</p>
+<p>方案 2 无法对样式文件进行按需引入（后续在 <code>umd</code> 打包时我们也会提供该样式文件）。</p>
+<p>以上两种方案实为下策（画外音：如果使用<code>css in js</code>就没有这么多屁事了）。</p>
+<p>方案 3 比较符合此时的的场景，<code>antd</code>使用的也是这种方案。</p>
+<p>在搭建组件库的过程中，有一个问题困扰了我很久：为什么需要<code>alert/style/index.js</code>引入<code>less</code>文件或<code>alert/style/css.js</code>引入<code>css</code>文件？</p>
+<p>答案是<strong>管理样式依赖</strong>。</p>
+<p>假设存在以下场景：引入<code>&lt;Button /&gt;</code>，<code>&lt;Button /&gt;</code>依赖了<code>&lt;Icon /&gt;</code>，使用者需要手动去引入调用的组件的样式（<code>&lt;Button /&gt;</code>）及其依赖的组件样式（<code>&lt;Button /&gt;</code>），遇到复杂组件极其麻烦，所以组件库开发者可以提供一份这样的<code>js</code>文件，使用者手动引入这个<code>js</code>文件，就能引入对应组件及其依赖组件的样式。</p>
+<p>继续我们的旅程。</p>
+<h4 id="生成-css-文件">生成 css 文件</h4>
+<p>安装相关依赖。</p>
+<pre><code class="language-bash">yarn add gulp-less gulp-autoprefixer gulp-cssnano --dev
+</code></pre>
+<p>将<code>less</code>文件生成对应的<code>css</code>文件，在<code>gulpfile.js</code>中增加<code>less2css</code>任务。</p>
+<pre><code class="language-js">// ...
+
+/**
+ * 生成css文件
+ */
+function less2css() {
+  return gulp
+    .src(paths.styles)
+    .pipe(less()) // 处理less文件
+    .pipe(autoprefixer()) // 根据browserslistrc增加前缀
+    .pipe(cssnano({ zindex: false, reduceIdents: false })) // 压缩
+    .pipe(gulp.dest(paths.dest.lib))
+    .pipe(gulp.dest(paths.dest.esm));
+}
+
+const build = gulp.parallel(buildScripts, copyLess, less2css);
+
+// ...
+</code></pre>
+<p>执行<code>yarn build</code>，组件<code>style</code>目录下已经存在<code>css</code>文件了。</p>
+<p>接下来我们需要一个<code>alert/style/css.js</code>来帮用户引入<code>css</code>文件。</p>
+<h4 id="生成-cssjs">生成 css.js</h4>
+<p>此处参考<a href="https://github.com/ant-design/antd-tools/blob/master/lib/gulpfile.js#L248">antd-tools</a>的实现方式：在处理<code>scripts</code>任务中，截住<code>style/index.js</code>，生成<code>style/css.js</code>，并通过正则将引入的<code>less</code>文件后缀改成<code>css</code>。</p>
+<p>安装相关依赖。</p>
+<pre><code class="language-bash">yarn add through2 --dev
+</code></pre>
+<p><strong>gulpfile.js</strong></p>
+<pre><code class="language-js">// ...
+
+/**
+ * 编译脚本文件
+ * @param {*} babelEnv babel环境变量
+ * @param {*} destDir 目标目录
+ */
+function compileScripts(babelEnv, destDir) {
+  const { scripts } = paths;
+  process.env.BABEL_ENV = babelEnv;
+  return gulp
+    .src(scripts)
+    .pipe(babel()) // 使用gulp-babel处理
+    .pipe(
+      through2.obj(function z(file, encoding, next) {
+        this.push(file.clone());
+        // 找到目标
+        if (file.path.match(/(\/|\\)style(\/|\\)index\.js/)) {
+          const content = file.contents.toString(encoding);
+          file.contents = Buffer.from(cssInjection(content)); // 通过文件内容
+          file.path = file.path.replace(/index\.js/, 'css.js'); // 文件重命名
+          this.push(file); // 新增该文件
+          next();
+        } else {
+          next();
+        }
+      }),
+    )
+    .pipe(gulp.dest(destDir));
+}
+
+// ...
+</code></pre>
+<p><code>cssInjection</code>的实现：</p>
+<p><strong>gulpfile.js</strong></p>
+<pre><code class="language-js">/**
+ * 当前组件样式 import './index.less' =&gt; import './index.css'
+ * 依赖的其他组件样式 import '../test-comp/style' =&gt; import '../test-comp/style/css.js'
+ * 依赖的其他组件样式 import '../test-comp/style/index.js' =&gt; import '../test-comp/style/css.js'
+ * @param {string} content
+ */
+function cssInjection(content) {
+  return content
+    .replace(/\/style\/?'/g, &quot;/style/css'&quot;)
+    .replace(/\/style\/?&quot;/g, '/style/css&quot;')
+    .replace(/\.less/g, '.css');
+}
+</code></pre>
+<p>再进行打包，可以看见组件<code>style</code>目录下生成了<code>css.js</code>文件，引入的也是上一步<code>less</code>转换而来的<code>css</code>文件。</p>
+<p><strong>lib/alert</strong></p>
+<pre><code>├── alert.js
+├── index.js
+├── interface.js
+└── style
+    ├── css.js # 引入index.css
+    ├── index.css
+    ├── index.js
+    └── index.less
+</code></pre>
+<h3 id="按需加载">按需加载</h3>
+<p>使用以下方式引入，可以做到<code>js</code>部分的按需加载（基于 <code>ES module</code> 的 <code>tree shaking</code>），所以需要手动引入样式部分：</p>
+<pre><code class="language-js">import { Alert } from 'happy-ui';
+import 'happy/es/alert/style';
+</code></pre>
+<p>也可以使用以下方式引入：</p>
+<pre><code class="language-js">import Alert from 'happy-ui/es/alert'; // or import Alert from 'happy-ui/lib/alert';
+import 'happy/es/alert/style'; // or import Alert from 'happy-ui/lib/alert';
+</code></pre>
+<p>以上引入样式文件的方式不太优雅，直接引入<strong>全量</strong>样式文件又和按需加载的本意相去甚远。</p>
+<p>使用者可以借助<a href="https://www.npmjs.com/package/babel-plugin-import">babel-plugin-import</a>来进行辅助，减少代码编写量。</p>
+<pre><code class="language-js">import { Alert } from 'happy-ui';
+</code></pre>
+<p>⬇️</p>
+<pre><code class="language-js">import { Alert } from 'happy-ui';
+import 'happy/lib/alert/style';
+</code></pre>
+<h3 id="生成-umd">生成 umd</h3>
+<p>真正意义上的“打包”，生成全量 <code>js</code>文件 和 <code>css</code>文件供使用者外链引入。此处选择<code>rollup</code>进行打包。</p>
+<p>留坑待填。</p>
+<p>To be Continued...</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React 组件库搭建指南-开发调试]]></title>
         <id>https://worldzhao.github.io/post/react-ui-library-tutorial-dev-and-doc</id>
         <link href="https://worldzhao.github.io/post/react-ui-library-tutorial-dev-and-doc">
         </link>
@@ -21,7 +452,7 @@
         <content type="html"><![CDATA[<p>MDX，文档生花。</p>
 <!-- more -->
 <h2 id="概览">概览</h2>
-<p><a href="https://worldzhao.github.io/post/react-ui-library-tutorial-prepare/">上一篇文章</a>中进行了项目的初始化，同时编写了一个<code>&lt;Alert/&gt;</code>组件，遗留了一个问题：</p>
+<p>本文解决开发组件时的预览以及调试问题，顺路解决文档编写。</p>
 <p><strong>编写时完全无法进行预览调试</strong></p>
 <p>此处选择<a href="https://github.com/doczjs/docz">docz</a>来辅助预览调试。</p>
 <blockquote>
@@ -70,9 +501,7 @@ route: /Alert
 menu: 组件
 ---
 
-import { Playground } from 'docz';
-import Alert from './alert'; // 引入组件
-import './style'; // 引入组件样式
+import { Playground } from 'docz'; import Alert from './alert'; // 引入组件 import './style'; // 引入组件样式
 
 # Alert 警告提示
 
@@ -267,12 +696,11 @@ exports.onCreateWebpackConfig = args =&gt; {
   ],
 };
 </code></pre>
-<p><code>tsconfig.json</code> 忽略<code>demo</code>以及<code>doc-comps</code>，避免组件库打包生成<code>types</code>时包含其中：</p>
+<p><code>tsconfig.json</code> 忽略<code>demo</code>，避免组件库打包生成<code>types</code>时包含其中：</p>
 <p><strong>tsconfig.json</strong></p>
 <pre><code class="language-diff">{
   &quot;compilerOptions&quot;: {
-    &quot;rootDir&quot;: &quot;components&quot;,
-    &quot;baseUrl&quot;: &quot;components&quot;,
+    &quot;allowJs&quot;: false,
     &quot;target&quot;: &quot;esnext&quot;,
     &quot;module&quot;: &quot;commonjs&quot;,
     &quot;jsx&quot;: &quot;react&quot;,
@@ -283,9 +711,9 @@ exports.onCreateWebpackConfig = args =&gt; {
     &quot;allowSyntheticDefaultImports&quot;: true,
     &quot;esModuleInterop&quot;: true
   },
-+ &quot;exclude&quot;: [&quot;components/**/demo&quot;, &quot;doc-comps&quot;]
+  &quot;include&quot;: [&quot;components&quot;],
++ &quot;exclude&quot;: [&quot;components/**/demo&quot;]
 }
-
 </code></pre>
 <h3 id="改造相关文件">改造相关文件</h3>
 <p><strong>components/alert/demo/1-demo-basic.tsx</strong></p>
@@ -338,10 +766,9 @@ exports.onCreateWebpackConfig = args =&gt; {
 <li>prepare: 组件库前期开发准备工作。<code>eslint</code>/<code>commit lint</code>/<code>typescript</code>等等；</li>
 <li>dev: 使用<a href="https://github.com/doczjs/docz">docz</a>进行开发调试以及文档编写；</li>
 <li>build: <s><code>umd</code></s>/<code>cjs</code>/<code>esm</code>、types、polyfill 以及按需加载；</li>
-<li>test: 组件测试；</li>
 <li>deploy: 使用<a href="https://zeit.co/home">now</a>部署文档站点；</li>
 <li>publish: 发布组件库至<code>npm</code>；</li>
-<li>others: 编写个性化<code>Playground</code>组件，优化示例以及文档结构。</li>
+<li>others: 组件测试</li>
 </ul>
 <p>注意：<code>.gitignore</code>、<code>.eslintignore</code>以及<code>.editorconfig</code>等更多文件可在<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-1/before-start">chapter-1</a>章节代码中获取。</p>
 <h2 id="初始化项目">初始化项目</h2>
@@ -436,8 +863,7 @@ module.exports = {
 <p>新建<code>tsconfig.json</code>并写入以下内容</p>
 <pre><code class="language-json">{
   &quot;compilerOptions&quot;: {
-    &quot;rootDir&quot;: &quot;components&quot;,
-    &quot;baseUrl&quot;: &quot;components&quot;,
+    &quot;allowJs&quot;: false,
     &quot;target&quot;: &quot;esnext&quot;,
     &quot;module&quot;: &quot;commonjs&quot;,
     &quot;jsx&quot;: &quot;react&quot;,
@@ -447,7 +873,8 @@ module.exports = {
     &quot;moduleResolution&quot;: &quot;node&quot;,
     &quot;allowSyntheticDefaultImports&quot;: true,
     &quot;esModuleInterop&quot;: true
-  }
+  },
+  &quot;include&quot;: [&quot;components&quot;]
 }
 </code></pre>
 <h2 id="测试">测试</h2>
@@ -1903,160 +2330,6 @@ class Test extends Component {
   }
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[从callback到async]]></title>
-        <id>https://worldzhao.github.io/post/pig</id>
-        <link href="https://worldzhao.github.io/post/pig">
-        </link>
-        <updated>2019-01-23T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p>本文不是概念性文章,只是通过一个例子来看看操作异步的一些手段.</p>
-<h2 id="回调函数">回调函数</h2>
-<p>先看一个例子:</p>
-<pre><code class="language-js">const fs = require('fs')
-
-fs.readFile('./file.txt', 'utf-8', (err, res) =&gt; {
-  console.log(res)
-})
-</code></pre>
-<p>通过 node 提供的 fs.readFile 方法打印出<code>file.txt</code>的内容.</p>
-<p>如果<code>readFile</code>可以通过 promise 方式调用就好了, 像下面这样:</p>
-<pre><code class="language-js">readFile('./file.txt', 'utf-8').then(res =&gt; {
-  console.log(res)
-})
-</code></pre>
-<h2 id="promise">promise</h2>
-<p>现在我们将 callback 形式的方法调用 转成 promise 形式的调用,这个过程也成为 promisify</p>
-<pre><code class="language-js">const promisify = fn =&gt; (...args) =&gt;
-  new Promise((reslove, reject) =&gt;
-    func(...args, (err, result) =&gt; (err ? reject(err) : resolve(result)))
-  )
-</code></pre>
-<p>当然,在 node 8 及其以上版本,可以使用<a href="https://nodejs.org/api/util.html#util_util_promisify_original">util.promisify</a></p>
-<p>现在就可以这样做啦</p>
-<pre><code class="language-js">const fs = require('fs')
-const readFile = promisify(fs.readFile)
-readFile('./file.txt', 'utf-8').then(res =&gt; {
-  console.log(res)
-})
-</code></pre>
-<p>统一的 API,线性的调用方式,更为灵活的<a href="https://zhuanlan.zhihu.com/p/29792886">异步控制</a>,exciting!</p>
-<h2 id="async">async</h2>
-<p>ES7(ECMAScript 2016)推出了 Async 函数(async/await),实现了以顺序/同步代码的编写方式来控制异步流程.再来一遍</p>
-<pre><code class="language-js">const fs = require('fs')
-const util = require('util')
-const readFile = util.promisify(fs.readFile)
-
-;(async () =&gt; {
-  const res = await readFile('./package.json', 'utf-8')
-  console.log(res)
-})()
-</code></pre>
-<h2 id="使用-generator-与-promise-模拟-co">使用 generator 与 promise 模拟 co</h2>
-<p>相较于 promise,async/await 更易理解. 如果你听过大名鼎鼎的 co,则会发现这二者使用方式是多么相似啊!</p>
-<pre><code class="language-js">const co = require('co')
-const fs = require('fs')
-const util = require('util')
-const readFile = util.promisify(fs.readFile)
-co(function*() {
-  const res = yield readFile('./package.json', 'utf-8')
-  console.log(res)
-})
-</code></pre>
-<p>不过这并不是什么黑魔法,继续向下看.</p>
-<h3 id="generator">generator</h3>
-<p>首先我们需要一点 generator 的知识,你可以看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator">Generator-MDN</a></p>
-<p>如果你不想看,看下 demo 也可以</p>
-<p>demo 1</p>
-<pre><code class="language-js">function* generatorFn() {
-  yield 1
-  yield 2
-  yield 3
-}
-
-const it = generatorFn()
-
-console.log(it.next()) // { value: 1, done: false }
-console.log(it.next()) // { value: 2, done: false }
-console.log(it.next()) // { value: 3, done: false }
-console.log(it.next()) // { value: undefined, done: true }
-</code></pre>
-<p>demo 2</p>
-<pre><code class="language-js">function* generatorFn() {
-  const a = yield 1
-  console.log(a) // hhh
-  yield 2
-  yield 3
-}
-
-const it = generatorFn()
-console.log(it.next()) // { value: 1, done: false }
-console.log(it.next('hhh')) // { value: 2, done: false }
-console.log(it.next()) // { value: 3, done: false }
-console.log(it.next()) // { value: undefined, done: true }
-</code></pre>
-<p>弄清楚代码执行顺序即可。</p>
-<h4 id="小练习">小练习</h4>
-<pre><code class="language-js">const fs = require('fs')
-const util = require('util')
-const readFile = util.promisify(fs.readFile)
-
-function go() {}
-
-go(function*() {
-  const file1 = yield readFile('./file1.txt', 'utf-8')
-  console.log(file1)
-  const file2 = yield readFile('./file2.txt', 'utf-8')
-  console.log(file2)
-})
-</code></pre>
-<h4 id="解答">解答</h4>
-<p>思路很简单,我们只要在 go 中接住 yield 抛出来的 promise,注册好&quot;解决函数&quot;(resolver),在 resolver 内部将执行结果塞进去即可.</p>
-<p>先写一个最挫的,只能玩 2 层,和我们的代码绑定的死死的.</p>
-<pre><code class="language-js">function go(gen) {
-  const it = gen()
-  const p1 = it.next().value
-  p1.then(res =&gt; {
-    const p2 = it.next(res).value
-    p2.then(res =&gt; {
-      it.next(res)
-    })
-  })
-}
-</code></pre>
-<p>很明显,可以优化一波</p>
-<pre><code class="language-js">function go(gen) {
-  const it = gen()
-
-  const run = p =&gt; {
-    p.then(res =&gt; {
-      const { value, done } = it.next(res)
-      if (done) {
-        // 如果结束了就返回
-        return value
-      }
-      run(value)
-    })
-  }
-  const { value, done } = it.next()
-  if (done) {
-    return value
-  }
-  run(p1)
-}
-</code></pre>
-<p>本文到此为止，代码很粗糙，下一篇文章拿 co 源码来读读。</p>
-<hr>
-<p>推荐阅读：</p>
-<ul>
-<li><a href="https://juejin.im/post/5b7ccc65f265da436631a3d9?utm_source=gold_browser_extension">来尝尝 Async 函数这块语法糖<br>
-</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/29792886">Promise 异步流程控制<br>
-</a></li>
-<li><a href="https://juejin.im/post/5c40484bf265da61171cfb4d?utm_source=gold_browser_extension">从 for of 聊到 Generator<br>
-</a></li>
-</ul>
 ]]></content>
     </entry>
 </feed>
