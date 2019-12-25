@@ -415,7 +415,7 @@ function compileScripts(babelEnv, destDir) {
         // 找到目标
         if (file.path.match(/(\/|\\)style(\/|\\)index\.js/)) {
           const content = file.contents.toString(encoding);
-          file.contents = Buffer.from(cssInjection(content)); // 通过文件内容
+          file.contents = Buffer.from(cssInjection(content)); // 文件内容处理
           file.path = file.path.replace(/index\.js/, 'css.js'); // 文件重命名
           this.push(file); // 新增该文件
           next();

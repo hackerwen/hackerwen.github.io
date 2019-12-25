@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-25T07:17:04.490Z</updated>
+    <updated>2019-12-25T07:26:16.041Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -378,7 +378,7 @@ function compileScripts(babelEnv, destDir) {
         // 找到目标
         if (file.path.match(/(\/|\\)style(\/|\\)index\.js/)) {
           const content = file.contents.toString(encoding);
-          file.contents = Buffer.from(cssInjection(content)); // 通过文件内容
+          file.contents = Buffer.from(cssInjection(content)); // 文件内容处理
           file.path = file.path.replace(/index\.js/, 'css.js'); // 文件重命名
           this.push(file); // 新增该文件
           next();
