@@ -67,7 +67,7 @@
 <li>支持按需加载</li>
 </ol>
 <p>本节所有代码可在仓库<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-3/build">chapter-3</a>分支中获取。</p>
-<h3 id="导出类型声明文件">导出类型声明文件</h3>
+<h2 id="导出类型声明文件">导出类型声明文件</h2>
 <p>既然是使用<code>typescript</code>编写的组件库，那么使用者应当享受到类型系统的好处。</p>
 <p>我们可以生成类型声明文件，并在<code>package.json</code>中定义入口，如下：</p>
 <p><strong>package.json</strong></p>
@@ -93,9 +93,9 @@
 <blockquote>
 <p>需要注意的是，我们需要输出<code>Commonjs module</code>以及<code>ES module</code>两种模块类型的文件（暂不考虑<code>umd</code>），以下使用<code>cjs</code>指代<code>Commonjs module</code>，<code>esm</code>指代<code>ES module</code>。<br/> 对此有疑问的同学推荐阅读：<a href="https://github.com/ShowJoy-com/showjoy-blog/issues/39">import、require、export、module.exports 混合详解</a></p>
 </blockquote>
-<h3 id="导出-commonjs-模块">导出 Commonjs 模块</h3>
+<h2 id="导出-commonjs-模块">导出 Commonjs 模块</h2>
 <p>其实完全可以使用<code>babel</code>以及<code>tsc</code>命令行工具进行代码编译处理（实际上很多工具库就是这样做的），但考虑到还要<strong>处理样式及其按需加载</strong>，我们借助 <code>gulp</code> 来串起这个流程。</p>
-<h4 id="babel-配置">babel 配置</h4>
+<h3 id="babel-配置">babel 配置</h3>
 <p>首先安装<code>babel</code>及其相关依赖</p>
 <pre><code class="language-bash">yarn add @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript @babel/plugin-proposal-class-properties  @babel/plugin-transform-runtime --dev
 </code></pre>
@@ -133,7 +133,7 @@ not op_mini all
 <p>很遗憾的是，<code>@babel/runtime-corejs3</code>无法在按需引入的基础上根据目标浏览器支持程度再次减少<code>polyfill</code>的引入，参见<a href="https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelruntime-for-target-environment">@babel/runtime for target environment </a>。</p>
 <p>这意味着<code>@babel/runtime-corejs3</code> 甚至会在针对现代引擎的情况下注入所有可能的 <code>polyfill</code>：不必要地增加了最终捆绑包的大小。</p>
 <p>开发过程中尤其需要注意。</p>
-<h4 id="gulp-配置">gulp 配置</h4>
+<h3 id="gulp-配置">gulp 配置</h3>
 <p>再来安装<code>gulp</code>相关依赖</p>
 <pre><code class="language-bash">yarn add gulp gulp-babel --dev
 </code></pre>
@@ -193,7 +193,7 @@ exports.default = build;
 <p>观察编译后的源码，可以发现：诸多<code>helper</code>方法已被抽离至<code>@babel/runtime-corejs3</code>中，模块导入导出形式也是<code>commonjs</code>规范。</p>
 <p><strong>lib/alert/alert.js</strong></p>
 <figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga7zwrhkbaj30u00u9wsv.jpg" alt="lib/alert/alert.js"></figure>
-<h3 id="导出-es-module">导出 ES module</h3>
+<h2 id="导出-es-module">导出 ES module</h2>
 <p>基于上一步的<code>babel</code>配置，生成<code>ES module</code>，我们需要更新以下内容：</p>
 <ol>
 <li>配置<code>@babel/preset-env</code>的<code>modules</code>选项为<code>false</code>，关闭模块转换；</li>
@@ -318,8 +318,8 @@ const build = gulp.parallel(buildScripts);
 + &quot;module&quot;: &quot;esm/index.js&quot;
 }
 </code></pre>
-<h3 id="处理样式文件">处理样式文件</h3>
-<h4 id="拷贝-less-文件">拷贝 less 文件</h4>
+<h2 id="处理样式文件">处理样式文件</h2>
+<h3 id="拷贝-less-文件">拷贝 less 文件</h3>
 <p>我们会将<code>less</code>文件包含在<code>npm</code>包中，用户可以通过<code>happy-ui/lib/alert/style/index.js</code>的形式按需引入<code>less</code>文件，此处可以直接将 less 文件拷贝至目标文件夹。</p>
 <p>在<code>gulpfile.js</code>中新建<code>copyLess</code>任务。</p>
 <p><strong>gulpfile.js</strong></p>
@@ -339,7 +339,7 @@ const build = gulp.parallel(buildScripts, copyLess);
 
 // ...
 </code></pre>
-<p>观察<code>lib</code>目录，可以发现 less 文件已经被移过去了。</p>
+<p>观察<code>lib</code>目录，可以发现 <code>less</code> 文件已被拷贝至<code>alert/style</code>目录下。</p>
 <p><strong>lib</strong></p>
 <pre><code>├── alert
 │   ├── alert.js
@@ -364,7 +364,7 @@ const build = gulp.parallel(buildScripts, copyLess);
 <p>答案是<strong>管理样式依赖</strong>。</p>
 <p>假设存在以下场景：引入<code>&lt;Button /&gt;</code>，<code>&lt;Button /&gt;</code>依赖了<code>&lt;Icon /&gt;</code>，使用者需要手动去引入调用的组件的样式（<code>&lt;Button /&gt;</code>）及其依赖的组件样式（<code>&lt;Button /&gt;</code>），遇到复杂组件极其麻烦，所以组件库开发者可以提供一份这样的<code>js</code>文件，使用者手动引入这个<code>js</code>文件，就能引入对应组件及其依赖组件的样式。</p>
 <p>继续我们的旅程。</p>
-<h4 id="生成-css-文件">生成 css 文件</h4>
+<h3 id="生成-css-文件">生成 css 文件</h3>
 <p>安装相关依赖。</p>
 <pre><code class="language-bash">yarn add gulp-less gulp-autoprefixer gulp-cssnano --dev
 </code></pre>
@@ -390,7 +390,7 @@ const build = gulp.parallel(buildScripts, copyLess, less2css);
 </code></pre>
 <p>执行<code>yarn build</code>，组件<code>style</code>目录下已经存在<code>css</code>文件了。</p>
 <p>接下来我们需要一个<code>alert/style/css.js</code>来帮用户引入<code>css</code>文件。</p>
-<h4 id="生成-cssjs">生成 css.js</h4>
+<h3 id="生成-cssjs">生成 css.js</h3>
 <p>此处参考<a href="https://github.com/ant-design/antd-tools/blob/master/lib/gulpfile.js#L248">antd-tools</a>的实现方式：在处理<code>scripts</code>任务中，截住<code>style/index.js</code>，生成<code>style/css.js</code>，并通过正则将引入的<code>less</code>文件后缀改成<code>css</code>。</p>
 <p>安装相关依赖。</p>
 <pre><code class="language-bash">yarn add through2 --dev
@@ -455,7 +455,7 @@ function cssInjection(content) {
     ├── index.js
     └── index.less
 </code></pre>
-<h3 id="按需加载">按需加载</h3>
+<h2 id="按需加载">按需加载</h2>
 <p>使用以下方式引入，可以做到<code>js</code>部分的按需加载（基于 <code>ES module</code> 的 <code>tree shaking</code>），所以需要手动引入样式部分：</p>
 <pre><code class="language-js">import { Alert } from 'happy-ui';
 import 'happy/es/alert/style';
@@ -472,7 +472,7 @@ import 'happy/es/alert/style'; // or import Alert from 'happy-ui/lib/alert';
 <pre><code class="language-js">import { Alert } from 'happy-ui';
 import 'happy/lib/alert/style';
 </code></pre>
-<h3 id="生成-umd">生成 umd</h3>
+<h2 id="生成-umd">生成 umd</h2>
 <p>真正意义上的“打包”，生成全量 <code>js</code>文件 和 <code>css</code>文件供使用者外链引入。此处选择<code>rollup</code>进行打包。</p>
 <p>留坑待填。</p>
 <p>To be Continued...</p>
@@ -540,8 +540,7 @@ import 'happy/lib/alert/style';
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E6%A6%82%E8%A7%88">概览</a>
-<ul>
+<li><a href="#%E6%A6%82%E8%A7%88">概览</a></li>
 <li><a href="#%E5%AF%BC%E5%87%BA%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6">导出类型声明文件</a></li>
 <li><a href="#%E5%AF%BC%E5%87%BA-commonjs-%E6%A8%A1%E5%9D%97">导出 Commonjs 模块</a>
 <ul>
@@ -559,8 +558,6 @@ import 'happy/lib/alert/style';
 </li>
 <li><a href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD">按需加载</a></li>
 <li><a href="#%E7%94%9F%E6%88%90-umd">生成 umd</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
