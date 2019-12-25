@@ -458,11 +458,11 @@ function cssInjection(content) {
 <h2 id="按需加载">按需加载</h2>
 <p>使用以下方式引入，可以做到<code>js</code>部分的按需加载（基于 <code>ES module</code> 的 <code>tree shaking</code>），所以需要手动引入样式部分：</p>
 <pre><code class="language-js">import { Alert } from 'happy-ui';
-import 'happy/es/alert/style';
+import 'happy-ui/esm/alert/style';
 </code></pre>
 <p>也可以使用以下方式引入：</p>
-<pre><code class="language-js">import Alert from 'happy-ui/es/alert'; // or import Alert from 'happy-ui/lib/alert';
-import 'happy/es/alert/style'; // or import Alert from 'happy-ui/lib/alert';
+<pre><code class="language-js">import Alert from 'happy-ui/esm/alert'; // or import Alert from 'happy-ui/lib/alert';
+import 'happy-ui/esm/alert/style'; // or import Alert from 'happy-ui/lib/alert';
 </code></pre>
 <p>以上引入样式文件的方式不太优雅，直接引入<strong>全量</strong>样式文件又和按需加载的本意相去甚远。</p>
 <p>使用者可以借助<a href="https://www.npmjs.com/package/babel-plugin-import">babel-plugin-import</a>来进行辅助，减少代码编写量。</p>
@@ -470,9 +470,9 @@ import 'happy/es/alert/style'; // or import Alert from 'happy-ui/lib/alert';
 </code></pre>
 <p>⬇️</p>
 <pre><code class="language-js">import { Alert } from 'happy-ui';
-import 'happy/lib/alert/style';
+import 'happy-ui/lib/alert/style';
 </code></pre>
-<h2 id="生成-umd">生成 umd</h2>
+<h2 id="生成-umd-e">生成 umd e</h2>
 <p>真正意义上的“打包”，生成全量 <code>js</code>文件 和 <code>css</code>文件供使用者外链引入。此处选择<code>rollup</code>进行打包。</p>
 <p>留坑待填。</p>
 <p>To be Continued...</p>
@@ -557,7 +557,7 @@ import 'happy/lib/alert/style';
 </ul>
 </li>
 <li><a href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD">按需加载</a></li>
-<li><a href="#%E7%94%9F%E6%88%90-umd">生成 umd</a></li>
+<li><a href="#%E7%94%9F%E6%88%90-umd-e">生成 umd e</a></li>
 </ul>
 </li>
 </ul>
