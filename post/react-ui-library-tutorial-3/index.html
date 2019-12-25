@@ -362,7 +362,7 @@ const build = gulp.parallel(buildScripts, copyLess);
 <p>方案 3 比较符合此时的的场景，<code>antd</code>使用的也是这种方案。</p>
 <p>在搭建组件库的过程中，有一个问题困扰了我很久：为什么需要<code>alert/style/index.js</code>引入<code>less</code>文件或<code>alert/style/css.js</code>引入<code>css</code>文件？</p>
 <p>答案是<strong>管理样式依赖</strong>。</p>
-<p>假设存在以下场景：引入<code>&lt;Button /&gt;</code>，<code>&lt;Button /&gt;</code>依赖了<code>&lt;Icon /&gt;</code>，使用者需要手动去引入调用的组件的样式（<code>&lt;Button /&gt;</code>）及其依赖的组件样式（<code>&lt;Button /&gt;</code>），遇到复杂组件极其麻烦，所以组件库开发者可以提供一份这样的<code>js</code>文件，使用者手动引入这个<code>js</code>文件，就能引入对应组件及其依赖组件的样式。</p>
+<p>假设存在以下场景：引入<code>&lt;Button /&gt;</code>，<code>&lt;Button /&gt;</code>依赖了<code>&lt;Icon /&gt;</code>，使用者需要手动去引入调用的组件的样式（<code>&lt;Button /&gt;</code>）及其依赖的组件样式（<code>Icon /&gt;</code>），遇到复杂组件极其麻烦，所以组件库开发者可以提供一份这样的<code>js</code>文件，使用者手动引入这个<code>js</code>文件，就能引入对应组件及其依赖组件的样式。</p>
 <p>继续我们的旅程。</p>
 <h3 id="生成-css-文件">生成 css 文件</h3>
 <p>安装相关依赖。</p>
