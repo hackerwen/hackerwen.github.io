@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-30T02:17:46.932Z</updated>
+    <updated>2019-12-30T02:23:51.831Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -16,20 +16,15 @@
         <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3">
         </link>
         <updated>2019-12-25T07:15:14.000Z</updated>
-        <summary type="html"><![CDATA[<ul>
-<li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
-<li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
-<li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
-</ul>
-<p>重头戏来了。</p>
+        <summary type="html"><![CDATA[<p>重头戏来了。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<ul>
+        <content type="html"><![CDATA[<p>重头戏来了。</p>
+<!--more -->
+<ul>
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
 </ul>
-<p>重头戏来了。</p>
-<!--more -->
 <h2 id="概览">概览</h2>
 <p><strong>宿主环境各不相同，需要将源码进行相关处理后发布至 npm。</strong></p>
 <p>明确以下目标：</p>
@@ -468,20 +463,15 @@ import 'happy-ui/lib/alert/style';
         <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2">
         </link>
         <updated>2019-12-22T11:05:45.000Z</updated>
-        <summary type="html"><![CDATA[<ul>
-<li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
-<li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
-<li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
-</ul>
-<p>MDX，文档生花。</p>
+        <summary type="html"><![CDATA[<p>MDX，文档生花。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<ul>
+        <content type="html"><![CDATA[<p>MDX，文档生花。</p>
+<!-- more -->
+<ul>
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
 </ul>
-<p>MDX，文档生花。</p>
-<!-- more -->
 <h2 id="概览">概览</h2>
 <p>本文解决开发组件时的预览以及调试问题，顺路解决文档编写。</p>
 <p><strong>编写时完全无法进行预览调试</strong></p>
@@ -787,20 +777,15 @@ exports.onCreateWebpackConfig = args =&gt; {
         <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1">
         </link>
         <updated>2019-12-18T04:12:25.000Z</updated>
-        <summary type="html"><![CDATA[<ul>
-<li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
-<li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
-<li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
-</ul>
-<p>凡事预则立不预则废。</p>
+        <summary type="html"><![CDATA[<p>凡事预则立不预则废。</p>
 ]]></summary>
-        <content type="html"><![CDATA[<ul>
+        <content type="html"><![CDATA[<p>凡事预则立不预则废。</p>
+<!--more -->
+<ul>
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
 </ul>
-<p>凡事预则立不预则废。</p>
-<!--more -->
 <h2 id="概览">概览</h2>
 <p>本系列文章主要是开发组件库<a href="https://github.com/worldzhao/dora-ui">dora-ui</a>过程中的一些经验总结，大致包含以下内容：</p>
 <ul>
