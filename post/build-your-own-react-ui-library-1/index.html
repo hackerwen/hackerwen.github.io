@@ -55,7 +55,12 @@
                          <article class="mdui-shadow-10 mdui-p-a-2 post-list">
                            <div class="mdui-typo-display-1 mdui-m-b-3">React 组件库搭建指南-准备工作</div>
                            <a  class="index-list-biaoqian ">2019-12-18</a>
-                           <div class="mdui-typo mdui-m-t-3 post-neirong"><p>凡事预则立不预则废。</p>
+                           <div class="mdui-typo mdui-m-t-3 post-neirong"><ul>
+<li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
+<li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
+<li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
+</ul>
+<p>凡事预则立不预则废。</p>
 <!--more -->
 <h2 id="概览">概览</h2>
 <p>本系列文章主要是开发组件库<a href="https://github.com/worldzhao/dora-ui">dora-ui</a>过程中的一些经验总结，大致包含以下内容：</p>
@@ -185,7 +190,7 @@ module.exports = {
         └── index.ts        # 样式文件里为什么存在一个index.ts - 按需加载样式 管理样式依赖 后面章节会提到
 </code></pre>
 <p>安装<code>React</code>相关依赖：</p>
-<pre><code class="language-bash">yarn add react react-dom --dev # 开发时依赖，宿主环境一定存在
+<pre><code class="language-bash">yarn add react react-dom @types/react @types/react-dom --dev # 开发时依赖，宿主环境一定存在
 
 yarn add prop-types            # 运行时依赖，宿主环境可能不存在 安装本组件库时一起安装
 </code></pre>
