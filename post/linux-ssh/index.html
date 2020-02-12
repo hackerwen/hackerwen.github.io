@@ -69,7 +69,7 @@
 <li>个性化脚本一键登录服务器</li>
 </ul>
 <h3 id="ssh-是什么">SSH 是什么</h3>
-<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8yy6xlj30ie0bqq79.jpg" alt="ssh.png"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8yy6xlj30ie0bqq79.jpg" alt="ssh.png" loading="lazy"></figure>
 <ul>
 <li>Secure Shell 安全外壳协议</li>
 <li>建立在应用层基础上的安全协议</li>
@@ -116,7 +116,7 @@
 </ul>
 <p>需要依靠密匙，也就是你必须为自己创建一对密匙，并把公用密匙放在需要访问的服务器上。如果你要连接到 SSH 服务器上，客户端软件就会向服务器发出请求，请求用你的密匙进行安全验证。服务器收到请求之后，先在该服务器上你的主目录下寻找你的公用密匙，然后把它和你发送过来的公用密匙进行比较。如果两个密匙一致，服务器就用公用密匙加密“质询”（challenge）并把它发送给客户端软件。客户端软件收到“质询”之后就可以用你的私人密匙解密再把它发送给服务器。<br>
 用这种方式，你必须知道自己密匙的口令。但是，与第一种级别相比，第二种级别不需要在网络上传送口令。</p>
-<figure data-type="image" tabindex="2"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf90jtvtj30yg0l0ahb.jpg" alt="基于密钥的安全验证.png"></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf90jtvtj30yg0l0ahb.jpg" alt="基于密钥的安全验证.png" loading="lazy"></figure>
 <p>第二种级别不仅加密所有传送的数据，而且“中间人”这种攻击方式也是不可能的（因为他没有你的私人密匙）。但是整个登录的过程可能需要 10 秒</p>
 <p><strong>其实每一个新手配置 github 的过程都走过这些路</strong></p>
 <h3 id="ssh-config-讲解">SSH config 讲解</h3>
@@ -224,7 +224,7 @@ Host centos
 </ul>
 <pre><code>/etc/ssh/sshd_config
 </code></pre>
-<figure data-type="image" tabindex="3"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf92ih5tj30u20p10wf.jpg" alt="/etc/ssh/sshd_config.png"></figure>
+<figure data-type="image" tabindex="3"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf92ih5tj30u20p10wf.jpg" alt="/etc/ssh/sshd_config.png" loading="lazy"></figure>
 <ul>
 <li>可以同时监听多个端口</li>
 <li>修改完文件后记得重启服务</li>

@@ -57,7 +57,7 @@
                            <a  class="index-list-biaoqian ">2017-07-18</a>
                            <div class="mdui-typo mdui-m-t-3 post-neirong"><h3 id="二叉树的遍历">二叉树的遍历</h3>
 <h4 id="成果如图">成果如图：</h4>
-<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8l5s0kg30hm06bq44.gif" alt="动态预览.gif"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8l5s0kg30hm06bq44.gif" alt="动态预览.gif" loading="lazy"></figure>
 <h4 id="思路">思路：</h4>
 <ol>
 <li>先对二叉树进行遍历，按照顺序将节点存入数组</li>
@@ -67,7 +67,7 @@
 <ol>
 <li>先序遍历：若二叉树为空，则空操作返回，否则先访问根结点，然后前序遍历左子树，再前序遍历右子树。</li>
 </ol>
-<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8mgj51g30hm06b74l.gif" alt="先序遍历.gif"></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8mgj51g30hm06b74l.gif" alt="先序遍历.gif" loading="lazy"></figure>
 <pre><code class="language-js">function DLR(node) {
   //先序遍历
   if (node) {
@@ -81,7 +81,7 @@
 <ol start="2">
 <li>中序遍历：若树为空，则空操作返回，否则从根结点开始（注意并不是先访问根结点），中序遍历根结点的左子树，然后是访问根结点，最后中序遍历右子树。</li>
 </ol>
-<figure data-type="image" tabindex="3"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8u2pbtg30hm06bjrn.gif" alt="中序遍历.gif"></figure>
+<figure data-type="image" tabindex="3"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8u2pbtg30hm06bjrn.gif" alt="中序遍历.gif" loading="lazy"></figure>
 <pre><code class="language-js">function LDR(node) {
   if (node) {
     LDR(node.children[0]);
@@ -93,7 +93,7 @@
 <ol start="3">
 <li>后序遍历：若树为空，则空操作返回，否则从左到右先叶子后结点的方式遍历访问左右子树，最后访问根结点。</li>
 </ol>
-<figure data-type="image" tabindex="4"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8uxe8tg30hm06b74j.gif" alt="后序遍历.gif"></figure>
+<figure data-type="image" tabindex="4"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf8uxe8tg30hm06b74j.gif" alt="后序遍历.gif" loading="lazy"></figure>
 <pre><code class="language-js">function LRD(node) {
   if (node) {
     LRD(node.children[0]);

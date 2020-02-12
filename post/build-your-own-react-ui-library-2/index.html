@@ -61,6 +61,7 @@
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
+<li><a href="https://juejin.im/post/5e23e4035188252c6c478665">React 组件库搭建指南-单元测试</a></li>
 </ul>
 <h2 id="概览">概览</h2>
 <p>本文解决开发组件时的预览以及调试问题，顺路解决文档编写。</p>
@@ -136,7 +137,7 @@ import { Playground } from 'docz'; import Alert from './alert'; // 引入组件 
 <pre><code class="language-bash">yarn start # or yarn dev
 </code></pre>
 <p>可以在<code>localhost:3000</code>看到如下页面 ：</p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点" loading="lazy"></figure>
 <p>现在可以在<code>index.mdx</code>中愉快地进行文档编写和调试了！</p>
 <p>倘若本文到了这里就结束（其实也可以结束了<code>(_^▽^_)</code>），那我只是官方文档的翻译复读机罢了，有兴趣的同学可以继续向下看。</p>
 <h2 id="优化文档编写">优化文档编写</h2>
@@ -163,7 +164,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 &lt;/Playground&gt;
 </code></pre>
 <p>这样我们就将 demo 与文档进行了分隔。预览如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构" loading="lazy"></figure>
 <p>等等，你下面显示的那个<code>&lt;BasicDemo /&gt;</code>有点撩人，这里应该是给用户爸爸们<code>copy</code>的<code>demo</code>源码，你弄一个标签在这里，用户爸爸肯定不开心 🙅‍♀️。</p>
 <p>然而<code>&lt;Playground /&gt;</code>组件暂时无法支持上述形式的展示：自定义下方展示的代码，而非<code>&lt;Playground /&gt;</code>内部的代码。相关讨论如下：</p>
 <ul>
@@ -189,7 +190,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 <p>这些依赖都是服务于文档站点应用，和组件库自身毫无关联。</p>
 </blockquote>
 <p>最终效果如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></figure>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果" loading="lazy"></figure>
 <p>根目录下新建<code>doc-comps</code>文件夹，存放文档中使用的一些工具组件，比如<code>&lt;HappyBox /&gt;</code>。</p>
 <p><strong>doc-comps</strong></p>
 <pre><code>├── happy-box

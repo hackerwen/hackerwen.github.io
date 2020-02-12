@@ -116,7 +116,7 @@
     &lt;/div&gt;
 </code></pre>
 <p>结果如图：</p>
-<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png" loading="lazy"></figure>
 <p>我们再来给 inner 加上 position: absolute;</p>
 <pre><code class="language-css">.inner {
   width: 200px;
@@ -125,7 +125,7 @@
 }
 </code></pre>
 <p>结果如图：</p>
-<figure data-type="image" tabindex="2"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png"></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png" loading="lazy"></figure>
 <p>可以看出，设置了 postion:absolute 后，inner 并没有如我们预想的那样和 left:0 top:0 一般蹲到左上角，而是乖乖的呆在了 upper 后面，和之前 static 一样。</p>
 <h3 id="问题-7与-absolute-搭配的往往有-z-index-这个属性-那么如果有一个父元素-z-index-为-1000子元素-z-index-为-100谁在上面">问题 7：与 absolute 搭配的往往有 z-index 这个属性。那么如果有一个父元素 z-index 为 1000，子元素 z-index 为 100，谁在上面？</h3>
 <p>回答七：子元素在上面。<br>
@@ -150,7 +150,7 @@
 }
 </code></pre>
 <p>效果如下：</p>
-<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf83esksj308d0870gu.jpg" alt="image.png"></figure>
+<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf83esksj308d0870gu.jpg" alt="image.png" loading="lazy"></figure>
 <p>子元素在上面，即使父元素的 z-index 远远大于子元素的 z-index</p>
 <p>以下转自<a href="https://segmentfault.com/q/1010000009843297">segmentfault</a></p>
 <blockquote>

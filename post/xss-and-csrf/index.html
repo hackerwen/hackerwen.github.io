@@ -96,7 +96,7 @@ while (true) {
 <p>你这可以这么理解 CSRF 攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF 能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账……造成的问题包括：个人隐私泄露以及财产安全。</p>
 <p>严格意义上来说，CSRF 不能分类为注入攻击，因为 CSRF 的实现途径远远不止 XSS 注入这一条。通过 XSS 来实现 CSRF 易如反掌，但对于设计不佳的网站，一条正常的链接都能造成 CSRF。</p>
 <h3 id="原理-2">原理</h3>
-<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf98oo6pj30t80ghq6e.jpg" alt="csrf.jpg"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf98oo6pj30t80ghq6e.jpg" alt="csrf.jpg" loading="lazy"></figure>
 <p>从上图可以看出，要完成一次 CSRF 攻击，受害者必须依次完成两个步骤：</p>
 <ol>
 <li>登录受信任网站 A，并在本地生成 Cookie。</li>

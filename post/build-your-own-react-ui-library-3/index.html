@@ -61,6 +61,7 @@
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
+<li><a href="https://juejin.im/post/5e23e4035188252c6c478665">React 组件库搭建指南-单元测试</a></li>
 </ul>
 <h2 id="概览">概览</h2>
 <p><strong>宿主环境各不相同，需要将源码进行相关处理后发布至 npm。</strong></p>
@@ -215,7 +216,7 @@ exports.default = build;
 </code></pre>
 <p>观察编译后的源码，可以发现：诸多<code>helper</code>方法已被抽离至<code>@babel/runtime</code>中，模块导入导出形式也是<code>commonjs</code>规范。</p>
 <p><strong>lib/alert/alert.js</strong></p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgju58mlj30ve0u0k4o.jpg" alt="lib/alert/alert.js"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgju58mlj30ve0u0k4o.jpg" alt="lib/alert/alert.js" loading="lazy"></figure>
 <h2 id="导出-es-module">导出 ES module</h2>
 <p>生成<code>ES module</code>可以更好地进行<a href="https://webpack.docschina.org/guides/tree-shaking/">tree shaking</a>，基于上一步的<code>babel</code>配置，更新以下内容：</p>
 <ol>
@@ -317,7 +318,7 @@ const build = gulp.parallel(buildScripts);
 </code></pre>
 <p>执行<code>yarn build</code>，可以发现生成了<code>types</code>/<code>lib</code>/<code>esm</code>三个文件夹，观察<code>esm</code>目录，结构同<code>lib</code>/<code>types</code>一致，js 文件都是以<code>ES module</code>模块形式导入导出。</p>
 <p><strong>esm/alert/alert.js</strong></p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgrzmgjqj311i0u0air.jpg" alt="esm/alert/alert.js"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgrzmgjqj311i0u0air.jpg" alt="esm/alert/alert.js" loading="lazy"></figure>
 <p>别忘了给<code>package.json</code>增加相关入口。</p>
 <p><strong>package.json</strong></p>
 <pre><code class="language-diff">{
@@ -495,7 +496,7 @@ import 'happy-ui/lib/alert/style';
 </div>
                               <div class="mdui-divider mdui-m-t-3"></div>
                               <div class="mdui-row-xs-2 mdui-m-t-2">
-  <div class="mdui-col"> </div>
+  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4">React 组件库搭建指南-单元测试</a></div></div>
  <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2">React 组件库搭建指南-开发调试</a></div> </div>
                                 </div>
                                 <div class="mdui-divider mdui-m-t-2"></div>

@@ -55,7 +55,7 @@
                          <article class="mdui-shadow-10 mdui-p-a-2 post-list">
                            <div class="mdui-typo-display-1 mdui-m-b-3">HTTP中的缓存机制</div>
                            <a  class="index-list-biaoqian ">2017-09-14</a>
-                           <div class="mdui-typo mdui-m-t-3 post-neirong"><figure data-type="image" tabindex="1"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8bn5g5j30yg0lhdjf.jpg" alt="http缓存机制.png"></figure>
+                           <div class="mdui-typo mdui-m-t-3 post-neirong"><figure data-type="image" tabindex="1"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8bn5g5j30yg0lhdjf.jpg" alt="http缓存机制.png" loading="lazy"></figure>
 <p>图：一个缓存 GET 请求的具体流程（源于《http 权威指南》）</p>
 <p>总的来说，客户端从服务器请求数据经历如下基本步骤:</p>
 <ol>
@@ -84,7 +84,7 @@
 <p>Cache-Control 与 Expires 的作用一致，都是指明当前资源的有效期，控制浏览器是否直接从浏览器缓存取数据还是重新发请求到服务器取数据。这个协定取代了以前的 Expires 指令，在 HTTP/1.1 开始支持，且如果同时设置的话，优先级高于 Expires。</p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control">Cache-control 详解-MDN</a></p>
 <p>如果 Expires 或 Cache-Control:max-age 验证未过期，即资源是新鲜的。则直接返回 200 状态码，使用缓存。这里注意缓存命中和访问原始服务器的响应码都是 200，有些代理缓存会在 via 首部附加额外信息，或者使用 200(from cache)。 对于未明确标识的，可以使用 Date 首部的值和当前时间进行比较，如果响应中的日期比较早，客户端通常可以认为这是一条缓存的响应。</p>
-<figure data-type="image" tabindex="2"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8cq1j8j30yg0mzgyj.jpg" alt="http缓存机制2.png"></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8cq1j8j30yg0mzgyj.jpg" alt="http缓存机制2.png" loading="lazy"></figure>
 <p>金字塔最下端即缓存资源未过期，使用缓存，状态码 200 from cache。</p>
 <p>如果缓存资源过期了进入 Stage3</p>
 <h2 id="stage3-服务器再验证">Stage3: 服务器再验证</h2>
@@ -120,7 +120,7 @@
 <pre><code>If-Modified-Since:Tue, 24 Feb 2009 08:01:04 GMT
 </code></pre>
 <p>web 服务器收到请求后发现有头 If-Modified-Since 则与被请求资源在客户端的最后修改时间 Last-Modified 进行比对。若最后修改时间较新，说明资源又被改动过，则响应整片资源内容（写在响应消息包体内），响应状态码为 HTTP 200；若最后修改时间 Last-Modified 较旧，说明资源无新修改，则 响应 HTTP 304 (这里只需要发送一个 head 头，包体内容为空，这样就节省了传输数据量)，告知浏览器继续使用所保存的 cache。</p>
-<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8du2zbj30vs0u048w.jpg" alt="if-modify.png"></figure>
+<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8du2zbj30vs0u048w.jpg" alt="if-modify.png" loading="lazy"></figure>
 <h2 id="其他">其他</h2>
 <h3 id="etag-和-last-modified">Etag 和 Last-Modified</h3>
 <p>你可能会觉得使用 Last-Modified 已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要 Etag（实体标识）呢？HTTP1.1 中 Etag 的出现主要是为了解决几个 Last-Modified 比较难解决的问题：</p>
@@ -144,8 +144,8 @@
 <p>如果检测到本地的缓存还是有效的时间范围内，浏览器直接使用本地副本，不会发送任何请求。两者一起使用时，Cache-Control/Expires 的优先级要高于 Last-Modified/ETag。即当本地副本根据 Cache-Control/Expires 发现还在有效期内时，则不会再次发送请求去服务器询问修改时间（Last-Modified）或实体标识（Etag）了。</p>
 <p>一般情况下，使用 Cache-Control/Expires 会配合 Last-Modified/ETag 一起使用，因为即使服务器设置缓存时间, 当用户点击“刷新”按钮时，浏览器会忽略缓存继续向服务器发送请求，这时 Last-Modified/ETag 将能够很好利用 304，从而减少响应开销。</p>
 <h2 id="总结">总结</h2>
-<figure data-type="image" tabindex="4"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8ei5cxj30bf0a9q3d.jpg" alt="last1.png"></figure>
-<figure data-type="image" tabindex="5"><img src="http://upload-images.jianshu.io/upload_images/4869616-0b7a10398d925b86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="last2.png"></figure>
+<figure data-type="image" tabindex="4"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8ei5cxj30bf0a9q3d.jpg" alt="last1.png" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="http://upload-images.jianshu.io/upload_images/4869616-0b7a10398d925b86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="last2.png" loading="lazy"></figure>
 <blockquote>
 <p>本文整理自<a href="http://www.zyy1217.com/2017/05/14/HTTP%E7%BC%93%E5%AD%98%E8%AF%A6%E8%A7%A3/">《HTTP 权威指南》之缓存详解</a></p>
 </blockquote>

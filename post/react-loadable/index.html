@@ -88,7 +88,7 @@ const AsyncHome = Loadable({
 <pre><code class="language-js">&lt;Route path=&quot;/&quot; exact component={AsyncHome} /&gt;
 </code></pre>
 <p>这样，你就会发现只有路由匹配的时候，组件才被 import 进来，达到了<code>code splitting</code>的效果，也就是我们常说的按需加载， 代码分块，而不是一开始就将全部组件加载。</p>
-<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf93xgk1j30yg0j741z.jpg" alt="chunk"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf93xgk1j30yg0j741z.jpg" alt="chunk" loading="lazy"></figure>
 <p>可以观察到，点击不同的路由都会加载一个 chunk.js，这就是我们所分的块。</p>
 <h2 id="核心import">核心：import()</h2>
 <p>不要把 <code>import</code>关键字和<code>import()</code>方法弄混了，该方法是为了进行动态加载才被引入的。</p>

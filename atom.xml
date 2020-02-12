@@ -2,14 +2,160 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2019-12-30T02:23:51.831Z</updated>
+    <updated>2020-02-12T02:09:49.239Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
     <subtitle>故人千万里，新蝉三两声。</subtitle>
     <logo>https://worldzhao.github.io/images/avatar.png</logo>
     <icon>https://worldzhao.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, 海秋</rights>
+    <rights>All rights reserved 2020, 海秋</rights>
+    <entry>
+        <title type="html"><![CDATA[React 组件库搭建指南-单元测试]]></title>
+        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-4</id>
+        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4">
+        </link>
+        <updated>2020-02-12T02:04:33.000Z</updated>
+        <summary type="html"><![CDATA[<p>与软件操作行为越接近的测试，越能给予你信心。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>与软件操作行为越接近的测试，越能给予你信心。</p>
+<!--more -->
+<ul>
+<li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
+<li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
+<li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
+<li><a href="https://juejin.im/post/5e23e4035188252c6c478665">React 组件库搭建指南-单元测试</a></li>
+</ul>
+<h2 id="概览">概览</h2>
+<p>本节主要讲述如何在组件库中引入<a href="https://jestjs.io/">jest</a>以及<a href="https://testing-library.com/docs/react-testing-library/intro">@testing-library/react</a>，而不会深入单元测试的学习。</p>
+<p>如果你对下列问题感兴趣：</p>
+<ol>
+<li>What-单元测试是什么？</li>
+<li>Why-为什么要写单元测试？</li>
+<li>How-编写单元测试的最佳实践？</li>
+</ol>
+<p>那么可以看看以下文章：</p>
+<ul>
+<li><a href="https://thomlom.dev/test-react-testing-library/">Test React apps with React Testing Library</a>：通过一个<code>&lt;Counter /&gt;</code>的例子延伸，阐述了选择<code>React Testing Library</code>而非<code>Enzyme</code>的理由，并对其进行了一些入门教学；</li>
+<li><a href="https://testing-library.com/docs/react-testing-library/intro">React Testing Library</a>：<code>@testing-library/react</code>的官方文档，该库提供的 API 在某个程度上就是在指引开发者进行单元测试的最佳实践；</li>
+<li><a href="https://testing-library.com/docs/recipes">React Testing Library-examples</a>：<code>@testing-library/react</code>的一些实例，提供了各种常见场景的测试；</li>
+<li><a href="https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues/200">React 单元测试策略及落地</a>：如标题所示，值得一看。</li>
+</ul>
+<p>本节所有代码可在仓库<a href="https://github.com/worldzhao/react-ui-library-tutorial/tree/chapter-4/test">chapter-4</a>分支中获取。</p>
+<h2 id="相关配置">相关配置</h2>
+<p>安装依赖：</p>
+<pre><code class="language-bash">yarn add jest ts-jest @testing-library/react @testing-library/jest-dom identity-obj-proxy @types/jest @types/testing-library__react --dev
+</code></pre>
+<ul>
+<li><a href="https://jestjs.io/">jest</a>: JavaScript 测试框架，专注于简洁明快；</li>
+<li><a href="https://github.com/kulshekhar/ts-jest">ts-jest</a>：为<code>TypeScript</code>编写<code>jest</code>测试用例提供支持；</li>
+<li><a href="https://testing-library.com/docs/react-testing-library/intro">@testing-library/react</a>：简单而完整的<code>React DOM</code>测试工具，鼓励良好的测试实践；</li>
+<li><a href="https://testing-library.com/docs/ecosystem-jest-dom">@testing-library/jest-dom</a>：自定义的<code>jest</code>匹配器(<code>matchers</code>)，用于测试<code>DOM</code>的状态（即为<code>jest</code>的<code>except</code>方法返回值增加更多专注于<code>DOM</code>的<code>matchers</code>）；</li>
+<li><a href="https://www.npmjs.com/package/identity-obj-proxy">identity-obj-proxy</a>：一个工具库，此处用来<code>mock</code>样式文件。</li>
+</ul>
+<p>新建<code>jest.config.js</code>，并写入相关配置，更多配置可参考<a href="https://jestjs.io/docs/en/configuration">jest 官方文档-配置</a>，只看几个常用的就可以。</p>
+<p><strong>jest.config.js</strong></p>
+<pre><code class="language-js">module.exports = {
+  verbose: true,
+  roots: ['&lt;rootDir&gt;/components'],
+  moduleNameMapper: {
+    '\\.(css|less|scss)$': 'identity-obj-proxy',
+    '^components$': '&lt;rootDir&gt;/components/index.tsx',
+    '^components(.*)$': '&lt;rootDir&gt;/components/$1',
+  },
+  testRegex: '(/test/.*|\\.(test|spec))\\.(ts|tsx|js)$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  testPathIgnorePatterns: ['/node_modules/', '/lib/', '/esm/', '/dist/'],
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+};
+</code></pre>
+<p>修改<code>package.json</code>，增加测试相关命令，并且代码提交前，跑测试用例，如下：</p>
+<p><strong>package.json</strong></p>
+<pre><code class="language-diff">&quot;scripts&quot;: {
+  ...
++  &quot;test&quot;: &quot;jest&quot;,                         # 执行jest
++  &quot;test:watch&quot;: &quot;jest --watch&quot;,           # watch模式下执行
++  &quot;test:coverage&quot;: &quot;jest --coverage&quot;,     # 生成测试覆盖率报告
++  &quot;test:update&quot;: &quot;jest --updateSnapshot&quot;  # 更新快照
+},
+...
+&quot;lint-staged&quot;: {
+  &quot;components/**/*.ts?(x)&quot;: [
+    &quot;prettier --write&quot;,
+    &quot;eslint --fix&quot;,
++   &quot;jest --bail --findRelatedTests&quot;,
+    &quot;git add&quot;
+  ],
+  ...
+}
+</code></pre>
+<p>修改<code>gulpfile.js</code>以及<code>tsconfig.json</code>，避免打包时，把测试文件一并处理了。</p>
+<p><strong>gulpfile.js</strong></p>
+<pre><code class="language-diff">const paths = {
+  ...
+- scripts: ['components/**/*.{ts,tsx}', '!components/**/demo/*.{ts,tsx}'],
++ scripts: [
++   'components/**/*.{ts,tsx}',
++   '!components/**/demo/*.{ts,tsx}',
++   '!components/**/__tests__/*.{ts,tsx}',
++ ],
+};
+</code></pre>
+<p><strong>tsconfig.json</strong></p>
+<pre><code class="language-diff">{
+- &quot;exclude&quot;: [&quot;components/**/demo&quot;]
++ &quot;exclude&quot;: [&quot;components/**/demo&quot;, &quot;components/**/__tests__&quot;]
+}
+</code></pre>
+<h2 id="编写测试用例">编写测试用例</h2>
+<p><code>&lt;Alert /&gt;</code>比较简单，此处只作示例用，简单进行一下快照测试。</p>
+<p>在对应组件的文件夹下新建<code>__tests__</code>文件夹，用于存放测试文件，其内新建<code>index.test.tsx</code>文件，写入以下测试用例：</p>
+<p><strong>components/alert/<strong>tests</strong>/index.test.tsx</strong></p>
+<pre><code class="language-jsx">import React from 'react';
+import { render } from '@testing-library/react';
+import Alert from '../alert';
+
+describe('&lt;Alert /&gt;', () =&gt; {
+  test('should render default', () =&gt; {
+    const { container } = render(&lt;Alert&gt;default&lt;/Alert&gt;);
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should render alert with type', () =&gt; {
+    const kinds: any[] = ['info', 'warning', 'positive', 'negative'];
+
+    const { getByText } = render(
+      &lt;&gt;
+        {kinds.map(k =&gt; (
+          &lt;Alert kind={k} key={k}&gt;
+            {k}
+          &lt;/Alert&gt;
+        ))}
+      &lt;/&gt;,
+    );
+
+    kinds.forEach(k =&gt; {
+      expect(getByText(k)).toMatchSnapshot();
+    });
+  });
+});
+</code></pre>
+<p>更新一下快照：</p>
+<pre><code class="language-bash">yarn test:update
+</code></pre>
+<p>可以看见同级目录下新增了一个<code>__snapshots__</code>文件夹，里面存放对应测试用例的快照文件。</p>
+<figure data-type="image" tabindex="1"><img src="https://user-gold-cdn.xitu.io/2020/1/19/16fbc32a99857807?w=1728&amp;h=974&amp;f=jpeg&amp;s=144346" alt="生成的快照文件" loading="lazy"></figure>
+<p>再执行测试用例：</p>
+<pre><code class="language-bash">yarn test
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://user-gold-cdn.xitu.io/2020/1/19/16fbc32a98f22f73?w=1112&amp;h=518&amp;f=jpeg&amp;s=59424" alt="通过测试用例" loading="lazy"></figure>
+<p>可以发现我们通过了测试用例。。。额，这里当然能通过，主要是后续我们进行迭代重构时，都会重新执行测试用例，与最近的一次快照进行比对，如果与快照不一致（结构发生了改变），那么相应的测试用例就无法通过。</p>
+<p>对于快照测试，褒贬不一，这个例子也着实简单得很，甚至连扩展的 <code>jest-dom</code>提供的 <code>matchers</code> 都没用上，如何编写优秀的测试用例，我也是一个新手，只能说多看多写多尝试，概述推荐的文章很不错。</p>
+<p>本文如有错误，恳请指正，共同交流学习。</p>
+<p>To be Continued...</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[React 组件库搭建指南-打包输出]]></title>
         <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-3</id>
@@ -24,6 +170,7 @@
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
+<li><a href="https://juejin.im/post/5e23e4035188252c6c478665">React 组件库搭建指南-单元测试</a></li>
 </ul>
 <h2 id="概览">概览</h2>
 <p><strong>宿主环境各不相同，需要将源码进行相关处理后发布至 npm。</strong></p>
@@ -178,7 +325,7 @@ exports.default = build;
 </code></pre>
 <p>观察编译后的源码，可以发现：诸多<code>helper</code>方法已被抽离至<code>@babel/runtime</code>中，模块导入导出形式也是<code>commonjs</code>规范。</p>
 <p><strong>lib/alert/alert.js</strong></p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgju58mlj30ve0u0k4o.jpg" alt="lib/alert/alert.js"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgju58mlj30ve0u0k4o.jpg" alt="lib/alert/alert.js" loading="lazy"></figure>
 <h2 id="导出-es-module">导出 ES module</h2>
 <p>生成<code>ES module</code>可以更好地进行<a href="https://webpack.docschina.org/guides/tree-shaking/">tree shaking</a>，基于上一步的<code>babel</code>配置，更新以下内容：</p>
 <ol>
@@ -280,7 +427,7 @@ const build = gulp.parallel(buildScripts);
 </code></pre>
 <p>执行<code>yarn build</code>，可以发现生成了<code>types</code>/<code>lib</code>/<code>esm</code>三个文件夹，观察<code>esm</code>目录，结构同<code>lib</code>/<code>types</code>一致，js 文件都是以<code>ES module</code>模块形式导入导出。</p>
 <p><strong>esm/alert/alert.js</strong></p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgrzmgjqj311i0u0air.jpg" alt="esm/alert/alert.js"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgrzmgjqj311i0u0air.jpg" alt="esm/alert/alert.js" loading="lazy"></figure>
 <p>别忘了给<code>package.json</code>增加相关入口。</p>
 <p><strong>package.json</strong></p>
 <pre><code class="language-diff">{
@@ -471,6 +618,7 @@ import 'happy-ui/lib/alert/style';
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
+<li><a href="https://juejin.im/post/5e23e4035188252c6c478665">React 组件库搭建指南-单元测试</a></li>
 </ul>
 <h2 id="概览">概览</h2>
 <p>本文解决开发组件时的预览以及调试问题，顺路解决文档编写。</p>
@@ -546,7 +694,7 @@ import { Playground } from 'docz'; import Alert from './alert'; // 引入组件 
 <pre><code class="language-bash">yarn start # or yarn dev
 </code></pre>
 <p>可以在<code>localhost:3000</code>看到如下页面 ：</p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点" loading="lazy"></figure>
 <p>现在可以在<code>index.mdx</code>中愉快地进行文档编写和调试了！</p>
 <p>倘若本文到了这里就结束（其实也可以结束了<code>(_^▽^_)</code>），那我只是官方文档的翻译复读机罢了，有兴趣的同学可以继续向下看。</p>
 <h2 id="优化文档编写">优化文档编写</h2>
@@ -573,7 +721,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 &lt;/Playground&gt;
 </code></pre>
 <p>这样我们就将 demo 与文档进行了分隔。预览如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构" loading="lazy"></figure>
 <p>等等，你下面显示的那个<code>&lt;BasicDemo /&gt;</code>有点撩人，这里应该是给用户爸爸们<code>copy</code>的<code>demo</code>源码，你弄一个标签在这里，用户爸爸肯定不开心 🙅‍♀️。</p>
 <p>然而<code>&lt;Playground /&gt;</code>组件暂时无法支持上述形式的展示：自定义下方展示的代码，而非<code>&lt;Playground /&gt;</code>内部的代码。相关讨论如下：</p>
 <ul>
@@ -599,7 +747,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 <p>这些依赖都是服务于文档站点应用，和组件库自身毫无关联。</p>
 </blockquote>
 <p>最终效果如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></figure>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果" loading="lazy"></figure>
 <p>根目录下新建<code>doc-comps</code>文件夹，存放文档中使用的一些工具组件，比如<code>&lt;HappyBox /&gt;</code>。</p>
 <p><strong>doc-comps</strong></p>
 <pre><code>├── happy-box
@@ -785,6 +933,7 @@ exports.onCreateWebpackConfig = args =&gt; {
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
 <li><a href="https://juejin.im/post/5dfb09b1e51d4558096d5f94">React 组件库搭建指南-开发调试</a></li>
 <li><a href="https://juejin.im/post/5e030b926fb9a0162c487c7b">React 组件库搭建指南-打包输出</a></li>
+<li><a href="https://juejin.im/post/5e23e4035188252c6c478665">React 组件库搭建指南-单元测试</a></li>
 </ul>
 <h2 id="概览">概览</h2>
 <p>本系列文章主要是开发组件库<a href="https://github.com/worldzhao/dora-ui">dora-ui</a>过程中的一些经验总结，大致包含以下内容：</p>
@@ -2095,267 +2244,6 @@ const fab = createFab();
 <li><a href="https://github.com/alexreardon/memoize-one">memoize-one</a>，by alexreardon</li>
 <li><a href="https://cn.vuejs.org/v2/guide/computed.html">计算属性和侦听器</a>，by Vue</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[优雅处理表单联动]]></title>
-        <id>https://worldzhao.github.io/post/react-computed</id>
-        <link href="https://worldzhao.github.io/post/react-computed">
-        </link>
-        <updated>2019-03-16T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="优雅处理表单联动">优雅处理表单联动</h1>
-<h2 id="引言">引言</h2>
-<p>表单之间联动一直是后台管理类项目中的高频场景，简单描述为：一个（源）表单域的变化会导致另外一个（目标）表单域的变化。</p>
-<p>本文基于 antd，结合 get 关键字，提出了一种较为优雅地解决表单联动的手段。</p>
-<h2 id="伪计算属性">（伪）计算属性</h2>
-<p>初次见到计算属性一词是在 Vue 官方文档-<a href="https://cn.vuejs.org/v2/guide/computed.html">计算属性和侦听器</a>一节中。</p>
-<blockquote>
-<p>模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。在模板中放入太多的逻辑会让模板过重且难以维护。</p>
-</blockquote>
-<p>回想我们编写的 React 代码，是否也在 jsx（render 函数）中放入了太多的逻辑导致 jsx（render 函数）过于沉重？</p>
-<p>通过<code>get</code>关键字，我们可以一样效果。</p>
-<p>本例来源：<a href="https://github.com/shimohq/react-cookbook#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">react-cookbook</a>-石墨文档</p>
-<pre><code class="language-jsx">// 使用 getters 封装 render 所需要的状态或条件的组合
-// 对于返回 boolean 的 getter 使用 is- 前缀命名
-
-// bad
-render () {
-    return (
-        &lt;div&gt;
-        {
-            this.state.age &gt; 18
-            &amp;&amp; (this.props.school === 'A'
-                || this.props.school === 'B')
-            ? &lt;VipComponent /&gt;
-            : &lt;NormalComponent /&gt;
-        }
-        &lt;/div&gt;
-    )
-}
-
-// good
-get isVIP() {
-    return
-        this.state.age &gt; 18
-        &amp;&amp; (this.props.school === 'A'
-            || this.props.school === 'B')
-    }
-render() {
-    return (
-        &lt;div&gt;
-        {this.isVIP ? &lt;VipComponent /&gt; : &lt;NormalComponent /&gt;}
-        &lt;/div&gt;
-    )
-}
-</code></pre>
-<p>可以简单理解为：通过<code>get</code>关键字，抽离计算逻辑，根据 state 与 props 计算出衍生值。</p>
-<p>props 以及 state 的变化会导致 render 函数调用，进而重新计算衍生值。与 Vue 中的定义基本一致。</p>
-<pre><code>props/state =&gt; render =&gt; get
-</code></pre>
-<p>可能有同学会问为什么不直接定义一个方法调用呢？</p>
-<p>对于 Vue 计算属性，Vue 官方文档中存在解释：&quot;我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。然而，不同的是计算属性是基于它们的依赖进行缓存的。只在相关依赖发生改变时它们才会重新求值。&quot;</p>
-<p>假使存在两个 state 属性 A.B，计算属性只依赖 A，不依赖 B。倘若 B 变化，计算属性不会重新计算。</p>
-<p>但在 React 中，依旧会执行 render，所以 get 没有缓存，只是个语法糖。</p>
-<h2 id="使用计算属性实现最优雅的表单联动">使用计算属性实现最优雅的表单联动</h2>
-<p>假设存在业务类别以及处罚内容，并且不同类别对应不同的处罚内容，点击不同的业务类别，处罚内容是动态变化的，以业务类别为网上超市为例，见下图：</p>
-<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></figure>
-<p>完整对应关系如下（数字为对应 code）：</p>
-<pre><code>业务类别：网上超市-0
-处罚内容：协议-0 商品-1 店铺-2 搜索-6
-
-业务类别：在线询价-1
-处罚内容：询价单报价-4
-
-业务类别：协议供货-2
-处罚内容：协议-0 商品-1
-
-业务类别：反项竞价-4
-处罚内容：发起竞价-5
-</code></pre>
-<p>现在我们来完成这个小需求 😃</p>
-<h3 id="准备工作-抽象对应数据结构">准备工作-抽象对应数据结构</h3>
-<p><em>为了避免在代码中出现无意义的神仙数字</em>以及<em>大量的 if-else</em>，我们给每一个 code 命名，同时将其文案以及对应内容进行抽象，如下（看个大概结构就好，我也觉得太长了）。</p>
-<pre><code class="language-js">/* 业务类型code */
-export const businessTypeCode = {
-  LUNATONE_CODE: 0, // 网超
-  ENQUIRY_CODE: 1, // 在线询价
-  PROTOCOL_CODE: 2, // 协议供货
-  REVERSE_CODE: 4 // 反向竞价
-};
-
-/* 处罚内容code */
-export const punishContentCode = {
-  PROTOCOL_CODE: 0, // 协议
-  ITEM_CODE: 1, // 商品
-  SHOP_CODE: 2, // 店铺
-  ENQUIRY_CODE: 4, // 询价单报价
-  BIDDING_CODE: 5, // 发起竞价
-  SEARCH_CODE: 6 // 搜索
-};
-
-/* 业务类型 code 及其对应的描述 desc 以及处罚内容 code */
-export const businessTypeMap = {
-  [businessTypeCode.LUNATONE_CODE]: {
-    desc: &quot;网上超市&quot;,
-    matchedPunishContent: [
-      punishContentCode.PROTOCOL_CODE,
-      punishContentCode.ITEM_CODE,
-      punishContentCode.SHOP_CODE,
-      punishContentCode.SEARCH_CODE
-    ]
-  },
-  [businessTypeCode.ENQUIRY_CODE]: {
-    desc: &quot;在线询价&quot;,
-    matchedPunishContent: [punishContentCode.ENQUIRY_CODE]
-  },
-  [businessTypeCode.PROTOCOL_CODE]: {
-    desc: &quot;协议供货&quot;,
-    matchedPunishContent: [
-      punishContentCode.PROTOCOL_CODE,
-      punishContentCode.ITEM_CODE
-    ]
-  },
-  [businessTypeCode.REVERSE_CODE]: {
-    desc: &quot;反向竞价&quot;,
-    matchedPunishContent: [punishContentCode.BIDDING_CODE]
-  }
-};
-/* 处罚内容 code 及其对应的描述 desc */
-export const punishContentMap = {
-  [punishContentCode.PROTOCOL_CODE]: { desc: &quot;协议&quot; },
-  [punishContentCode.ITEM_CODE]: { desc: &quot;商品&quot; },
-  [punishContentCode.SHOP_CODE]: { desc: &quot;店铺&quot; },
-  [punishContentCode.ENQUIRY_CODE]: { desc: &quot;询价单报价&quot; },
-  [punishContentCode.BIDDING_CODE]: { desc: &quot;发起竞价&quot; },
-  [punishContentCode.SEARCH_CODE]: { desc: &quot;搜索&quot; }
-};
-</code></pre>
-<h3 id="巧用计算属性">巧用计算属性</h3>
-<p>通常，我们是通过监听源表单域<code>onChange</code>事件，改变一个 state 属性，目标表单域则根据该 state 进行动态渲染。</p>
-<p>譬如在此例中，我们可以在 state 中维护一个<code>matchedPunishContent</code>的字段，每次改变业务类别时，根据其 code 找到匹配的处罚内容，然后 setState 保存，取出 state 渲染处罚内容。</p>
-<p>大体流程如下：</p>
-<pre><code>粗粒度：ui change =&gt; state change =&gt; ui change
-
-细粒度：Radio=&gt; onChange =&gt; 取得code找到对应处罚内容 =&gt; setState =&gt; 重新渲染处罚内容
-</code></pre>
-<p>如果表单联动关系较多，就会维护很多个 state 以及 onChange 函数，增加维护成本。</p>
-<p>我们可以换一种思路，既然 Radio 的 value 值改变了，那么 getFieldValue 取得对应表单域的值也改变了。</p>
-<p>通过如下方式，我们可以动态计算出处罚内容，而不需要去维护一个中间 state 以及一个 onChange 方法，大大减少了代码量。</p>
-<pre><code class="language-jsx"> /* 根据 businessType 获取 punishContent */
-  get matchedPunishContent() {
-    const businessType = this.props.form.getFieldValue('businessType')
-    return businessTypeMap[businessType].matchedPunishContent
-  }
-</code></pre>
-<p>完整代码见附录。</p>
-<h2 id="回填表单从未如此简单">回填表单，从未如此简单</h2>
-<p>使用计算属性，你甚至可以享受到回填表单的美妙之处。</p>
-<p>每一次回填表单数据，最难熬的莫过于不但要把数据填上去，并且需要还原表单状态，譬如某个表单域是选中的话，会导致一个表单域 disable，另一个表单域 hide 等等，之前是需要去维护 一个一个的 state，而有了计算属性，这一切操作，你只需要进行一次<code>setFieldsValue</code>（以及编写一些计算属性逻辑）。</p>
-<p>以上文为例，回填数据时，对业务类型（bussiness）进行<code>setFieldsValue</code>操作（会导致<code>getFieldValue('businessType')</code>的改变），可以自动计算出处罚内容，而无需手动去还原。</p>
-<h3 id="实战">实战</h3>
-<p>如图，如果勾选了<code>永久</code>(permanent)，该时间选择器禁用。</p>
-<p>同时，回填时如果 permanent 字段为 PERMANENT_CODE，则要将时间选择器还原为禁用状态。</p>
-<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></figure>
-<p>解决如下：</p>
-<pre><code class="language-jsx">  get isDatePickerDisabled() {
-    const { getFieldValue } = this.props.form;
-    const permanent = getFieldValue('permanent') || [];
-    return permanent.includes(PERMANENT_CODE);
-  }
-</code></pre>
-<p>你只需要这般使用：</p>
-<pre><code class="language-jsx">&lt;DatePicker disabled={this.isDatePickerDisabled} /&gt;
-</code></pre>
-<p>不论是用户手动点击亦或是开发者回填表单<code>setFieldsValue({permanent:[PERMANENT_CODE]})</code></p>
-<p>DatePicker 会自己乖乖禁用，而无需手动进行任何操作。</p>
-<p>感谢阅读，欢迎探讨。</p>
-<p>参考文章：</p>
-<ol>
-<li><a href="https://cn.vuejs.org/v2/guide/computed.html">Vue.js-计算属性和侦听器</a></li>
-<li><a href="https://github.com/shimohq/react-cookbook#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">react-cookbook</a></li>
-</ol>
-<hr>
-<p>附录：</p>
-<pre><code class="language-jsx">import React, { Component } from &quot;react&quot;;
-import { Form, Radio } from &quot;doraemon&quot;;
-import {
-  businessTypeCode,
-  punishContentCode,
-  businessTypeMap,
-  punishContentMap
-} from &quot;./config&quot;;
-
-const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
-
-@Form.create()
-class Test extends Component {
-  /* 根据 businessType 动态计算 punishContent */
-  get matchedPunishContent() {
-    const businessType = this.props.form.getFieldValue(&quot;businessType&quot;);
-    return businessTypeMap[businessType].matchedPunishContent;
-  }
-
-  /* 渲染业务类别 */
-  renderBusinessType = () =&gt; {
-    const { getFieldDecorator } = this.props.form;
-    const businessTypeConfig = {
-      rules: [{ required: true, message: &quot;请选择业务类别&quot; }],
-      initialValue: businessTypeCode.LUNATONE_CODE
-    };
-    return (
-      &lt;FormItem label=&quot;业务类别&quot;&gt;
-        {getFieldDecorator(&quot;businessType&quot;, businessTypeConfig)(
-          &lt;RadioGroup&gt;
-            {Object.keys(businessTypeMap).map(value =&gt; {
-              const { desc } = businessTypeMap[value];
-              return (
-                &lt;Radio key={value} value={Number(value)}&gt;
-                  {desc}
-                &lt;/Radio&gt;
-              );
-            })}
-          &lt;/RadioGroup&gt;
-        )}
-      &lt;/FormItem&gt;
-    );
-  };
-
-  /* 渲染处罚内容 */
-  renderPunishContent = () =&gt; {
-    const { getFieldDecorator } = this.props.form;
-    const punishContentConfig = {
-      rules: [{ required: true, message: &quot;请选择处罚内容&quot; }],
-      initialValue: punishContentCode.PROTOCOL_CODE
-    };
-    return (
-      &lt;FormItem label=&quot;处罚内容&quot;&gt;
-        {getFieldDecorator(&quot;punishContent&quot;, punishContentConfig)(
-          &lt;RadioGroup&gt;
-            {this.matchedPunishContent.map(value =&gt; {
-              const { desc } = punishContentMap[value];
-              return (
-                &lt;Radio key={value} value={value}&gt;
-                  {desc}
-                &lt;/Radio&gt;
-              );
-            })}
-          &lt;/RadioGroup&gt;
-        )}
-      &lt;/FormItem&gt;
-    );
-  };
-
-  render() {
-    return (
-      &lt;Form&gt;
-        {this.renderBusinessType()}
-        {this.renderPunishContent()}
-      &lt;/Form&gt;
-    );
-  }
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>

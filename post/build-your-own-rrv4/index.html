@@ -234,7 +234,7 @@ const App = () =&gt; (
 <blockquote>
 <p>只有当所给路径精确匹配上 location.pathname 时才返回 true。</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf7v0hdfj30m80aimxm.jpg" alt="exact"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf7v0hdfj30m80aimxm.jpg" alt="exact" loading="lazy"></figure>
 <p>接下来就来具体实现 <code>matchPath</code> 函数。如果你回头看一下上面 <code>Route</code> 组件的代码，你可以看到 <code>matchPath</code> 函数是这样的：</p>
 <pre><code class="language-js">const match = matchPath(window.location.pathname, { path, exact });
 </code></pre>
@@ -259,7 +259,7 @@ const App = () =&gt; (
 </code></pre>
 <p>如果匹配上了，那么返回一个包含有所有匹配串的数组，否则返回 null。</p>
 <p>下面是我们示例 app 的路由 '/topics/components' 的一些匹配项。</p>
-<figure data-type="image" tabindex="2"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf7x7hnaj30m80juta2.jpg" alt="return value"></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf7x7hnaj30m80juta2.jpg" alt="return value" loading="lazy"></figure>
 <blockquote>
 <p>注意：每个 <code>&lt;Route&gt;</code> 都在自己的渲染方法里调用 <code>matchPath</code>，所以要为每个 <code>&lt;Route&gt;</code> 配一个 <code>match</code>。</p>
 </blockquote>

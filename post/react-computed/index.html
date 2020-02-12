@@ -110,7 +110,7 @@ render() {
 <p>但在 React 中，依旧会执行 render，所以 get 没有缓存，只是个语法糖。</p>
 <h2 id="使用计算属性实现最优雅的表单联动">使用计算属性实现最优雅的表单联动</h2>
 <p>假设存在业务类别以及处罚内容，并且不同类别对应不同的处罚内容，点击不同的业务类别，处罚内容是动态变化的，以业务类别为网上超市为例，见下图：</p>
-<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf8jsdv5j30sa05iwfu.jpg" alt="交互.png" loading="lazy"></figure>
 <p>完整对应关系如下（数字为对应 code）：</p>
 <pre><code>业务类别：网上超市-0
 处罚内容：协议-0 商品-1 店铺-2 搜索-6
@@ -207,7 +207,7 @@ export const punishContentMap = {
 <h3 id="实战">实战</h3>
 <p>如图，如果勾选了<code>永久</code>(permanent)，该时间选择器禁用。</p>
 <p>同时，回填时如果 permanent 字段为 PERMANENT_CODE，则要将时间选择器还原为禁用状态。</p>
-<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png"></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf8kkxrhj30s402y3yu.jpg" alt="disableDatePicker.png" loading="lazy"></figure>
 <p>解决如下：</p>
 <pre><code class="language-jsx">  get isDatePickerDisabled() {
     const { getFieldValue } = this.props.form;
