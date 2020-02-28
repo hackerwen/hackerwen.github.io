@@ -22,13 +22,6 @@
 html {
   box-sizing: border-box;
 }
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-}
 /**
  * Use a more readable tab size (opinionated).
  */
@@ -1170,31 +1163,41 @@ a:active,
   flex: 1;
   padding: 48px 16px 32px;
 }
-.post-item {
-  display: flex;
-  padding: 32px 0;
-  max-height: 200px;
+article {
+  padding-top: 32px;
 }
-.post-item .content {
-  flex: 1;
+article header {
   text-align: center;
 }
-.post-item .content .post-title {
+article header a {
   font-size: 22px;
-  font-weight: normal;
   color: #0c1e29;
-  text-decoration: underline;
-  transition: background-color 0.3s ease;
   padding: 5px;
+  display: block;
+  transition: background-color 0.3s ease;
 }
-.post-item .content .post-title:hover {
+article header a:hover {
   color: white;
   background-color: gray;
 }
-.post-item .content .post-abstract {
+article header time {
+  color: var(--c-base-purple);
+  font-size: 12px;
+}
+article header time span {
+  margin-right: 16px;
+}
+article header time .icon {
+  font-size: 12px;
+  margin-right: 4px;
+}
+article header time a {
+  color: var(--c-base-purple);
+}
+article > p {
+  text-align: center;
   font-size: 14px;
   margin: 8px 0 8px;
-  flex: 1;
   color: #4e616c;
   line-height: 24px;
   position: relative;
@@ -1203,42 +1206,22 @@ a:active,
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-.post-item .content .post-abstract strong {
+article > p p {
+  margin: 0;
+  padding: 0;
+}
+article > p strong {
   font-weight: bolder;
 }
-.post-item .content .post-abstract a {
+article > p a {
   font-weight: 600;
 }
-.post-item .content .post-abstract code {
+article > p code {
   padding: 0 3px;
   margin: 0 2px;
   background: rgba(195, 195, 195, 0.41);
   font-size: 0.9em;
   border-radius: 2px;
-}
-.post-item .feature-container {
-  margin-left: 16px;
-  flex-shrink: 0;
-  width: 240px;
-  height: 135px;
-  position: relative;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-}
-.post-info {
-  color: var(--c-base-purple);
-  font-size: 12px;
-}
-.post-info span {
-  margin-right: 16px;
-}
-.post-info .icon {
-  font-size: 12px;
-  margin-right: 4px;
-}
-.post-info a {
-  color: var(--c-base-purple);
 }
 @media (max-width: 600px) {
   .post-item {
@@ -1275,7 +1258,6 @@ a:active,
   display: flex;
   align-items: center;
   padding: 2px 8px;
-  background: linear-gradient(180deg, transparent 70%, rgba(101, 125, 225, 0.4) 0);
 }
 .pagination-container .prev {
   float: left;
@@ -1291,16 +1273,6 @@ a:active,
   margin: 24px 0;
   color: var(--c-base-black);
 }
-.post-detail .post-detail-info {
-  padding: 0 0 32px;
-}
-.post-detail .feature-container {
-  padding-top: 56.25%;
-  background-size: cover;
-  background-position: center;
-  border-radius: 2px;
-  box-shadow: 0 0 30px #eee;
-}
 .next-post {
   text-align: center;
 }
@@ -1314,8 +1286,10 @@ a:active,
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-  padding: 16px 0;
-  color: #0c1e29;
+  color: black;
+}
+.post-content h2 {
+  border-bottom: 1px solid gray;
 }
 .post-content img {
   display: block;
@@ -1326,7 +1300,6 @@ a:active,
 }
 .post-content p {
   line-height: 1.725;
-  margin-bottom: 16px;
   color: var(--c-base-blacklight);
 }
 .post-content code {
@@ -1343,9 +1316,6 @@ a:active,
   margin: 22px 0;
   border-left: 4px solid #cbcbcb;
   background-color: #f8f8f8;
-}
-.post-content blockquote p {
-  margin-bottom: 0;
 }
 .post-content pre {
   margin-bottom: 16px;
@@ -1389,16 +1359,9 @@ a:active,
   padding-top: 32px;
   color: var(--c-base-purple);
 }
-.archives-container {
-  padding: 32px 0;
-}
 .archives-container .year {
-  font-size: 24px;
-  margin: 24px 0;
   color: var(--c-base-purple);
-}
-.archives-container .post {
-  margin-bottom: 32px;
+  margin-bottom: 0;
 }
 .archives-container .post .post-title {
   font-size: 18px;
