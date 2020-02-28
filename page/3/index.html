@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582857505057">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582865460551">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
@@ -28,16 +28,17 @@
       <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="https://worldzhao.github.io">
-        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1582857505057" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://worldzhao.github.io">
+      <a href="https://worldzhao.github.io" class="logo">
         <h1 class="site-title">海秋</h1>
       </a>
     </div>
     <div class="right">
       <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+        <i
+          class="icon"
+          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
+          @click="menuVisible = !menuVisible"
+        ></i>
       </transition>
     </div>
   </div>
@@ -46,31 +47,19 @@
 <transition name="fade">
   <div class="menu-container" style="display: none;" v-show="menuVisible">
     <div class="menu-list">
-      
+       
+      <a href="/" class="menu">
+        首页
+      </a>
         
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
+      <a href="/archives" class="menu">
+        归档
+      </a>
+           
+      <a href="/post/about" class="menu">
+        关于
+      </a>
+       
     </div>
   </div>
 </transition>
@@ -81,56 +70,14 @@
         
 <section class="post-item">
     <div class="content">
-      <a href="https://worldzhao.github.io/post/react-computed">
-        <h2 class="post-title">优雅处理表单联动</h2>
+      <a href="https://worldzhao.github.io/post/build-your-own-rrv4">
+        <h2 class="post-title">【转】Build your own React Router v4</h2>
       </a>
       <div class="post-abstract">
         
       </div>
       <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-03-17</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
-                react
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-      <a href="https://worldzhao.github.io/post/react-computed">
-        <div class="feature-container" style="background-image: url('http://ww2.sinaimg.cn/large/006tNc79gy1g5uhe3gi3qj30u00u04qp.jpg')">
-        </div>
-      </a>
-    
-  </section>
-
-<section class="post-item">
-    <div class="content">
-      <a href="https://worldzhao.github.io/post/pig">
-        <h2 class="post-title">从callback到async</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2019-01-24</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/zd4EwIdEDA">
-                javascript
-                
-              </a>
-            
-          </span>
-        
+        <span><i class="icon icon-calendar-outline"></i> 2018-01-11</span>
       </div>
     </div>
     
@@ -138,25 +85,14 @@
 
 <section class="post-item">
     <div class="content">
-      <a href="https://worldzhao.github.io/post/design-pattern-strategy">
-        <h2 class="post-title">设计模式-策略模式</h2>
+      <a href="https://worldzhao.github.io/post/raining">
+        <h2 class="post-title">遇雨</h2>
       </a>
       <div class="post-abstract">
         
       </div>
       <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2018-11-24</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/3U7T0khRv2">
-                设计模式
-                
-              </a>
-            
-          </span>
-        
+        <span><i class="icon icon-calendar-outline"></i> 2017-11-04</span>
       </div>
     </div>
     
@@ -164,25 +100,14 @@
 
 <section class="post-item">
     <div class="content">
-      <a href="https://worldzhao.github.io/post/babel-note">
-        <h2 class="post-title">babel学习笔记</h2>
+      <a href="https://worldzhao.github.io/post/fe-router">
+        <h2 class="post-title">前端路由总结</h2>
       </a>
       <div class="post-abstract">
         
       </div>
       <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2018-10-13</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/n47DI046wd">
-                babel
-                
-              </a>
-            
-          </span>
-        
+        <span><i class="icon icon-calendar-outline"></i> 2017-10-22</span>
       </div>
     </div>
     
@@ -190,25 +115,104 @@
 
 <section class="post-item">
     <div class="content">
-      <a href="https://worldzhao.github.io/post/git-flow">
-        <h2 class="post-title">关于 git flow 工作流程的一点思考</h2>
+      <a href="https://worldzhao.github.io/post/some-css">
+        <h2 class="post-title">最近遇到的一些css题目</h2>
       </a>
       <div class="post-abstract">
         
       </div>
       <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2018-09-01</span>
+        <span><i class="icon icon-calendar-outline"></i> 2017-10-22</span>
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/some-js">
+        <h2 class="post-title">一些js编程题</h2>
+      </a>
+      <div class="post-abstract">
         
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="https://worldzhao.github.io/tag/MJuW_dqVJy">
-                git
-                
-              </a>
-            
-          </span>
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-10-22</span>
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/This-In-JS-2">
+        <h2 class="post-title">this、箭头函数与React事件绑定（二）</h2>
+      </a>
+      <div class="post-abstract">
         
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-10-14</span>
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/This-In-JS-1">
+        <h2 class="post-title">this、箭头函数与React事件绑定（一）</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-10-13</span>
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/thing-in-fab">
+        <h2 class="post-title">关于斐波那契数列的一些思考</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-09-27</span>
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/xss-and-csrf">
+        <h2 class="post-title">前端安全：XSS与CSRF</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-09-15</span>
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/http-cache">
+        <h2 class="post-title">HTTP中的缓存机制</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-09-14</span>
       </div>
     </div>
     
@@ -252,15 +256,18 @@
 
     </div>
     <script type="application/javascript">
-  hljs.initHighlightingOnLoad();
 
-  var app = new Vue({
-    el: '#app',
-    data: {
-      menuVisible: false,
-    },
-  });
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
 </script>
+
 
 
 

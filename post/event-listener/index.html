@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582857505057">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582865460551">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
@@ -35,16 +35,17 @@
       <div class="site-header-container">
   <div class="site-header">
     <div class="left">
-      <a href="https://worldzhao.github.io">
-        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1582857505057" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://worldzhao.github.io">
+      <a href="https://worldzhao.github.io" class="logo">
         <h1 class="site-title">海秋</h1>
       </a>
     </div>
     <div class="right">
       <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+        <i
+          class="icon"
+          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
+          @click="menuVisible = !menuVisible"
+        ></i>
       </transition>
     </div>
   </div>
@@ -53,31 +54,19 @@
 <transition name="fade">
   <div class="menu-container" style="display: none;" v-show="menuVisible">
     <div class="menu-list">
-      
+       
+      <a href="/" class="menu">
+        首页
+      </a>
         
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
+      <a href="/archives" class="menu">
+        归档
+      </a>
+           
+      <a href="/post/about" class="menu">
+        关于
+      </a>
+       
     </div>
   </div>
 </transition>
@@ -89,17 +78,6 @@
           <h2 class="post-title">实现通用的事件注册方法</h2>
           <div class="post-info post-detail-info">
             <span><i class="icon-calendar-outline"></i> 2017-07-15</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://worldzhao.github.io/tag/zd4EwIdEDA">
-                    javascript
-                    
-                  </a>
-                
-              </span>
-            
           </div>
           <div class="post-content">
             <blockquote>
@@ -327,7 +305,7 @@ if (x.removeEventListener) {
 
         
           <div class="next-post">
-            <a class="purple-link" href="https://worldzhao.github.io/post/constructor-prototype-extend-3">
+            <a href="https://worldzhao.github.io/post/constructor-prototype-extend-3">
               <h3 class="post-title">
                 下一篇：构造函数、原型与继承（三）
               </h3>
@@ -369,32 +347,43 @@ if (x.removeEventListener) {
 
     </div>
     <script type="application/javascript">
-  hljs.initHighlightingOnLoad();
 
-  var app = new Vue({
-    el: '#app',
-    data: {
-      menuVisible: false,
-    },
-  });
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
 </script>
 
- 
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script>
-  var gitalk = new Gitalk({
-    clientID: 'ae70790f8df61d7ce952',
-    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-    repo: 'worldzhao.github.io',
-    owner: 'worldzhao',
-    admin: ['worldzhao'],
-    id: location.pathname.substring(0, 49), // Ensure uniqueness and length less than 50
-    distractionFreeMode: false, // Facebook-like distraction free mode
-  });
 
-  gitalk.render('gitalk-container');
-</script>
+
   
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'ae70790f8df61d7ce952',
+        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+        repo: 'worldzhao.github.io',
+        owner: 'worldzhao',
+        admin: ['worldzhao'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
 
   </body>
 </html>
