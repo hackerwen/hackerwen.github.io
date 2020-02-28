@@ -1,8 +1,8 @@
 :root {
-  --c-base-black: #0C1E29;
-  --c-base-blacklight: #4E616C;
-  --c-base-purple: #5978F3;
-  --c-base-purplelight: #C2CCF2;
+  --c-base-black: #0c1e29;
+  --c-base-blacklight: #4e616c;
+  --c-base-purple: #5978f3;
+  --c-base-purplelight: #c2ccf2;
   --c-base-bluelight: hwb(199, 1%, 4%);
   --c-base-blue: hwb(209, 0%, 35%);
   --c-base-green: hwb(123, 40%, 27%);
@@ -235,82 +235,92 @@ progress {
 summary {
   display: list-item;
 }
+/* a11y-dark theme */
+/* Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css */
+/* @author: ericwbailey */
+/* Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #d4d0ab;
+}
+/* Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #ffa07a;
+}
+/* Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #f5ab35;
+}
+/* Yellow */
+.hljs-attribute {
+  color: #ffd700;
+}
+/* Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #abe338;
+}
+/* Blue */
+.hljs-title,
+.hljs-section {
+  color: #00e0e0;
+}
+/* Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #dcc6e0;
+}
 .hljs {
   display: block;
   overflow-x: auto;
+  background: #2b2b2b;
+  color: #f8f8f2;
   padding: 0.5em;
-  color: #333;
-  background: #f8f8f8;
-}
-.hljs-comment,
-.hljs-quote {
-  color: #998;
-  font-style: italic;
-}
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-subst {
-  color: #333;
-  font-weight: bold;
-}
-.hljs-number,
-.hljs-literal,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-tag .hljs-attr {
-  color: #008080;
-}
-.hljs-string,
-.hljs-doctag {
-  color: #d14;
-}
-.hljs-title,
-.hljs-section,
-.hljs-selector-id {
-  color: #900;
-  font-weight: bold;
-}
-.hljs-subst {
-  font-weight: normal;
-}
-.hljs-type,
-.hljs-class .hljs-title {
-  color: #458;
-  font-weight: bold;
-}
-.hljs-tag,
-.hljs-name,
-.hljs-attribute {
-  color: #000080;
-  font-weight: normal;
-}
-.hljs-regexp,
-.hljs-link {
-  color: #009926;
-}
-.hljs-symbol,
-.hljs-bullet {
-  color: #990073;
-}
-.hljs-built_in,
-.hljs-builtin-name {
-  color: #0086b3;
-}
-.hljs-meta {
-  color: #999;
-  font-weight: bold;
-}
-.hljs-deletion {
-  background: #fdd;
-}
-.hljs-addition {
-  background: #dfd;
 }
 .hljs-emphasis {
   font-style: italic;
 }
 .hljs-strong {
   font-weight: bold;
+}
+@media screen and (-ms-high-contrast: active) {
+  .hljs-addition,
+  .hljs-attribute,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-bullet,
+  .hljs-comment,
+  .hljs-link,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-params,
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-type,
+  .hljs-quote {
+    color: highlight;
+  }
+  .hljs-keyword,
+  .hljs-selector-tag {
+    font-weight: bold;
+  }
 }
 @font-face {
   font-family: 'icomoon';
@@ -1315,7 +1325,7 @@ a.purple-link {
 .post-content h5,
 .post-content h6 {
   padding: 16px 0;
-  color: #0C1E29;
+  color: #0c1e29;
 }
 .post-content a {
   font-weight: 600;
@@ -1365,22 +1375,13 @@ a.purple-link {
 .post-content pre code {
   font-size: 14px;
   font-family: 'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;
-  padding: 2em 1em 1em;
+  padding: 1em 1em 1em;
   border-radius: 5px;
   line-height: 1.375;
   position: relative;
-  background: #fafafa;
+  background: #343a40;
+  color: #f1f3f5;
   display: block;
-}
-.post-content pre code:after {
-  content: 'CODE';
-  display: block;
-  position: absolute;
-  left: 8px;
-  top: 4px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #ccc;
 }
 .post-content table {
   border-collapse: collapse;
