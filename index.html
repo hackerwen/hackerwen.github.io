@@ -1,218 +1,279 @@
-<!DOCTYPE html>
+
 <html>
   <head>
-    <meta charset="utf-8" >
+    
+<meta charset="utf-8" >
 
 <title>海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582855934859">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582856092584">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.bootcss.com/highlight.js/9.17.1/highlight.min.js"></script>
 
 
 
   </head>
   <body>
     <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://worldzhao.github.io">
-        <img src="https://worldzhao.github.io/images/avatar.png?v=1582855934859" class="site-logo">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://worldzhao.github.io">
+        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1582856092584" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://worldzhao.github.io">
         <h1 class="site-title">海秋</h1>
       </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
-      </div>
     </div>
-    <div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
       
         
-          <a href="/" class="site-nav">
+          <a href="/" class="menu purple-link">
             首页
           </a>
         
       
         
-          <a href="/archives" class="site-nav">
+          <a href="/archives" class="menu purple-link">
             归档
           </a>
         
       
         
-          <a href="/tags" class="site-nav">
+          <a href="/tags" class="menu purple-link">
             标签
           </a>
         
       
         
-          <a href="/post/about" class="site-nav">
+          <a href="/post/about" class="menu purple-link">
             关于
           </a>
         
       
     </div>
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
+</transition>
+
+
+      <div class="content-container">
         
-      
         
-      
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4">
+        <h2 class="post-title">React 组件库搭建指南-单元测试</h2>
+      </a>
+      <div class="post-abstract">
+        <p>与软件操作行为越接近的测试，越能给予你信心。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-02-12</span>
         
-      
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
+                react
+                
+              </a>
+            
+          </span>
         
-      
-        
-      
+      </div>
     </div>
-    <div class="site-description">
-      故人千万里，新蝉三两声。
+    
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4">
+        <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/0082zybpgy1gbte6g8049j30u00u0kjm.jpg')">
+        </div>
+      </a>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3">
+        <h2 class="post-title">React 组件库搭建指南-打包输出</h2>
+      </a>
+      <div class="post-abstract">
+        <p>重头戏来了。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-12-25</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
+                react
+                
+              </a>
+            
+          </span>
+        
+      </div>
     </div>
-    <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+    
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3">
+        <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1ga6ia68g2tj318h0u01kx.jpg')">
+        </div>
+      </a>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2">
+        <h2 class="post-title">React 组件库搭建指南-开发调试</h2>
+      </a>
+      <div class="post-abstract">
+        <p>MDX，文档生花。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-12-22</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
+                react
+                
+              </a>
+            
+          </span>
+        
+      </div>
     </div>
-  </div>
-</div>
+    
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2">
+        <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1ga5pq8mkfbj31910u0186.jpg')">
+        </div>
+      </a>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1">
+        <h2 class="post-title">React 组件库搭建指南-准备工作</h2>
+      </a>
+      <div class="post-abstract">
+        <p>凡事预则立不预则废。</p>
+
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-12-18</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
+                react
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+      <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1">
+        <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1ga0r2172syj31900u04qq.jpg')">
+        </div>
+      </a>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://worldzhao.github.io/post/thinking-in-ui-library">
+        <h2 class="post-title">组件（库）开发相关总结</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-10-14</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://worldzhao.github.io/tag/S1yumrohX8">
+                react
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+      <a href="https://worldzhao.github.io/post/thinking-in-ui-library">
+        <div class="feature-container" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5uri4ys5mj31900u01l2.jpg')">
+        </div>
+      </a>
+    
+  </section>
 
 
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4">
-                  <h2 class="post-title">React 组件库搭建指南-单元测试</h2>
-                </a>
-                <div class="post-date">
-                  2020-02-12
-                </div>
-                <div class="post-abstract">
-                  <p>与软件操作行为越接近的测试，越能给予你信心。</p>
-
-                </div>
-              </div>
-              
-                <a class="right" href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4">
-                  <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/0082zybpgy1gbte6g8049j30u00u0kjm.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3">
-                  <h2 class="post-title">React 组件库搭建指南-打包输出</h2>
-                </a>
-                <div class="post-date">
-                  2019-12-25
-                </div>
-                <div class="post-abstract">
-                  <p>重头戏来了。</p>
-
-                </div>
-              </div>
-              
-                <a class="right" href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3">
-                  <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1ga6ia68g2tj318h0u01kx.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2">
-                  <h2 class="post-title">React 组件库搭建指南-开发调试</h2>
-                </a>
-                <div class="post-date">
-                  2019-12-22
-                </div>
-                <div class="post-abstract">
-                  <p>MDX，文档生花。</p>
-
-                </div>
-              </div>
-              
-                <a class="right" href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2">
-                  <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1ga5pq8mkfbj31910u0186.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1">
-                  <h2 class="post-title">React 组件库搭建指南-准备工作</h2>
-                </a>
-                <div class="post-date">
-                  2019-12-18
-                </div>
-                <div class="post-abstract">
-                  <p>凡事预则立不预则废。</p>
-
-                </div>
-              </div>
-              
-                <a class="right" href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1">
-                  <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/006tNbRwgy1ga0r2172syj31900u04qq.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://worldzhao.github.io/post/thinking-in-ui-library">
-                  <h2 class="post-title">组件（库）开发相关总结</h2>
-                </a>
-                <div class="post-date">
-                  2019-10-14
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-                <a class="right" href="https://worldzhao.github.io/post/thinking-in-ui-library">
-                  <div class="feature-container" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5uri4ys5mj31900u01l2.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
-
-          <div class="pagination-container">
+<div class="pagination-container">
   
   
     <a href="https://worldzhao.github.io/page/2" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
   
 </div>
 
-        </div>
+
       </div>
+
+      <div class="site-footer">
+  <div class="slogan">故人千万里，新蝉三两声。</div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
     </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-<script type="application/javascript">
-
-AOS.init();
+    <script type="application/javascript">
 
 hljs.initHighlightingOnLoad()
 

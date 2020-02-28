@@ -1,15 +1,18 @@
+
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
+    
+<meta charset="utf-8" >
 
 <title>编写干净的代码 | 海秋</title>
 <meta name="description" content="故人千万里，新蝉三两声。">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582855934859">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582856092584">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
@@ -22,90 +25,87 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.bootcss.com/highlight.js/9.17.1/highlight.min.js"></script>
 
 
 
   </head>
   <body>
     <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://worldzhao.github.io">
-        <img src="https://worldzhao.github.io/images/avatar.png?v=1582855934859" class="site-logo">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://worldzhao.github.io">
+        <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1582856092584" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://worldzhao.github.io">
         <h1 class="site-title">海秋</h1>
       </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
-      </div>
     </div>
-    <div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
       
         
-          <a href="/" class="site-nav">
+          <a href="/" class="menu purple-link">
             首页
           </a>
         
       
         
-          <a href="/archives" class="site-nav">
+          <a href="/archives" class="menu purple-link">
             归档
           </a>
         
       
         
-          <a href="/tags" class="site-nav">
+          <a href="/tags" class="menu purple-link">
             标签
           </a>
         
       
         
-          <a href="/post/about" class="site-nav">
+          <a href="/post/about" class="menu purple-link">
             关于
           </a>
         
       
     </div>
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-    <div class="site-description">
-      故人千万里，新蝉三两声。
-    </div>
-    <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-    </div>
-  </div>
-</div>
+</transition>
 
 
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">编写干净的代码</h2>
-            <div class="post-date">2019-05-15</div>
+      <div class="content-container">
+        <div class="post-detail">
+          
+            <div class="feature-container" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5urhwfv5qj31900u0e83.jpg')">
+            </div>
+          
+          <h2 class="post-title">编写干净的代码</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2019-05-15</span>
             
-              <div class="feature-container" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5urhwfv5qj31900u0e83.jpg')">
-              </div>
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://worldzhao.github.io/tag/S1yumrohX8">
+                    react
+                    
+                  </a>
+                
+              </span>
             
-            <div class="post-content">
-              <h2 id="项目基础配置">项目基础配置</h2>
+          </div>
+          <div class="post-content">
+            <h2 id="项目基础配置">项目基础配置</h2>
 <p>工欲善其事必先利其器，一个好的项目架子（目录结构以及代码风格，即规范）就是一套教程。</p>
 <p>规范是为了使得团队成员<strong>协作</strong>更为轻松而存在的，应当在个人习惯以及团队协作之间取得平衡，有红线、也有金线。</p>
 <p>统一的规范也是使得团队发挥出 <code>1 + 1 &gt; 2</code> 能力的基础。</p>
@@ -391,46 +391,53 @@ import { Modal } from &quot;@components&quot;;
 <li>相同的组件功能使用 HOC / render props/hooks 优化（高阶组件需要注意属性覆盖与静态方法丢失）</li>
 </ul>
 
-            </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="tag">
-                    react
-                  </a>
-                
-              </div>
-            
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
-                  <h3 class="post-title">
-                    memoize-one 简介
-                  </h3>
-                </a>
-              </div>
-            
-
-            
-              
-                <div id="gitalk-container" data-aos="fade-in"></div>
-              
-
-              
-            
-
           </div>
-
         </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
+              <h3 class="post-title">
+                下一篇：memoize-one 简介
+              </h3>
+            </a>
+          </div>
+          
       </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">故人千万里，新蝉三两声。</div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
     </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-<script type="application/javascript">
-
-AOS.init();
+    <script type="application/javascript">
 
 hljs.initHighlightingOnLoad()
 
