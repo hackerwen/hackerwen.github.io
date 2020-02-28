@@ -1,61 +1,108 @@
+<!DOCTYPE html>
 <html>
   <head>
-  <meta
-    name="viewport"
-    content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no"
-  />
-  <meta charset="utf-8" />
-  <meta name="referrer" content="never" />
-  <title>前端路由总结 | 海秋</title>
-  <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css" />
-  <script src="https://worldzhao.github.io/media/scripts/mdui.min.js"></script>
-  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Dancing+Script|Ma+Shan+Zheng&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
-  <script src="https://worldzhao.github.io/media/scripts/script.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
+    <meta charset="utf-8" >
+
+<title>前端路由总结 | 海秋</title>
+<meta name="description" content="故人千万里，新蝉三两声。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582855934859">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+
 
   
-</head>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
 
-    <body class="mdui-theme-primary-purple mdui-theme-accent-purple">
-        <header class="index-img mdui-m-b-3" >
-                          <button class="mdui-btn  mdui-btn-icon mdui-btn-dense mdui-color-theme-500 mdui-ripple yinying mdui-m-t-1 mdui-m-l-1" mdui-menu="{target: '#demo-attr-cascade'}"><i class="mdui-icon material-icons">&#xe5d2;</i></button>
-                <ul class="mdui-menu" id="demo-attr-cascade">
-                
-                        <li class="mdui-menu-item">
-                          <a href="/" class="mdui-ripple">首页</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/archives" class="mdui-ripple">归档</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/tags" class="mdui-ripple">标签</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/post/about" class="mdui-ripple">关于</a>
-                        </li>
-                
-                      </ul>
+  
 
-        </header>
-        <div class="mdui-container post">
-                <div class="mdui-row">
-                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
-                         <article class="mdui-shadow-10 mdui-p-a-2 post-list">
-                           <div class="mdui-typo-display-1 mdui-m-b-3">前端路由总结</div>
-                           <a  class="index-list-biaoqian ">2017-10-22</a>
-                           <div class="mdui-typo mdui-m-t-3 post-neirong"><blockquote>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://worldzhao.github.io">
+        <img src="https://worldzhao.github.io/images/avatar.png?v=1582855934859" class="site-logo">
+        <h1 class="site-title">海秋</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      故人千万里，新蝉三两声。
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">前端路由总结</h2>
+            <div class="post-date">2017-10-22</div>
+            
+            <div class="post-content">
+              <blockquote>
 <p>本文总结自：</p>
 </blockquote>
 <ul>
@@ -200,145 +247,84 @@ Router.route(&quot;/green&quot;, function() {
 <p>众所周知，Ajax 可以实现页面的无刷新操作——优点；但是，也会造成另外的问题，无法前进与后退！曾几何时，Gmail 似乎借助 iframe 搞定，如今，HTML5 让事情变得如同过家家般简单。</p>
 <p>当执行 Ajax 操作的时候，往浏览器 history 中塞入一个地址（使用 pushState）（这是无刷新的）；于是，返回的时候，通过 URL 或其他传参，我们就可以还原到 Ajax 之前的模样。</p>
 <p><a href="http://www.zhangxinxu.com/wordpress/2013/06/html5-history-api-pushstate-replacestate-ajax/">ajax 与 HTML5 history pushState/replaceState 实例-张鑫旭</a></p>
-</div>
-                              <div class="mdui-divider mdui-m-t-3"></div>
-                              <div class="mdui-row-xs-2 mdui-m-t-2">
-  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/raining">遇雨</a></div></div>
- <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/some-css">最近遇到的一些css题目</a></div> </div>
-                                </div>
-                                <div class="mdui-divider mdui-m-t-2"></div>
-   
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: 'ae70790f8df61d7ce952',
-    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-    repo: 'worldzhao.github.io',
-    owner: 'worldzhao',
-    admin: ['worldzhao'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
- <script src="https://worldzhao.github.io/media/scripts/Valine.min.js"></script>
- <div class="comment"></div>
-
-<script>
-      new Valine({
-            el: '.comment',
-
-
-
-            path: window.location.pathname,
-            pageSize: 30,
-            avatar:'mm', 
-       })
-
-    </script> 
-<script>
-    if(window.location.hash){
-        var checkExist = setInterval(function() {
-           if ($(window.location.hash).length) {
-              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
-              clearInterval(checkExist);
-           }
-        }, 100);
-    }
-</script>
-                         </article>
-                 <div class="toc-container mdui-float-right">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E5%90%8E%E7%AB%AF%E8%B7%AF%E7%94%B1">路由/前端路由/后端路由？</a></li>
-<li><a href="#%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1">实现简易前端路由</a>
-<ul>
-<li><a href="#%E6%96%B9%E5%BC%8F%E4%B8%80html5-history">方式一：html5 history</a>
-<ul>
-<li><a href="#historypushstate">history.pushState</a></li>
-<li><a href="#historyreplacestate">history.replaceState</a></li>
-<li><a href="#windowonpopstate">window.onpopstate</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BD%BF%E7%94%A8-hash-%E5%AE%8C%E6%88%90%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1">使用 hash 完成前端路由</a></li>
-<li><a href="#%E5%B0%8F%E7%9F%A5%E8%AF%86-pjax">小知识-pjax</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="tag">
+                    javascript
+                  </a>
+                
               </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://worldzhao.github.io/post/some-css">
+                  <h3 class="post-title">
+                    最近遇到的一些css题目
+                  </h3>
+                </a>
+              </div>
+            
 
-                        </div>
-                 </div>
-          
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
         </div>
-        <script data-no-instant>
-    (function ($) {
-        $.extend({
-            adamsOverload: function () {
-                $.viewImage({
-                    'target'  : '.post-neirong img',
-                    'exclude' : '.vsmile-icons img , .song-links-item img',
-                    'delay'   : 300
-                });
-            }
-        });
-    })(jQuery);
-    jQuery.adamsOverload();
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
 </script>
-        <footer class="footer mdui-m-t-5 mdui-text-center">
-               <nav class="social-links">
-                      <ul>
-                      
-                            
-                           
-                            
-                           
-                            	
-                        <li class="social-link"><a href="https://github.com/worldzhao" target="_blank"><i class="iconfont icon-github"></i></a></li>
-                         
-                           
-                            	
-                        <li class="social-link"><a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a></li>
-                         
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                      </ul>
-                    </nav>
-                    <div class="copyright">
-                      <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> <br/> Theme <a href="https://github.com/shanbufun/gridea-theme-jia" target="_blank"  title="佳"  >Jia</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >Shanbufun</a> </p>
-                  </div>
-              </footer>
-    </body>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'ae70790f8df61d7ce952',
+        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+        repo: 'worldzhao.github.io',
+        owner: 'worldzhao',
+        admin: ['worldzhao'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
 </html>

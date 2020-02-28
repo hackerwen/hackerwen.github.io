@@ -1,61 +1,111 @@
+<!DOCTYPE html>
 <html>
   <head>
-  <meta
-    name="viewport"
-    content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no"
-  />
-  <meta charset="utf-8" />
-  <meta name="referrer" content="never" />
-  <title>编写干净的代码 | 海秋</title>
-  <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css" />
-  <script src="https://worldzhao.github.io/media/scripts/mdui.min.js"></script>
-  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Dancing+Script|Ma+Shan+Zheng&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
-  <script src="https://worldzhao.github.io/media/scripts/script.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
+    <meta charset="utf-8" >
+
+<title>编写干净的代码 | 海秋</title>
+<meta name="description" content="故人千万里，新蝉三两声。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582855934859">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+
 
   
-</head>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
 
-    <body class="mdui-theme-primary-purple mdui-theme-accent-purple">
-        <header class="index-img mdui-m-b-3"  style="background-image: url(http://ww3.sinaimg.cn/large/006tNc79gy1g5urhwfv5qj31900u0e83.jpg);" >
-                          <button class="mdui-btn  mdui-btn-icon mdui-btn-dense mdui-color-theme-500 mdui-ripple yinying mdui-m-t-1 mdui-m-l-1" mdui-menu="{target: '#demo-attr-cascade'}"><i class="mdui-icon material-icons">&#xe5d2;</i></button>
-                <ul class="mdui-menu" id="demo-attr-cascade">
-                
-                        <li class="mdui-menu-item">
-                          <a href="/" class="mdui-ripple">首页</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/archives" class="mdui-ripple">归档</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/tags" class="mdui-ripple">标签</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/post/about" class="mdui-ripple">关于</a>
-                        </li>
-                
-                      </ul>
+  
 
-        </header>
-        <div class="mdui-container post">
-                <div class="mdui-row">
-                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
-                         <article class="mdui-shadow-10 mdui-p-a-2 post-list">
-                           <div class="mdui-typo-display-1 mdui-m-b-3">编写干净的代码</div>
-                           <a  class="index-list-biaoqian ">2019-05-15</a>
-                           <div class="mdui-typo mdui-m-t-3 post-neirong"><h2 id="项目基础配置">项目基础配置</h2>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://worldzhao.github.io">
+        <img src="https://worldzhao.github.io/images/avatar.png?v=1582855934859" class="site-logo">
+        <h1 class="site-title">海秋</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      故人千万里，新蝉三两声。
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">编写干净的代码</h2>
+            <div class="post-date">2019-05-15</div>
+            
+              <div class="feature-container" style="background-image: url('http://ww3.sinaimg.cn/large/006tNc79gy1g5urhwfv5qj31900u0e83.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <h2 id="项目基础配置">项目基础配置</h2>
 <p>工欲善其事必先利其器，一个好的项目架子（目录结构以及代码风格，即规范）就是一套教程。</p>
 <p>规范是为了使得团队成员<strong>协作</strong>更为轻松而存在的，应当在个人习惯以及团队协作之间取得平衡，有红线、也有金线。</p>
 <p>统一的规范也是使得团队发挥出 <code>1 + 1 &gt; 2</code> 能力的基础。</p>
@@ -340,144 +390,84 @@ import { Modal } from &quot;@components&quot;;
 <ul>
 <li>相同的组件功能使用 HOC / render props/hooks 优化（高阶组件需要注意属性覆盖与静态方法丢失）</li>
 </ul>
-</div>
-                              <div class="mdui-divider mdui-m-t-3"></div>
-                              <div class="mdui-row-xs-2 mdui-m-t-2">
-  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/probation-period-in-xmly">双月谈-试用期思考</a></div></div>
- <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">memoize-one 简介</a></div> </div>
-                                </div>
-                                <div class="mdui-divider mdui-m-t-2"></div>
-   
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: 'ae70790f8df61d7ce952',
-    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-    repo: 'worldzhao.github.io',
-    owner: 'worldzhao',
-    admin: ['worldzhao'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
- <script src="https://worldzhao.github.io/media/scripts/Valine.min.js"></script>
- <div class="comment"></div>
-
-<script>
-      new Valine({
-            el: '.comment',
-
-
-
-            path: window.location.pathname,
-            pageSize: 30,
-            avatar:'mm', 
-       })
-
-    </script> 
-<script>
-    if(window.location.hash){
-        var checkExist = setInterval(function() {
-           if ($(window.location.hash).length) {
-              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
-              clearInterval(checkExist);
-           }
-        }, 100);
-    }
-</script>
-                         </article>
-                 <div class="toc-container mdui-float-right">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E9%A1%B9%E7%9B%AE%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE">项目基础配置</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E7%9B%B8%E5%85%B3">代码相关</a>
-<ul>
-<li><a href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">策略模式</a></li>
-<li><a href="#%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F">定义常量</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8-asyncawait">使用 async/await</a></li>
-<li><a href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3">单一职责</a></li>
-<li><a href="#%E7%B1%BB%E5%90%8D%E6%8B%BC%E6%8E%A5">类名拼接</a></li>
-<li><a href="#%E4%BC%AA%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7">（伪）计算属性</a></li>
-<li><a href="#%E9%99%8D%E4%BD%8E-jsx-%E5%A4%8D%E6%9D%82%E5%BA%A6">降低 jsx 复杂度</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="tag">
+                    react
+                  </a>
+                
               </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
+                  <h3 class="post-title">
+                    memoize-one 简介
+                  </h3>
+                </a>
+              </div>
+            
 
-                        </div>
-                 </div>
-          
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
         </div>
-        <script data-no-instant>
-    (function ($) {
-        $.extend({
-            adamsOverload: function () {
-                $.viewImage({
-                    'target'  : '.post-neirong img',
-                    'exclude' : '.vsmile-icons img , .song-links-item img',
-                    'delay'   : 300
-                });
-            }
-        });
-    })(jQuery);
-    jQuery.adamsOverload();
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
 </script>
-        <footer class="footer mdui-m-t-5 mdui-text-center">
-               <nav class="social-links">
-                      <ul>
-                      
-                            
-                           
-                            
-                           
-                            	
-                        <li class="social-link"><a href="https://github.com/worldzhao" target="_blank"><i class="iconfont icon-github"></i></a></li>
-                         
-                           
-                            	
-                        <li class="social-link"><a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a></li>
-                         
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                      </ul>
-                    </nav>
-                    <div class="copyright">
-                      <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> <br/> Theme <a href="https://github.com/shanbufun/gridea-theme-jia" target="_blank"  title="佳"  >Jia</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >Shanbufun</a> </p>
-                  </div>
-              </footer>
-    </body>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'ae70790f8df61d7ce952',
+        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+        repo: 'worldzhao.github.io',
+        owner: 'worldzhao',
+        admin: ['worldzhao'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
 </html>

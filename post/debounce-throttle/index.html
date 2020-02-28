@@ -1,61 +1,108 @@
+<!DOCTYPE html>
 <html>
   <head>
-  <meta
-    name="viewport"
-    content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no"
-  />
-  <meta charset="utf-8" />
-  <meta name="referrer" content="never" />
-  <title>函数节流与函数防抖 | 海秋</title>
-  <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.11.1/katex.min.css" />
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css" />
-  <script src="https://worldzhao.github.io/media/scripts/mdui.min.js"></script>
-  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Dancing+Script|Ma+Shan+Zheng&display=swap"
-    rel="stylesheet"
-  />
-  <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
-  <script src="https://worldzhao.github.io/media/scripts/script.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
+    <meta charset="utf-8" >
+
+<title>函数节流与函数防抖 | 海秋</title>
+<meta name="description" content="故人千万里，新蝉三两声。">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582855934859">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
+
 
   
-</head>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
 
-    <body class="mdui-theme-primary-purple mdui-theme-accent-purple">
-        <header class="index-img mdui-m-b-3" >
-                          <button class="mdui-btn  mdui-btn-icon mdui-btn-dense mdui-color-theme-500 mdui-ripple yinying mdui-m-t-1 mdui-m-l-1" mdui-menu="{target: '#demo-attr-cascade'}"><i class="mdui-icon material-icons">&#xe5d2;</i></button>
-                <ul class="mdui-menu" id="demo-attr-cascade">
-                
-                        <li class="mdui-menu-item">
-                          <a href="/" class="mdui-ripple">首页</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/archives" class="mdui-ripple">归档</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/tags" class="mdui-ripple">标签</a>
-                        </li>
-                
-                        <li class="mdui-menu-item">
-                          <a href="/post/about" class="mdui-ripple">关于</a>
-                        </li>
-                
-                      </ul>
+  
 
-        </header>
-        <div class="mdui-container post">
-                <div class="mdui-row">
-                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
-                         <article class="mdui-shadow-10 mdui-p-a-2 post-list">
-                           <div class="mdui-typo-display-1 mdui-m-b-3">函数节流与函数防抖</div>
-                           <a  class="index-list-biaoqian ">2017-09-12</a>
-                           <div class="mdui-typo mdui-m-t-3 post-neirong"><blockquote>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://worldzhao.github.io">
+        <img src="https://worldzhao.github.io/images/avatar.png?v=1582855934859" class="site-logo">
+        <h1 class="site-title">海秋</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      故人千万里，新蝉三两声。
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">函数节流与函数防抖</h2>
+            <div class="post-date">2017-09-12</div>
+            
+            <div class="post-content">
+              <blockquote>
 <p>初稿：2017-07-15 <br><br>
 更新: 2018-07-28</p>
 </blockquote>
@@ -205,148 +252,84 @@ window.onresize = throttle(resizeDiv)
 <p>现在我们即保证了用户体验也完成了性能保证。</p>
 <hr>
 <p>参考书籍：《JavaScript 高级程序设计第三版》《JavaScript 设计模式与开发实践》</p>
-</div>
-                              <div class="mdui-divider mdui-m-t-3"></div>
-                              <div class="mdui-row-xs-2 mdui-m-t-2">
-  <div class="mdui-col"> <div class="mdui-text-left"><a href="https://worldzhao.github.io/post/shallow-clone-and-deep-clone">浅克隆与深克隆</a></div></div>
- <div class="mdui-col"><div class="mdui-text-right "><a href="https://worldzhao.github.io/post/data-structure-stack">数据结构-栈</a></div> </div>
-                                </div>
-                                <div class="mdui-divider mdui-m-t-2"></div>
-   
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: 'ae70790f8df61d7ce952',
-    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-    repo: 'worldzhao.github.io',
-    owner: 'worldzhao',
-    admin: ['worldzhao'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
- <script src="https://worldzhao.github.io/media/scripts/Valine.min.js"></script>
- <div class="comment"></div>
-
-<script>
-      new Valine({
-            el: '.comment',
-
-
-
-            path: window.location.pathname,
-            pageSize: 30,
-            avatar:'mm', 
-       })
-
-    </script> 
-<script>
-    if(window.location.hash){
-        var checkExist = setInterval(function() {
-           if ($(window.location.hash).length) {
-              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
-              clearInterval(checkExist);
-           }
-        }, 100);
-    }
-</script>
-                         </article>
-                 <div class="toc-container mdui-float-right">
-                <ul class="markdownIt-TOC">
-<li><a href="#%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81%E4%B8%8E%E5%87%BD%E6%95%B0%E9%98%B2%E6%8A%96">函数节流与函数防抖</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E9%98%B2%E6%8A%96">函数防抖</a>
-<ul>
-<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89%E5%87%BD%E6%95%B0%E9%98%B2%E6%8A%96">为什么会有函数防抖</a></li>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%E9%98%B2%E6%8A%96">什么是函数防抖</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3">基本思想</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%BC%8F">基本模式</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98">解决问题</a></li>
-</ul>
-</li>
-<li><a href="#%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81">函数节流</a>
-<ul>
-<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81">为什么会有函数节流</a></li>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81">什么是函数节流</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%BC%8F-2">基本模式</a></li>
-<li><a href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98-2">解决问题</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="tag">
+                    javascript
+                  </a>
+                
               </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://worldzhao.github.io/post/data-structure-stack">
+                  <h3 class="post-title">
+                    数据结构-栈
+                  </h3>
+                </a>
+              </div>
+            
 
-                        </div>
-                 </div>
-          
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
         </div>
-        <script data-no-instant>
-    (function ($) {
-        $.extend({
-            adamsOverload: function () {
-                $.viewImage({
-                    'target'  : '.post-neirong img',
-                    'exclude' : '.vsmile-icons img , .song-links-item img',
-                    'delay'   : 300
-                });
-            }
-        });
-    })(jQuery);
-    jQuery.adamsOverload();
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
 </script>
-        <footer class="footer mdui-m-t-5 mdui-text-center">
-               <nav class="social-links">
-                      <ul>
-                      
-                            
-                           
-                            
-                           
-                            	
-                        <li class="social-link"><a href="https://github.com/worldzhao" target="_blank"><i class="iconfont icon-github"></i></a></li>
-                         
-                           
-                            	
-                        <li class="social-link"><a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a></li>
-                         
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                            
-                           
-                      </ul>
-                    </nav>
-                    <div class="copyright">
-                      <p>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> <br/> Theme <a href="https://github.com/shanbufun/gridea-theme-jia" target="_blank"  title="佳"  >Jia</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >Shanbufun</a> </p>
-                  </div>
-              </footer>
-    </body>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'ae70790f8df61d7ce952',
+        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+        repo: 'worldzhao.github.io',
+        owner: 'worldzhao',
+        admin: ['worldzhao'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
 </html>

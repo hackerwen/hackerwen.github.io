@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2020-02-12T02:09:49.239Z</updated>
+    <updated>2020-02-28T02:12:24.133Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -145,11 +145,11 @@ describe('&lt;Alert /&gt;', () =&gt; {
 <pre><code class="language-bash">yarn test:update
 </code></pre>
 <p>可以看见同级目录下新增了一个<code>__snapshots__</code>文件夹，里面存放对应测试用例的快照文件。</p>
-<figure data-type="image" tabindex="1"><img src="https://user-gold-cdn.xitu.io/2020/1/19/16fbc32a99857807?w=1728&amp;h=974&amp;f=jpeg&amp;s=144346" alt="生成的快照文件" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw704fpmj31c00r2wi4.jpg" alt="生成的快照文件" loading="lazy"></figure>
 <p>再执行测试用例：</p>
 <pre><code class="language-bash">yarn test
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://user-gold-cdn.xitu.io/2020/1/19/16fbc32a98f22f73?w=1112&amp;h=518&amp;f=jpeg&amp;s=59424" alt="通过测试用例" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw73egztj30uw0ee0u2.jpg" alt="通过测试用例" loading="lazy"></figure>
 <p>可以发现我们通过了测试用例。。。额，这里当然能通过，主要是后续我们进行迭代重构时，都会重新执行测试用例，与最近的一次快照进行比对，如果与快照不一致（结构发生了改变），那么相应的测试用例就无法通过。</p>
 <p>对于快照测试，褒贬不一，这个例子也着实简单得很，甚至连扩展的 <code>jest-dom</code>提供的 <code>matchers</code> 都没用上，如何编写优秀的测试用例，我也是一个新手，只能说多看多写多尝试，概述推荐的文章很不错。</p>
 <p>本文如有错误，恳请指正，共同交流学习。</p>
@@ -1195,7 +1195,7 @@ git push
 <h3 id="polyfill">Polyfill</h3>
 <ol>
 <li>不准使用<code>@babel/polyfill</code>污染宿主环境；</li>
-<li>可以使用<code>@babel/plugin-transform-runtime</code>结合<code>@babel/runtime-corejs3</code>，避免污染全局，但存在&quot;foobar&quot;.includes(&quot;foo&quot;) 的代码的话也是无能为力；</li>
+<li>可以使用<code>@babel/plugin-transform-runtime</code>结合<code>@babel/runtime-corejs3</code>，避免污染全局。<s>存在&quot;foobar&quot;.includes(&quot;foo&quot;) 的代码的话也是无能为力</s>(NOTE: Instance methods such as &quot;foobar&quot;.includes(&quot;foo&quot;) will only work when using corejs: 3.)；</li>
 <li>建议告知使用方依赖了哪些需要 polyfill 的 API，交由使用方自行配置 polyfill，否则可能会导致重复依赖或不同版本之间的冲突。</li>
 </ol>
 <p>如果宿主应用直接一个<code>import '@babel/polyfill'</code>，我们基本躺着就好。</p>
@@ -1240,7 +1240,7 @@ git push
 <p>css in js 方案。使用 styled-components，<a href="https://zhuanlan.zhihu.com/p/26878157" title="相关文章：精读《请停止 css-in-js 的行为》">相关文章：精读《请停止 css-in-js 的行为》</a>。</p>
 <ul>
 <li>优点：1. 开发体验较好；2. 使用方无需单独引入样式文件；3. 使用方无需关注预处理器适配问题。</li>
-<li>缺点：1. 生态(postcss?没怎么使用过这个方案不太了解); 2. 缓存问题</li>
+<li>缺点：未成体系使用过，不了解。</li>
 </ul>
 </li>
 </ol>
