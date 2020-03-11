@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1582866920438">
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583912737665">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
@@ -84,6 +84,7 @@
 <!-- more -->
 <h2 id="公司前端项目部署现状">公司前端项目部署现状</h2>
 <p>将 html 托管给后端，前端只发静态资源（<code>index.js</code>/<code>index.css</code>），然后通过某种方式去刷 html 的静态资源版本号（?version=时间戳或递增数字）。</p>
+<p>原因：HTML文件不能放在CDN上，会被缓存。</p>
 <h2 id="比较好的实践">比较好的实践</h2>
 <p>我们先来看看前端项目部署的比较好实践是什么？</p>
 <p>出处：<a href="https://www.zhihu.com/question/20790576/answer/32602154">大公司里怎样开发和部署前端代码？</a></p>
@@ -96,27 +97,25 @@
 <li>变更资源发布路径实现非覆盖式发布 —— 平滑升级</li>
 </ol>
 </blockquote>
-<p>上面文章可是本文的基石，5 年过去了，更好的方案是什么呢，还希望大佬赐教。</p>
-<p>作为一个毕业 1 年的菜鸟，我就先着上面的文章来看看目前公司发布流程的不足吧。</p>
+<p>上面文章可是本文的基石，虽然已经过去了5年。</p>
 <h2 id="公司部署方案优缺点">公司部署方案优缺点</h2>
-<p>前端只发布静态资源，只要 html 引用的资源不刷版本号，对老用户是没有影响的（存在强缓存，直接请求本地缓存，对应实践 1），新用户虽然没有缓存，但由于是静态资源是同名覆盖发布，所以请求新的 <code>index.js</code>/<code>index.css</code> 资源，只要资源不依赖 html 结构，看到新版本功能，也没有影响（注意：如果依赖 html 结构，请求新资源可能就会出现问题，好在目前单页应用基本不依赖 html 结构，一个#root 根节点 就够了）。</p>
+<p>前端只发布静态资源，只要 html 引用的资源不刷版本号，请求的都是CDN上缓存的资源（如果CDN有缓存的话）。</p>
 <p><strong>（强行）优点</strong></p>
 <ol>
-<li>覆盖发布。服务器不会有大量静态资源文件积累。（这个很重要？）</li>
+<li>覆盖发布。服务器不会有大量静态资源文件积累；</li>
 <li>后端可以向 HTML 内注入一些内容，比如用户信息。</li>
 </ol>
 <p><strong>缺点</strong></p>
 <ol>
-<li>粗粒度的版本号刷新策略，导致根据文件内容变化选择性更新缓存（对应实践 2）无法实施</li>
-<li>覆盖发布。在 html 刷新版本号前，新用户和老用户可能看到的页面版本（功能）不同</li>
-<li>html 托管在后端，导致一定程度的前后端未分离（譬如打包策略变更需要后端配合更改 html）</li>
+<li>粗粒度的版本号刷新策略，导致根据文件内容变化选择性更新缓存（对应实践 2）无法实施；</li>
+<li>html 托管在后端，导致一定程度的前后端未分离（譬如打包策略变更需要后端配合更改 html）。</li>
 </ol>
 <h2 id="照猫画虎">照猫画虎</h2>
 <p>那么按照上面的实践，如何处理比较好呢？</p>
 <ol>
-<li>前端每次基于 content hash（依赖内容摘要算法） 打包生成静态资源文件名(例如 <code>aaa.[contenthash].js</code> 与 <code>bbb.[contenthash].css</code>)，文件名是否变化取决于文件内容是否变化</li>
-<li>使用前端的 html，前端可在打包过程中自动注入静态资源文件地址</li>
-<li>静态资源先发布，html 后发布</li>
+<li>前端每次基于 content hash（依赖内容摘要算法） 打包生成静态资源文件名(例如 <code>aaa.[contenthash].js</code> 与 <code>bbb.[contenthash].css</code>)，文件名是否变化取决于文件内容是否变化；</li>
+<li>使用前端的 html，前端可在打包过程中自动注入静态资源文件地址；</li>
+<li>静态资源先发布，html 后发布。</li>
 </ol>
 <p>再来看看上面的缺点是否被解决了？</p>
 <p><em><code>1. 粗粒度的版本号刷新策略，导致根据文件内容变化选择性更新缓存（对应实践 2）无法实施</code></em></p>
@@ -133,15 +132,14 @@
 <li>后端不能往 html 注入一些内容</li>
 </ul>
 <h2 id="结语">结语</h2>
-<p>经验浅了些，参考的资料古老了些，可能有些地方有失偏颇，请一定要指正。</p>
-<p>而且项目上线是肯定要配 Nginx 的，要去找运维帮忙配，流程上还有可以优化的地方，现在这种形式对前端制约太大了。</p>
+<p>项目上线需要配置 Nginx ，流程上还有可以优化的地方。</p>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/probation-period-in-xmly">
+            <a href="https://worldzhao.github.io/post/probation-period-in-xmly/">
               <h3 class="post-title">
                 下一篇：双月谈-试用期思考
               </h3>
