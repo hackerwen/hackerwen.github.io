@@ -1,86 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>组件（库）开发相关总结 | 海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
-        
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">组件（库）开发相关总结</h2>
-          <div class="post-info post-detail-info">
-            <span>2019-10-14</span>
-          </div>
-          <div class="post-content">
-            <blockquote>
+          <article class="post">
+            <h2 class="post-title">
+              组件（库）开发相关总结
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-10-14
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
+                  # react
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
 <p>本文首发于 2019-06-02<br><br>
 更新于 2019-10-14</p>
 </blockquote>
@@ -178,90 +197,123 @@
 - [react-component-template](https://github.com/worldzhao/react-componet-template &quot;react-component-template&quot;)
 </code></pre>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E7%BB%84%E4%BB%B6%E5%BA%93%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E6%80%BB%E7%BB%93">组件（库）开发相关总结</a>
+<ul>
+<li><a href="#%E7%8E%B0%E7%8A%B6">现状</a></li>
+<li><a href="#%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%BB%84%E4%BB%B6%E7%B1%BB%E5%9E%8B">可复用组件类型</a></li>
+<li><a href="#%E4%B8%AA%E4%BA%BA%E6%80%9D%E8%80%83">个人思考</a></li>
+<li><a href="#%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3">开发相关</a>
+<ul>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%A4%84%E7%90%86">模块处理</a></li>
+<li><a href="#%E8%AF%AD%E6%B3%95%E8%BD%AC%E8%AF%91">语法转译</a></li>
+<li><a href="#polyfill">Polyfill</a></li>
+<li><a href="#%E6%A0%B7%E5%BC%8F%E5%A4%84%E7%90%86">样式处理</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a>
+<ul>
+<li><a href="#%E9%99%84%E5%BD%95">附录：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/authorization-with-react/">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/authorization-with-react">
               <h3 class="post-title">
-                下一篇：基于React的权限系统设计
+                基于React的权限系统设计
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

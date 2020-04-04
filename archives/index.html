@@ -1,84 +1,97 @@
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
+    
         
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-        <div class="content-container">
-          
-          
 
 <div class="archives-container">
   
     <h2 class="year">2020</h2>
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4/">
+        <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4" class="post">
+          <h2 class="post-title">
             React 组件库搭建指南-单元测试
-            <small>2020-02-12</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2020-02-12</div>
+        </a>
       
     
       
@@ -169,102 +182,102 @@
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3/">
+        <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3" class="post">
+          <h2 class="post-title">
             React 组件库搭建指南-打包输出
-            <small>2019-12-25</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-12-25</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2/">
+        <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2" class="post">
+          <h2 class="post-title">
             React 组件库搭建指南-开发调试
-            <small>2019-12-22</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-12-22</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1/">
+        <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1" class="post">
+          <h2 class="post-title">
             React 组件库搭建指南-准备工作
-            <small>2019-12-18</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-12-18</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/thinking-in-ui-library/">
+        <a href="https://worldzhao.github.io/post/thinking-in-ui-library" class="post">
+          <h2 class="post-title">
             组件（库）开发相关总结
-            <small>2019-10-14</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-10-14</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/authorization-with-react/">
+        <a href="https://worldzhao.github.io/post/authorization-with-react" class="post">
+          <h2 class="post-title">
             基于React的权限系统设计
-            <small>2019-09-25</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-09-25</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/thinking-in-deploy/">
+        <a href="https://worldzhao.github.io/post/thinking-in-deploy" class="post">
+          <h2 class="post-title">
             关于前端项目部署发布的相关思考
-            <small>2019-07-21</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-07-21</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/probation-period-in-xmly/">
+        <a href="https://worldzhao.github.io/post/probation-period-in-xmly" class="post">
+          <h2 class="post-title">
             双月谈-试用期思考
-            <small>2019-07-07</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-07-07</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/write-clean-code-in-react/">
+        <a href="https://worldzhao.github.io/post/write-clean-code-in-react" class="post">
+          <h2 class="post-title">
             编写干净的代码
-            <small>2019-05-15</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-05-15</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one/">
+        <a href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one" class="post">
+          <h2 class="post-title">
             memoize-one 简介
-            <small>2019-04-11</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-04-11</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/react-computed/">
+        <a href="https://worldzhao.github.io/post/react-computed" class="post">
+          <h2 class="post-title">
             优雅处理表单联动
-            <small>2019-03-17</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-03-17</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/pig/">
+        <a href="https://worldzhao.github.io/post/pig" class="post">
+          <h2 class="post-title">
             从callback到async
-            <small>2019-01-24</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2019-01-24</div>
+        </a>
       
     
       
@@ -355,84 +368,84 @@
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/design-pattern-strategy/">
+        <a href="https://worldzhao.github.io/post/design-pattern-strategy" class="post">
+          <h2 class="post-title">
             设计模式-策略模式
-            <small>2018-11-24</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-11-24</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/babel-note/">
+        <a href="https://worldzhao.github.io/post/babel-note" class="post">
+          <h2 class="post-title">
             babel学习笔记
-            <small>2018-10-13</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-10-13</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/git-flow/">
+        <a href="https://worldzhao.github.io/post/git-flow" class="post">
+          <h2 class="post-title">
             关于 git flow 工作流程的一点思考
-            <small>2018-09-01</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-09-01</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/nginx-deploy/">
+        <a href="https://worldzhao.github.io/post/nginx-deploy" class="post">
+          <h2 class="post-title">
             Nginx学习笔记-项目部署
-            <small>2018-08-18</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-08-18</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/linux-ssh/">
+        <a href="https://worldzhao.github.io/post/linux-ssh" class="post">
+          <h2 class="post-title">
             Linux学习笔记-SSH
-            <small>2018-07-09</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-07-09</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/linux-command/">
+        <a href="https://worldzhao.github.io/post/linux-command" class="post">
+          <h2 class="post-title">
             Linux学习笔记-常用命令
-            <small>2018-07-08</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-07-08</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/nginx-start/">
+        <a href="https://worldzhao.github.io/post/nginx-start" class="post">
+          <h2 class="post-title">
             Nginx学习笔记-基本操作
-            <small>2018-07-08</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-07-08</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/react-loadable/">
+        <a href="https://worldzhao.github.io/post/react-loadable" class="post">
+          <h2 class="post-title">
             react-loadable原理浅析
-            <small>2018-02-06</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-02-06</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/build-your-own-rrv4/">
+        <a href="https://worldzhao.github.io/post/build-your-own-rrv4" class="post">
+          <h2 class="post-title">
             【转】Build your own React Router v4
-            <small>2018-01-11</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2018-01-11</div>
+        </a>
       
     
       
@@ -523,240 +536,252 @@
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/raining/">
+        <a href="https://worldzhao.github.io/post/raining" class="post">
+          <h2 class="post-title">
             遇雨
-            <small>2017-11-04</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-11-04</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/fe-router/">
+        <a href="https://worldzhao.github.io/post/fe-router" class="post">
+          <h2 class="post-title">
             前端路由总结
-            <small>2017-10-22</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-10-22</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/some-css/">
+        <a href="https://worldzhao.github.io/post/some-css" class="post">
+          <h2 class="post-title">
             最近遇到的一些css题目
-            <small>2017-10-22</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-10-22</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/some-js/">
+        <a href="https://worldzhao.github.io/post/some-js" class="post">
+          <h2 class="post-title">
             一些js编程题
-            <small>2017-10-22</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-10-22</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/This-In-JS-2/">
+        <a href="https://worldzhao.github.io/post/This-In-JS-2" class="post">
+          <h2 class="post-title">
             this、箭头函数与React事件绑定（二）
-            <small>2017-10-14</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-10-14</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/This-In-JS-1/">
+        <a href="https://worldzhao.github.io/post/This-In-JS-1" class="post">
+          <h2 class="post-title">
             this、箭头函数与React事件绑定（一）
-            <small>2017-10-13</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-10-13</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/thing-in-fab/">
+        <a href="https://worldzhao.github.io/post/thing-in-fab" class="post">
+          <h2 class="post-title">
             关于斐波那契数列的一些思考
-            <small>2017-09-27</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-09-27</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/xss-and-csrf/">
+        <a href="https://worldzhao.github.io/post/xss-and-csrf" class="post">
+          <h2 class="post-title">
             前端安全：XSS与CSRF
-            <small>2017-09-15</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-09-15</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/http-cache/">
+        <a href="https://worldzhao.github.io/post/http-cache" class="post">
+          <h2 class="post-title">
             HTTP中的缓存机制
-            <small>2017-09-14</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-09-14</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/shallow-clone-and-deep-clone/">
+        <a href="https://worldzhao.github.io/post/shallow-clone-and-deep-clone" class="post">
+          <h2 class="post-title">
             浅克隆与深克隆
-            <small>2017-09-13</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-09-13</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/debounce-throttle/">
+        <a href="https://worldzhao.github.io/post/debounce-throttle" class="post">
+          <h2 class="post-title">
             函数节流与函数防抖
-            <small>2017-09-12</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-09-12</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/data-structure-stack/">
+        <a href="https://worldzhao.github.io/post/data-structure-stack" class="post">
+          <h2 class="post-title">
             数据结构-栈
-            <small>2017-08-02</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-08-02</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/data-structure-binary-tree/">
+        <a href="https://worldzhao.github.io/post/data-structure-binary-tree" class="post">
+          <h2 class="post-title">
             数据结构-二叉树
-            <small>2017-07-18</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-18</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/event-listener/">
+        <a href="https://worldzhao.github.io/post/event-listener" class="post">
+          <h2 class="post-title">
             实现通用的事件注册方法
-            <small>2017-07-15</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-15</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/constructor-prototype-extend-3/">
+        <a href="https://worldzhao.github.io/post/constructor-prototype-extend-3" class="post">
+          <h2 class="post-title">
             构造函数、原型与继承（三）
-            <small>2017-07-08</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-08</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/constructor-prototype-extend-2/">
+        <a href="https://worldzhao.github.io/post/constructor-prototype-extend-2" class="post">
+          <h2 class="post-title">
             构造函数、原型与继承（二）
-            <small>2017-07-07</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-07</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/constructor-prototype-extend-1/">
+        <a href="https://worldzhao.github.io/post/constructor-prototype-extend-1" class="post">
+          <h2 class="post-title">
             构造函数、原型与继承（一）
-            <small>2017-07-06</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-06</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/unique-array/">
+        <a href="https://worldzhao.github.io/post/unique-array" class="post">
+          <h2 class="post-title">
             数组去重
-            <small>2017-07-05</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-05</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/first-to-extend/">
+        <a href="https://worldzhao.github.io/post/first-to-extend" class="post">
+          <h2 class="post-title">
             简单继承
-            <small>2017-07-04</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-04</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/jump-jump/">
+        <a href="https://worldzhao.github.io/post/jump-jump" class="post">
+          <h2 class="post-title">
             我纵身一跃，跳进人的海洋
-            <small>2017-07-04</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-07-04</div>
+        </a>
       
     
       
-        <article class="post">
-          <a href="https://worldzhao.github.io/post/js-animate/">
+        <a href="https://worldzhao.github.io/post/js-animate" class="post">
+          <h2 class="post-title">
             实现一个动画函数
-            <small>2017-03-16</small>
-          </a>
-        </article>
+          </h2>
+          <div class="time">2017-03-16</div>
+        </a>
       
     
   
 </div>
 
-
-        </div>
-
-        <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
     
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+        <div class="pagination-container">
+  
+  
 </div>
 
+    
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      </div>
-      <script type="application/javascript">
+<script>
+  hljs.initHighlightingOnLoad()
 
-hljs.initHighlightingOnLoad()
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
 </script>
 
-
-
-
+      </div>
     </div>
   </body>
 </html>

@@ -1,86 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>React 组件库搭建指南-单元测试 | 海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
-        
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">React 组件库搭建指南-单元测试</h2>
-          <div class="post-info post-detail-info">
-            <span>2020-02-12</span>
-          </div>
-          <div class="post-content">
-            <p>与软件操作行为越接近的测试，越能给予你信心。</p>
+          <article class="post">
+            <h2 class="post-title">
+              React 组件库搭建指南-单元测试
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-12
+              </span>
+              <span>
+                5 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
+                  # react
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>与软件操作行为越接近的测试，越能给予你信心。</p>
 <!--more -->
 <ul>
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
@@ -207,100 +226,120 @@ describe('&lt;Alert /&gt;', () =&gt; {
 <pre><code class="language-bash">yarn test:update
 </code></pre>
 <p>可以看见同级目录下新增了一个<code>__snapshots__</code>文件夹，里面存放对应测试用例的快照文件。</p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw704fpmj31c00r2wi4.jpg" alt="生成的快照文件" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw704fpmj31c00r2wi4.jpg" alt="生成的快照文件"></figure>
 <p>再执行测试用例：</p>
 <pre><code class="language-bash">yarn test
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw73egztj30uw0ee0u2.jpg" alt="通过测试用例" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw73egztj30uw0ee0u2.jpg" alt="通过测试用例"></figure>
 <p>可以发现我们通过了测试用例。。。额，这里当然能通过，主要是后续我们进行迭代重构时，都会重新执行测试用例，与最近的一次快照进行比对，如果与快照不一致（结构发生了改变），那么相应的测试用例就无法通过。</p>
 <p>对于快照测试，褒贬不一，这个例子也着实简单得很，甚至连扩展的 <code>jest-dom</code>提供的 <code>matchers</code> 都没用上，如何编写优秀的测试用例，我也是一个新手，只能说多看多写多尝试，概述推荐的文章很不错。</p>
 <p>本文如有错误，恳请指正，共同交流学习。</p>
 <p>To be Continued...</p>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%A6%82%E8%A7%88">概览</a></li>
+<li><a href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE">相关配置</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B">编写测试用例</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3/">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3">
               <h3 class="post-title">
-                下一篇：React 组件库搭建指南-打包输出
+                React 组件库搭建指南-打包输出
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

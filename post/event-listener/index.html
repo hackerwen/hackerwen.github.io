@@ -1,86 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>实现通用的事件注册方法 | 海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
-        
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">实现通用的事件注册方法</h2>
-          <div class="post-info post-detail-info">
-            <span>2017-07-15</span>
-          </div>
-          <div class="post-content">
-            <blockquote>
+          <article class="post">
+            <h2 class="post-title">
+              实现通用的事件注册方法
+            </h2>
+            <div class="post-info">
+              <span>
+                2017-07-15
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
 <p>初稿：2017-07-15 <br><br>
 更新: 2018-07-29</p>
 </blockquote>
@@ -300,90 +319,123 @@ if (x.removeEventListener) {
 <p>参考书籍：《JavaScript 高级程序设计第三版》《JavaScript 设计模式与开发实践》<br>
 参考文章：<a href="https://juejin.im/post/5b592635e51d4533d2043e15?utm_source=gold_browser_extension">手把手教你用原生 JavaScript 造轮子（1）——分页器</a></p>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E5%AE%9E%E7%8E%B0%E9%80%9A%E7%94%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B3%A8%E5%86%8C%E6%96%B9%E6%B3%95">实现通用的事件注册方法</a>
+<ul>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%AE%A8%E8%AE%BA%E4%BA%8B%E4%BB%B6%E6%B3%A8%E5%86%8C%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7">为什么要讨论事件注册的兼容性？</a></li>
+<li><a href="#%E4%BA%8B%E4%BB%B6%E6%B3%A8%E5%86%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95">事件注册有哪些方法？</a>
+<ul>
+<li><a href="#onevent">on+&quot;event&quot;</a></li>
+<li><a href="#addeventlistener">addEventListener</a></li>
+<li><a href="#attachevent">attachEvent</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9B%E8%A1%8C%E5%85%BC%E5%AE%B9%E6%80%A7%E5%A4%84%E7%90%86">进行兼容性处理</a>
+<ul>
+<li><a href="#1%E7%AE%80%E5%8D%95%E9%80%9A%E8%BF%87-if-%E5%88%A4%E6%96%AD">1.简单通过 if 判断</a></li>
+<li><a href="#2%E5%B0%81%E8%A3%85%E6%88%90%E5%87%BD%E6%95%B0">2.封装成函数</a></li>
+<li><a href="#3-%E4%BD%BF%E7%94%A8%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96">3. 使用立即执行函数进行优化</a></li>
+<li><a href="#4-%E6%83%B0%E6%80%A7%E8%BD%BD%E5%85%A5%E5%87%BD%E6%95%B0%E6%96%B9%E6%A1%88">4. 惰性载入函数方案</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/constructor-prototype-extend-3/">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/constructor-prototype-extend-3">
               <h3 class="post-title">
-                下一篇：构造函数、原型与继承（三）
+                构造函数、原型与继承（三）
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

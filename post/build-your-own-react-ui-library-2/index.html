@@ -1,86 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>React 组件库搭建指南-开发调试 | 海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
-        
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">React 组件库搭建指南-开发调试</h2>
-          <div class="post-info post-detail-info">
-            <span>2019-12-22</span>
-          </div>
-          <div class="post-content">
-            <p>MDX，文档生花。</p>
+          <article class="post">
+            <h2 class="post-title">
+              React 组件库搭建指南-开发调试
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-22
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/S1yumrohX8" class="post-tag">
+                  # react
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>MDX，文档生花。</p>
 <!-- more -->
 <ul>
 <li><a href="https://juejin.im/post/5df9a39f6fb9a0165b4cdb26">React 组件库搭建指南-准备工作</a></li>
@@ -162,7 +181,7 @@ import { Playground } from 'docz'; import Alert from './alert'; // 引入组件 
 <pre><code class="language-bash">yarn start # or yarn dev
 </code></pre>
 <p>可以在<code>localhost:3000</code>看到如下页面 ：</p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></figure>
 <p>现在可以在<code>index.mdx</code>中愉快地进行文档编写和调试了！</p>
 <p>倘若本文到了这里就结束（其实也可以结束了<code>(_^▽^_)</code>），那我只是官方文档的翻译复读机罢了，有兴趣的同学可以继续向下看。</p>
 <h2 id="优化文档编写">优化文档编写</h2>
@@ -189,7 +208,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 &lt;/Playground&gt;
 </code></pre>
 <p>这样我们就将 demo 与文档进行了分隔。预览如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></figure>
 <p>等等，你下面显示的那个<code>&lt;BasicDemo /&gt;</code>有点撩人，这里应该是给用户爸爸们<code>copy</code>的<code>demo</code>源码，你弄一个标签在这里，用户爸爸肯定不开心 🙅‍♀️。</p>
 <p>然而<code>&lt;Playground /&gt;</code>组件暂时无法支持上述形式的展示：自定义下方展示的代码，而非<code>&lt;Playground /&gt;</code>内部的代码。相关讨论如下：</p>
 <ul>
@@ -215,7 +234,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 <p>这些依赖都是服务于文档站点应用，和组件库自身毫无关联。</p>
 </blockquote>
 <p>最终效果如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></figure>
 <p>根目录下新建<code>doc-comps</code>文件夹，存放文档中使用的一些工具组件，比如<code>&lt;HappyBox /&gt;</code>。</p>
 <p><strong>doc-comps</strong></p>
 <pre><code>├── happy-box
@@ -386,90 +405,119 @@ exports.onCreateWebpackConfig = args =&gt; {
 <p>开发调试与文档编写结束，欢迎指点交流。</p>
 <p>To be Continued...</p>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%A6%82%E8%A7%88">概览</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-docz-%E4%BB%A5%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE">安装 docz 以及自定义配置</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3">编写文档</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3%E7%BC%96%E5%86%99">优化文档编写</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81%E5%B1%95%E7%A4%BA">优化代码展示</a>
+<ul>
+<li><a href="#%E7%BC%96%E5%86%99-happybox-%E7%BB%84%E4%BB%B6">编写 <code>&lt;HappyBox /&gt;</code>组件</a></li>
+<li><a href="#%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%8F%98%E6%9B%B4">相关配置变更</a></li>
+<li><a href="#%E6%94%B9%E9%80%A0%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6">改造相关文件</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1/">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1">
               <h3 class="post-title">
-                下一篇：React 组件库搭建指南-准备工作
+                React 组件库搭建指南-准备工作
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

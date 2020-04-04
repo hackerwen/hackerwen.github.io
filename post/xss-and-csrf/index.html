@@ -1,86 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>前端安全：XSS与CSRF | 海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
-        
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">前端安全：XSS与CSRF</h2>
-          <div class="post-info post-detail-info">
-            <span>2017-09-15</span>
-          </div>
-          <div class="post-content">
-            <blockquote>
+          <article class="post">
+            <h2 class="post-title">
+              前端安全：XSS与CSRF
+            </h2>
+            <div class="post-info">
+              <span>
+                2017-09-15
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/JIFLGuJb8" class="post-tag">
+                  # 安全
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <blockquote>
 <p>整理自:<br>
 <a href="http://www.zyy1217.com/2017/04/22/%E8%AF%A6%E8%A7%A3XSS%E4%B8%8ECSRF%E4%B8%A4%E7%A7%8D%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB/">详解 XSS 与 CSRF 两种跨站攻击</a> &gt; <a href="https://segmentfault.com/a/1190000004623125">总结 XSS 与 CSRF 两种跨站攻击</a></p>
 </blockquote>
@@ -121,7 +140,7 @@ while (true) {
 <p>你这可以这么理解 CSRF 攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF 能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账……造成的问题包括：个人隐私泄露以及财产安全。</p>
 <p>严格意义上来说，CSRF 不能分类为注入攻击，因为 CSRF 的实现途径远远不止 XSS 注入这一条。通过 XSS 来实现 CSRF 易如反掌，但对于设计不佳的网站，一条正常的链接都能造成 CSRF。</p>
 <h3 id="原理-2">原理</h3>
-<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf98oo6pj30t80ghq6e.jpg" alt="csrf.jpg" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5sf98oo6pj30t80ghq6e.jpg" alt="csrf.jpg"></figure>
 <p>从上图可以看出，要完成一次 CSRF 攻击，受害者必须依次完成两个步骤：</p>
 <ol>
 <li>登录受信任网站 A，并在本地生成 Cookie。</li>
@@ -173,90 +192,122 @@ referer 是在 HTTP Request Head 里面的，也就是由请求的发送者决�
 <p>可以通过跨站脚本注入 XSS 获取用户的信息，获得用户信息过后可以做诸多的事情，但是 CSRF 只能模拟用户行为，</p>
 <p>CSRF 的全称是“跨站请求伪造”，而 XSS 的全称是“跨站脚本”。看起来有点相似，它们都是属于跨站攻击——不攻击服务器端而攻击正常访问网站的用户，但前面说了，它们的攻击类型是不同维度上的分类。CSRF 顾名思义，是伪造请求，冒充用户在站内的正常操作。我们知道，绝大多数网站是通过 cookie 等方式辨识用户身份（包括使用服务器端 Session 的网站，因为 Session ID 也是大多保存在 cookie 里面的），再予以授权的。所以要伪造用户的正常操作，最好的方法是通过 XSS 或链接欺骗等途径，让用户在本机（即拥有身份 cookie 的浏览器端）发起用户所不知道的请求。</p>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#xss-%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%ACcross-site-scripting%E9%80%9A%E5%B8%B8%E7%AE%80%E7%A7%B0%E4%B8%BA-xss">XSS 跨站脚本（Cross-site scripting，通常简称为 XSS）</a>
+<ul>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#%E4%B8%BE%E4%BE%8B">举例：</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E9%98%B2%E5%BE%A1-xss-%E6%94%BB%E5%87%BB">如何防御 XSS 攻击</a></li>
+</ul>
+</li>
+<li><a href="#csrf-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ross-site-request-forgery">CSRF 跨站请求伪造（ross-site request forgery）</a>
+<ul>
+<li><a href="#%E5%8E%9F%E7%90%86-2">原理</a></li>
+<li><a href="#%E4%B8%BE%E4%BE%8B-2">举例</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E9%98%B2%E5%BE%A1-csrf-%E6%94%BB%E5%87%BB">如何防御 CSRF 攻击</a></li>
+</ul>
+</li>
+<li><a href="#xss-%E4%B8%8E-csrf-%E7%9A%84%E5%8C%BA%E5%88%AB">XSS 与 CSRF 的区别</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/http-cache/">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/http-cache">
               <h3 class="post-title">
-                下一篇：HTTP中的缓存机制
+                HTTP中的缓存机制
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

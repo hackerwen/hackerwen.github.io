@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://worldzhao.github.io</id>
     <title>海秋</title>
-    <updated>2020-03-11T07:52:15.936Z</updated>
+    <updated>2020-04-04T09:25:12.825Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://worldzhao.github.io"/>
     <link rel="self" href="https://worldzhao.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2020, 海秋</rights>
     <entry>
         <title type="html"><![CDATA[React 组件库搭建指南-单元测试]]></title>
-        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-4/</id>
-        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4/">
+        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-4</id>
+        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-4">
         </link>
         <updated>2020-02-12T02:04:33.000Z</updated>
         <summary type="html"><![CDATA[<p>与软件操作行为越接近的测试，越能给予你信心。</p>
@@ -145,11 +145,11 @@ describe('&lt;Alert /&gt;', () =&gt; {
 <pre><code class="language-bash">yarn test:update
 </code></pre>
 <p>可以看见同级目录下新增了一个<code>__snapshots__</code>文件夹，里面存放对应测试用例的快照文件。</p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw704fpmj31c00r2wi4.jpg" alt="生成的快照文件" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw704fpmj31c00r2wi4.jpg" alt="生成的快照文件"></figure>
 <p>再执行测试用例：</p>
 <pre><code class="language-bash">yarn test
 </code></pre>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw73egztj30uw0ee0u2.jpg" alt="通过测试用例" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gcbw73egztj30uw0ee0u2.jpg" alt="通过测试用例"></figure>
 <p>可以发现我们通过了测试用例。。。额，这里当然能通过，主要是后续我们进行迭代重构时，都会重新执行测试用例，与最近的一次快照进行比对，如果与快照不一致（结构发生了改变），那么相应的测试用例就无法通过。</p>
 <p>对于快照测试，褒贬不一，这个例子也着实简单得很，甚至连扩展的 <code>jest-dom</code>提供的 <code>matchers</code> 都没用上，如何编写优秀的测试用例，我也是一个新手，只能说多看多写多尝试，概述推荐的文章很不错。</p>
 <p>本文如有错误，恳请指正，共同交流学习。</p>
@@ -158,8 +158,8 @@ describe('&lt;Alert /&gt;', () =&gt; {
     </entry>
     <entry>
         <title type="html"><![CDATA[React 组件库搭建指南-打包输出]]></title>
-        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-3/</id>
-        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3/">
+        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-3</id>
+        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-3">
         </link>
         <updated>2019-12-25T07:15:14.000Z</updated>
         <summary type="html"><![CDATA[<p>重头戏来了。</p>
@@ -325,7 +325,7 @@ exports.default = build;
 </code></pre>
 <p>观察编译后的源码，可以发现：诸多<code>helper</code>方法已被抽离至<code>@babel/runtime</code>中，模块导入导出形式也是<code>commonjs</code>规范。</p>
 <p><strong>lib/alert/alert.js</strong></p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgju58mlj30ve0u0k4o.jpg" alt="lib/alert/alert.js" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgju58mlj30ve0u0k4o.jpg" alt="lib/alert/alert.js"></figure>
 <h2 id="导出-es-module">导出 ES module</h2>
 <p>生成<code>ES module</code>可以更好地进行<a href="https://webpack.docschina.org/guides/tree-shaking/">tree shaking</a>，基于上一步的<code>babel</code>配置，更新以下内容：</p>
 <ol>
@@ -427,7 +427,7 @@ const build = gulp.parallel(buildScripts);
 </code></pre>
 <p>执行<code>yarn build</code>，可以发现生成了<code>types</code>/<code>lib</code>/<code>esm</code>三个文件夹，观察<code>esm</code>目录，结构同<code>lib</code>/<code>types</code>一致，js 文件都是以<code>ES module</code>模块形式导入导出。</p>
 <p><strong>esm/alert/alert.js</strong></p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgrzmgjqj311i0u0air.jpg" alt="esm/alert/alert.js" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gabgrzmgjqj311i0u0air.jpg" alt="esm/alert/alert.js"></figure>
 <p>别忘了给<code>package.json</code>增加相关入口。</p>
 <p><strong>package.json</strong></p>
 <pre><code class="language-diff">{
@@ -606,8 +606,8 @@ import 'happy-ui/lib/alert/style';
     </entry>
     <entry>
         <title type="html"><![CDATA[React 组件库搭建指南-开发调试]]></title>
-        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-2/</id>
-        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2/">
+        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-2</id>
+        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-2">
         </link>
         <updated>2019-12-22T11:05:45.000Z</updated>
         <summary type="html"><![CDATA[<p>MDX，文档生花。</p>
@@ -694,7 +694,7 @@ import { Playground } from 'docz'; import Alert from './alert'; // 引入组件 
 <pre><code class="language-bash">yarn start # or yarn dev
 </code></pre>
 <p>可以在<code>localhost:3000</code>看到如下页面 ：</p>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ujda771j31j50u0h06.jpg" alt="文档站点"></figure>
 <p>现在可以在<code>index.mdx</code>中愉快地进行文档编写和调试了！</p>
 <p>倘若本文到了这里就结束（其实也可以结束了<code>(_^▽^_)</code>），那我只是官方文档的翻译复读机罢了，有兴趣的同学可以继续向下看。</p>
 <h2 id="优化文档编写">优化文档编写</h2>
@@ -721,7 +721,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 &lt;/Playground&gt;
 </code></pre>
 <p>这样我们就将 demo 与文档进行了分隔。预览如下：</p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1v3li0poj31l80u0wix.jpg" alt="文档重构"></figure>
 <p>等等，你下面显示的那个<code>&lt;BasicDemo /&gt;</code>有点撩人，这里应该是给用户爸爸们<code>copy</code>的<code>demo</code>源码，你弄一个标签在这里，用户爸爸肯定不开心 🙅‍♀️。</p>
 <p>然而<code>&lt;Playground /&gt;</code>组件暂时无法支持上述形式的展示：自定义下方展示的代码，而非<code>&lt;Playground /&gt;</code>内部的代码。相关讨论如下：</p>
 <ul>
@@ -747,7 +747,7 @@ export default () =&gt; &lt;Alert kind=&quot;warning&quot;&gt;&lt;/Alert&gt;;
 <p>这些依赖都是服务于文档站点应用，和组件库自身毫无关联。</p>
 </blockquote>
 <p>最终效果如下：</p>
-<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga1ynynxxlj31dg0u0tde.jpg" alt="最终效果"></figure>
 <p>根目录下新建<code>doc-comps</code>文件夹，存放文档中使用的一些工具组件，比如<code>&lt;HappyBox /&gt;</code>。</p>
 <p><strong>doc-comps</strong></p>
 <pre><code>├── happy-box
@@ -921,8 +921,8 @@ exports.onCreateWebpackConfig = args =&gt; {
     </entry>
     <entry>
         <title type="html"><![CDATA[React 组件库搭建指南-准备工作]]></title>
-        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-1/</id>
-        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1/">
+        <id>https://worldzhao.github.io/post/build-your-own-react-ui-library-1</id>
+        <link href="https://worldzhao.github.io/post/build-your-own-react-ui-library-1">
         </link>
         <updated>2019-12-18T04:12:25.000Z</updated>
         <summary type="html"><![CDATA[<p>凡事预则立不预则废。</p>
@@ -1154,8 +1154,8 @@ git push
     </entry>
     <entry>
         <title type="html"><![CDATA[组件（库）开发相关总结]]></title>
-        <id>https://worldzhao.github.io/post/thinking-in-ui-library/</id>
-        <link href="https://worldzhao.github.io/post/thinking-in-ui-library/">
+        <id>https://worldzhao.github.io/post/thinking-in-ui-library</id>
+        <link href="https://worldzhao.github.io/post/thinking-in-ui-library">
         </link>
         <updated>2019-10-13T16:00:00.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -1259,8 +1259,8 @@ git push
     </entry>
     <entry>
         <title type="html"><![CDATA[基于React的权限系统设计]]></title>
-        <id>https://worldzhao.github.io/post/authorization-with-react/</id>
-        <link href="https://worldzhao.github.io/post/authorization-with-react/">
+        <id>https://worldzhao.github.io/post/authorization-with-react</id>
+        <link href="https://worldzhao.github.io/post/authorization-with-react">
         </link>
         <updated>2019-09-25T11:52:53.000Z</updated>
         <summary type="html"><![CDATA[<p>前端进行权限控制只是为了用户体验，对应的角色渲染对应的视图，真正的安全保障在后端。</p>
@@ -1308,7 +1308,7 @@ git push
 <pre><code class="language-jsx">// currentAuthority 为当前用户权限枚举值
 
 const AdminBtn = ({ currentAuthority }) =&gt; {
-  if (&quot;admin&quot; === currentAuthority) {
+  if ('admin' === currentAuthority) {
     return &lt;button&gt;进入管理后台&lt;/button&gt;;
   }
   return null;
@@ -1321,11 +1321,7 @@ const AdminBtn = ({ currentAuthority }) =&gt; {
 <p>下面来封装一个最基本的权限管理组件<code>Authorized</code>。</p>
 <h3 id="组件封装-authorized">组件封装-Authorized</h3>
 <p>期望调用形式如下：</p>
-<pre><code class="language-jsx">&lt;Authorized
-  currentAuthority={currentAuthority}
-  authority={&quot;admin&quot;}
-  noMatch={null}
-&gt;
+<pre><code class="language-jsx">&lt;Authorized currentAuthority={currentAuthority} authority={'admin'} noMatch={null}&gt;
   &lt;button&gt;进入管理后台&lt;/button&gt;
 &lt;/Authorized&gt;
 </code></pre>
@@ -1369,7 +1365,7 @@ const AdminBtn = ({ currentAuthority }) =&gt; {
 <p><code>currentAuthority</code>这个属性没有必要每次调用都手动传递一遍，此处假设用户信息是通过 <code>redux</code> 获取并存放在全局 <code>store</code> 中。</p>
 <p><em>注意：我们当然也可以将用户信息挂在 <code>window</code> 下或者 <code>localStorage</code> 中，但很重要的一点是，绝大部分场景我们都是通过接口异步获取的数据，这点至关重要。如果是 <code>html</code> 托管在后端或是 <code>ssr</code>的情况下，服务端直接注入了用户信息，那真是再好不过了。</em></p>
 <p>新建<code>src/components/Authorized/Authorized.jsx</code>实现如下：</p>
-<pre><code class="language-jsx">import { connect } from &quot;react-redux&quot;;
+<pre><code class="language-jsx">import { connect } from 'react-redux';
 
 function Authorized(props) {
   const { children, userInfo, authority, noMatch } = props;
@@ -1380,12 +1376,10 @@ function Authorized(props) {
   return noMatch;
 }
 
-export default connect(store =&gt; ({ userInfo: store.common.userInfo }))(
-  Authorized
-);
+export default connect(store =&gt; ({ userInfo: store.common.userInfo }))(Authorized);
 </code></pre>
 <p>现在我们无需手动传递<code>currentAuthority</code>：</p>
-<pre><code class="language-jsx">&lt;Authorized authority={&quot;admin&quot;} noMatch={null}&gt;
+<pre><code class="language-jsx">&lt;Authorized authority={'admin'} noMatch={null}&gt;
   &lt;button&gt;进入管理后台&lt;/button&gt;
 &lt;/Authorized&gt;
 </code></pre>
@@ -1397,47 +1391,43 @@ export default connect(store =&gt; ({ userInfo: store.common.userInfo }))(
 <p><strong>页面就是放在<code>Route</code>组件下的模块。</strong></p>
 <p>知道这一点后，我们很轻松的可以写出如下代码：</p>
 <p>新建<code>src/router/index.jsx</code>，当用户角色与路由不匹配时，渲染<code>Redirect</code>组件用于重定向。</p>
-<pre><code class="language-jsx">import React from &quot;react&quot;;
-import { BrowserRouter, Route, Switch } from &quot;react-router-dom&quot;;
-import NormalPage from &quot;@/views/NormalPage&quot;; /* 公开页面 */
-import UserPage from &quot;@/views/UserPage&quot;; /* 普通用户和管理员均可访问的页面*/
-import AdminPage from &quot;@/views/AdminPage&quot;; /* 管理员才可访问的页面*/
-import Authorized from &quot;@/components/Authorized&quot;;
+<pre><code class="language-jsx">import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import NormalPage from '@/views/NormalPage'; /* 公开页面 */
+import UserPage from '@/views/UserPage'; /* 普通用户和管理员均可访问的页面*/
+import AdminPage from '@/views/AdminPage'; /* 管理员才可访问的页面*/
+import Authorized from '@/components/Authorized';
 
 // Layout就是一个布局组件，写一些公用头部底部啥的
 
 function Router() {
-  &lt;BrowserRouter&gt;
-    &lt;Layout&gt;
-      &lt;Switch&gt;
-        &lt;Route exact path=&quot;/&quot; component={NormalPage} /&gt;
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Layout&gt;
+        &lt;Switch&gt;
+          &lt;Route exact path='/' component={NormalPage} /&gt;
 
-        &lt;Authorized
-          authority={[&quot;admin&quot;, &quot;user&quot;]}
-          noMatch={
-            &lt;Route
-              path=&quot;/user-page&quot;
-              render={() =&gt; &lt;Redirect to={{ pathname: &quot;/login&quot; }} /&gt;}
-            /&gt;
-          }
-        &gt;
-          &lt;Route path=&quot;/user-page&quot; component={UserPage} /&gt;
-        &lt;/Authorized&gt;
+          &lt;Authorized
+            authority={['admin', 'user']}
+            noMatch={
+              &lt;Route path='/user-page' render={() =&gt; &lt;Redirect to={{ pathname: '/login' }} /&gt;} /&gt;
+            }
+          &gt;
+            &lt;Route path='/user-page' component={UserPage} /&gt;
+          &lt;/Authorized&gt;
 
-        &lt;Authorized
-          authority={&quot;admin&quot;}
-          noMatch={
-            &lt;Route
-              path=&quot;/admin-page&quot;
-              render={() =&gt; &lt;Redirect to={{ pathname: &quot;/403&quot; }} /&gt;}
-            /&gt;
-          }
-        &gt;
-          &lt;Route path=&quot;/admin-page&quot; component={AdminPage} /&gt;
-        &lt;/Authorized&gt;
-      &lt;/Switch&gt;
-    &lt;/Layout&gt;
-  &lt;/BrowserRouter&gt;;
+          &lt;Authorized
+            authority={'admin'}
+            noMatch={
+              &lt;Route path='/admin-page' render={() =&gt; &lt;Redirect to={{ pathname: '/403' }} /&gt;} /&gt;
+            }
+          &gt;
+            &lt;Route path='/admin-page' component={AdminPage} /&gt;
+          &lt;/Authorized&gt;
+        &lt;/Switch&gt;
+      &lt;/Layout&gt;
+    &lt;/BrowserRouter&gt;
+  );
 }
 
 export default Router;
@@ -1447,59 +1437,45 @@ export default Router;
 <h3 id="抽离路由配置">抽离路由配置</h3>
 <p>路由配置相关 jsx 内容太多了，页面数量过多就不好维护了，可读性也大大降低，我们可以将路由配置抽离出来。</p>
 <p>新建<code>src/router/router.config.js</code>，专门用于存放路由相关配置信息。</p>
-<pre><code class="language-jsx">import NormalPage from &quot;@/views/NormalPage&quot;;
-import UserPage from &quot;@/views/UserPage&quot;;
-import AdminPage from &quot;@/views/AdminPage&quot;;
+<pre><code class="language-jsx">import NormalPage from '@/views/NormalPage';
+import UserPage from '@/views/UserPage';
+import AdminPage from '@/views/AdminPage';
 
 export default [
   {
     exact: true,
-    path: &quot;/&quot;,
-    component: NormalPage
+    path: '/',
+    component: NormalPage,
   },
   {
-    path: &quot;/user-page&quot;,
+    path: '/user-page',
     component: UserPage,
-    authority: [&quot;user&quot;, &quot;admin&quot;],
-    redirectPath: &quot;/login&quot;
+    authority: ['user', 'admin'],
+    redirectPath: '/login',
   },
   {
-    path: &quot;/admin-page&quot;,
+    path: '/admin-page',
     component: AdminPage,
-    authority: [&quot;admin&quot;],
-    redirectPath: &quot;/403&quot;
-  }
+    authority: ['admin'],
+    redirectPath: '/403',
+  },
 ];
 </code></pre>
 <h3 id="组件封装-authorizedroute">组件封装-AuthorizedRoute</h3>
 <p>接下来基于<code>Authorized</code>组件对<code>Route</code>组件进行二次封装。</p>
 <p>新建<code>src/components/Authorized/AuthorizedRoute.jsx</code>。</p>
 <p>实现如下：</p>
-<pre><code class="language-jsx">import React from &quot;react&quot;;
-import { Route } from &quot;react-router-dom&quot;;
-import Authorized from &quot;./Authorized&quot;;
+<pre><code class="language-jsx">import React from 'react';
+import { Route } from 'react-router-dom';
+import Authorized from './Authorized';
 
-function AuthorizedRoute({
-  component: Component,
-  render,
-  authority,
-  redirectPath,
-  ...rest
-}) {
+function AuthorizedRoute({ component: Component, render, authority, redirectPath, ...rest }) {
   return (
     &lt;Authorized
       authority={authority}
-      noMatch={
-        &lt;Route
-          {...rest}
-          render={() =&gt; &lt;Redirect to={{ pathname: redirectPath }} /&gt;}
-        /&gt;
-      }
+      noMatch={&lt;Route {...rest} render={() =&gt; &lt;Redirect to={{ pathname: redirectPath }} /&gt;} /&gt;}
     &gt;
-      &lt;Route
-        {...rest}
-        render={props =&gt; (Component ? &lt;Component {...props} /&gt; : render(props))}
-      /&gt;
+      &lt;Route {...rest} render={props =&gt; (Component ? &lt;Component {...props} /&gt; : render(props))} /&gt;
     &lt;/Authorized&gt;
   );
 }
@@ -1508,31 +1484,33 @@ export default AuthorizedRoute;
 </code></pre>
 <h3 id="优化后">优化后</h3>
 <p>现在重写我们的 Router 组件。</p>
-<pre><code class="language-jsx">import React from &quot;react&quot;;
-import { BrowserRouter, Route, Switch } from &quot;react-router-dom&quot;;
-import AuthorizedRoute from &quot;@/components/AuthorizedRoute&quot;;
-import routeConfig from &quot;./router.config.js&quot;;
+<pre><code class="language-jsx">import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import AuthorizedRoute from '@/components/AuthorizedRoute';
+import routeConfig from './router.config.js';
 
 function Router() {
-  &lt;BrowserRouter&gt;
-    &lt;Layout&gt;
-      &lt;Switch&gt;
-        {routeConfig.map(rc =&gt; {
-          const { path, component, authority, redirectPath, ...rest } = rc;
-          return (
-            &lt;AuthorizedRoute
-              key={path}
-              path={path}
-              component={component}
-              authority={authority}
-              redirectPath={redirectPath}
-              {...rest}
-            /&gt;
-          );
-        })}
-      &lt;/Switch&gt;
-    &lt;/Layout&gt;
-  &lt;/BrowserRouter&gt;;
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Layout&gt;
+        &lt;Switch&gt;
+          {routeConfig.map(rc =&gt; {
+            const { path, component, authority, redirectPath, ...rest } = rc;
+            return (
+              &lt;AuthorizedRoute
+                key={path}
+                path={path}
+                component={component}
+                authority={authority}
+                redirectPath={redirectPath}
+                {...rest}
+              /&gt;
+            );
+          })}
+        &lt;/Switch&gt;
+      &lt;/Layout&gt;
+    &lt;/BrowserRouter&gt;
+  );
 }
 
 export default Router;
@@ -1554,8 +1532,8 @@ export default Router;
     </entry>
     <entry>
         <title type="html"><![CDATA[关于前端项目部署发布的相关思考]]></title>
-        <id>https://worldzhao.github.io/post/thinking-in-deploy/</id>
-        <link href="https://worldzhao.github.io/post/thinking-in-deploy/">
+        <id>https://worldzhao.github.io/post/thinking-in-deploy</id>
+        <link href="https://worldzhao.github.io/post/thinking-in-deploy">
         </link>
         <updated>2019-07-20T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>习惯了前后端完全分离的开发模式，一时难以接受前端html托管在后端这种操作。</p>
@@ -1617,8 +1595,8 @@ export default Router;
     </entry>
     <entry>
         <title type="html"><![CDATA[双月谈-试用期思考]]></title>
-        <id>https://worldzhao.github.io/post/probation-period-in-xmly/</id>
-        <link href="https://worldzhao.github.io/post/probation-period-in-xmly/">
+        <id>https://worldzhao.github.io/post/probation-period-in-xmly</id>
+        <link href="https://worldzhao.github.io/post/probation-period-in-xmly">
         </link>
         <updated>2019-07-06T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>到新公司接近 2 个月了（4.29-7.07），这两个月里也许是我毕业一年思考最多的两个月，的确是有必要进行总结。当然，纯属个人看法。</p>
@@ -1760,8 +1738,8 @@ export default Router;
     </entry>
     <entry>
         <title type="html"><![CDATA[编写干净的代码]]></title>
-        <id>https://worldzhao.github.io/post/write-clean-code-in-react/</id>
-        <link href="https://worldzhao.github.io/post/write-clean-code-in-react/">
+        <id>https://worldzhao.github.io/post/write-clean-code-in-react</id>
+        <link href="https://worldzhao.github.io/post/write-clean-code-in-react">
         </link>
         <updated>2019-05-14T16:00:00.000Z</updated>
         <content type="html"><![CDATA[<h2 id="项目基础配置">项目基础配置</h2>
@@ -2053,8 +2031,8 @@ import { Modal } from &quot;@components&quot;;
     </entry>
     <entry>
         <title type="html"><![CDATA[memoize-one 简介]]></title>
-        <id>https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one/</id>
-        <link href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one/">
+        <id>https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one</id>
+        <link href="https://worldzhao.github.io/post/write-faster-react-code-with-memoize-one">
         </link>
         <updated>2019-04-10T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>I’ve always said that React will make you a better JavaScript developer.</p>

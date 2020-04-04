@@ -1,86 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>浅克隆与深克隆 | 海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
-        
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">浅克隆与深克隆</h2>
-          <div class="post-info post-detail-info">
-            <span>2017-09-13</span>
-          </div>
-          <div class="post-content">
-            <h1 id="浅克隆与深克隆">浅克隆与深克隆</h1>
+          <article class="post">
+            <h2 class="post-title">
+              浅克隆与深克隆
+            </h2>
+            <div class="post-info">
+              <span>
+                2017-09-13
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/zd4EwIdEDA" class="post-tag">
+                  # javascript
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="浅克隆与深克隆">浅克隆与深克隆</h1>
 <h2 id="一-js-中的对象">一. js 中的对象</h2>
 <p>谈到对象的克隆，必定要说一下对象的概念。</p>
 <p>js 中的数据类型分为两大类：原始类型和对象类型。</p>
@@ -103,7 +122,7 @@ console.log(person.name)
 <p>以上代码的弹出值是:我是传递的，很多人可能会以为将会弹出“我是 new 出来的”，下面进行一下简单的分析:</p>
 <p>在函数外面创建一个对象，并将对象的引用赋值给变量 person，person 中存储的是对象在内存中的存储地址，当为函数传递参数时，就是传递的在函数外面创建的对象的地址。<br>
 在函数中，obj 的值即为 person 的值，指向外面创建的对象，并为其创建一个自定义属性 name，然后又创建一个新的对象，并将新对象的地址赋值给 obj(person 一直没有变化，始终指向原来的对象)，这个时候 obj 指向的并不是函数外面创建的对象，所以外面对象 name 属性不会被改变。</p>
-<figure data-type="image" tabindex="1"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8gif2wj30i408w0sk.jpg" alt="image.png" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5sf8gif2wj30i408w0sk.jpg" alt="image.png"></figure>
 <p>总的来说，就是函数内创建 object 对象不会改变外面的属性值。最好画个内存图，马老师教我的，碰到值传递和引用传递一图足矣。当然，这个小例子只是为了让大家复习一下克隆的前置知识。</p>
 <h2 id="克隆的概念">克隆的概念</h2>
 <ul>
@@ -249,90 +268,118 @@ console.log(oNew.oAddress.province) //shanghai
 <a href="http://www.zyy1217.com/2017/01/05/Javascript%E6%B7%B1%E5%85%8B%E9%9A%86%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/">Javascript 深克隆原理与实现</a></p>
 </blockquote>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86">浅克隆与深克隆</a>
+<ul>
+<li><a href="#%E4%B8%80-js-%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1">一. js 中的对象</a></li>
+<li><a href="#%E5%85%8B%E9%9A%86%E7%9A%84%E6%A6%82%E5%BF%B5">克隆的概念</a>
+<ul>
+<li><a href="#%E6%B5%85%E5%85%8B%E9%9A%86">浅克隆</a>
+<ul>
+<li><a href="#%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E8%B5%8B%E5%80%BC%E7%9A%84%E5%8C%BA%E5%88%AB">浅克隆与赋值的区别</a></li>
+<li><a href="#%E6%B7%B1%E5%85%8B%E9%9A%86%E7%9A%84%E5%AE%9E%E7%8E%B0">深克隆的实现</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/debounce-throttle/">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/debounce-throttle">
               <h3 class="post-title">
-                下一篇：函数节流与函数防抖
+                函数节流与函数防抖
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>

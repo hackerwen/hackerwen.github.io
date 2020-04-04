@@ -1,86 +1,105 @@
-
-<!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
-
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>最近遇到的一些css题目 | 海秋</title>
-<meta name="description" content="君子生非异也，善假于物也。">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
+<meta name="description" content="君子生非异也，善假于物也。" />
+<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1585991843645">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://worldzhao.github.io/favicon.ico?v=1583913133115">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://worldzhao.github.io/styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://worldzhao.github.io" class="logo">
-        <h1 class="site-title">海秋</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i
-          class="icon"
-          :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
-          @click="menuVisible = !menuVisible"
-        ></i>
-      </transition>
-    </div>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://worldzhao.github.io">
+  <img class="avatar" src="https://worldzhao.github.io/images/avatar.png?v=1585991843645" alt="">
+  </a>
+  <h1 class="site-title">
+    海秋
+  </h1>
+  <p class="site-description">
+    君子生非异也，善假于物也。
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/worldzhao" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+        <a href="https://www.zhihu.com/people/zhao-qing-90-84/activities" target="_blank">
+          <i class="fab fa-zhihu"></i>
+        </a>
+      
+    
+      
+    
   </div>
 </div>
 
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-       
-      <a href="/" class="menu">
-        首页
-      </a>
-        
-      <a href="/archives" class="menu">
-        归档
-      </a>
-           
-      <a href="/post/about" class="menu">
-        关于
-      </a>
-       
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
         <div class="post-detail">
-          
-          <h2 class="post-title">最近遇到的一些css题目</h2>
-          <div class="post-info post-detail-info">
-            <span>2017-10-22</span>
-          </div>
-          <div class="post-content">
-            <p>首发于 2017-10-22，更新于 2018-08-15</p>
+          <article class="post">
+            <h2 class="post-title">
+              最近遇到的一些css题目
+            </h2>
+            <div class="post-info">
+              <span>
+                2017-10-22
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://worldzhao.github.io/tag/7PMAaym5-Y" class="post-tag">
+                  # css
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>首发于 2017-10-22，更新于 2018-08-15</p>
 <hr>
 <p>最近被 CSS 怼成傻逼，总结一下平时没有注意的点，持续更新。</p>
 <ul>
@@ -141,7 +160,7 @@
     &lt;/div&gt;
 </code></pre>
 <p>结果如图：</p>
-<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png"></figure>
 <p>我们再来给 inner 加上 position: absolute;</p>
 <pre><code class="language-css">.inner {
   width: 200px;
@@ -150,7 +169,7 @@
 }
 </code></pre>
 <p>结果如图：</p>
-<figure data-type="image" tabindex="2"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5sf81zxkjj30dz0du0s2.jpg" alt="image.png"></figure>
 <p>可以看出，设置了 postion:absolute 后，inner 并没有如我们预想的那样和 left:0 top:0 一般蹲到左上角，而是乖乖的呆在了 upper 后面，和之前 static 一样。</p>
 <h3 id="问题-7与-absolute-搭配的往往有-z-index-这个属性-那么如果有一个父元素-z-index-为-1000子元素-z-index-为-100谁在上面">问题 7：与 absolute 搭配的往往有 z-index 这个属性。那么如果有一个父元素 z-index 为 1000，子元素 z-index 为 100，谁在上面？</h3>
 <p>回答七：子元素在上面。<br>
@@ -175,7 +194,7 @@
 }
 </code></pre>
 <p>效果如下：</p>
-<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf83esksj308d0870gu.jpg" alt="image.png" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g5sf83esksj308d0870gu.jpg" alt="image.png"></figure>
 <p>子元素在上面，即使父元素的 z-index 远远大于子元素的 z-index</p>
 <p>以下转自<a href="https://segmentfault.com/q/1010000009843297">segmentfault</a></p>
 <blockquote>
@@ -212,90 +231,126 @@ z-index 并不是设置的值越高，就会越靠近用户，还和堆叠上下
 <code>opacity</code>被改变会触发浏览器重绘。<br>
 可以与<code>transition</code>一起使用。</p>
 
-          </div>
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98-1%E4%B8%80%E4%B8%AA%E6%B2%A1%E6%9C%89%E8%AE%BE%E7%BD%AE%E5%AE%BD%E5%BA%A6%E7%9A%84-div%E5%AE%83%E7%9A%84%E5%AE%BD%E5%BA%A6%E6%98%AF%E5%A4%9A%E5%B0%91">问题 1：一个没有设置宽度的 div，它的宽度是多少？</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-2%E6%8A%8A%E9%97%AE%E9%A2%98-1-%E9%87%8C%E9%9D%A2%E7%9A%84-div-%E8%AE%BE%E7%BD%AE%E4%B8%BA-float-%E4%B8%BA-left-%E5%91%A2">问题 2：把问题 1 里面的 div 设置为 float 为 left 呢？</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-3float-%E8%84%B1%E7%A6%BB%E4%BA%86%E6%96%87%E6%A1%A3%E6%B5%81%E5%90%97">问题 3：float 脱离了文档流吗？</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-4%E8%84%B1%E7%A6%BB%E4%BA%86%E6%96%87%E6%A1%A3%E6%B5%81%E6%96%87%E5%AD%97%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E4%BC%9A%E7%8E%AF%E7%BB%95%E5%91%A2">问题 4：脱离了文档流文字为什么还会环绕呢？</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-5postionabsolute-%E8%84%B1%E7%A6%BB%E4%BA%86%E6%96%87%E6%A1%A3%E6%B5%81%E5%90%97">问题 5：postion:absolute 脱离了文档流吗？</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-6postionabsolute-%E6%B2%A1%E6%9C%89%E8%AE%BE%E7%BD%AE-left-%E4%B8%8E-topdiv-%E4%BD%8D%E7%BD%AE%E5%9C%A8%E5%93%AA%E5%AE%BD%E5%BA%A6%E5%A6%82%E4%BD%95">问题 6：postion:absolute 没有设置 left 与 top，div 位置在哪，宽度如何？</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-7%E4%B8%8E-absolute-%E6%90%AD%E9%85%8D%E7%9A%84%E5%BE%80%E5%BE%80%E6%9C%89-z-index-%E8%BF%99%E4%B8%AA%E5%B1%9E%E6%80%A7-%E9%82%A3%E4%B9%88%E5%A6%82%E6%9E%9C%E6%9C%89%E4%B8%80%E4%B8%AA%E7%88%B6%E5%85%83%E7%B4%A0-z-index-%E4%B8%BA-1000%E5%AD%90%E5%85%83%E7%B4%A0-z-index-%E4%B8%BA-100%E8%B0%81%E5%9C%A8%E4%B8%8A%E9%9D%A2">问题 7：与 absolute 搭配的往往有 z-index 这个属性。那么如果有一个父元素 z-index 为 1000，子元素 z-index 为 100，谁在上面？</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-8-display-none-visibility-hidden-opacity0-%E7%9A%84%E5%8C%BA%E5%88%AB">问题 8: display: none; | visibility: hidden | opacity=0 的区别</a>
+<ul>
+<li><a href="#%E7%A9%BA%E9%97%B4">空间</a></li>
+<li><a href="#%E5%AD%90%E5%85%83%E7%B4%A0">子元素</a></li>
+<li><a href="#%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6">绑定事件</a></li>
+<li><a href="#%E9%87%8D%E6%8E%92%E4%B8%8E%E9%87%8D%E7%BB%98">重排与重绘</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
         </div>
 
         
           <div class="next-post">
-            <a href="https://worldzhao.github.io/post/some-js/">
+            <div class="next">下一篇</div>
+            <a href="https://worldzhao.github.io/post/some-js">
               <h3 class="post-title">
-                下一篇：一些js编程题
+                一些js编程题
               </h3>
             </a>
           </div>
+        
+
+        
           
-      </div>
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
+<div id="gitalk-container"></div>
 
-        
-      
+<script>
 
-      <div class="site-footer">
-  <div class="slogan">君子生非异也，善假于物也。</div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/worldzhao" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
-</div>
+  var gitalk = new Gitalk({
+    clientID: 'ae70790f8df61d7ce952',
+    clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
+    repo: 'worldzhao.github.io',
+    owner: 'worldzhao',
+    admin: ['worldzhao'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-
-    </div>
-    <script type="application/javascript">
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
 
+          
+        
 
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://worldzhao.github.io/atom.xml" target="_blank">RSS</a>
+</div>
 
-      var gitalk = new Gitalk({
-        clientID: 'ae70790f8df61d7ce952',
-        clientSecret: 'dba663050bbe1ab7a23296198c9728128461dc35',
-        repo: 'worldzhao.github.io',
-        owner: 'worldzhao',
-        admin: ['worldzhao'],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+<script>
+  hljs.initHighlightingOnLoad()
 
-      gitalk.render('gitalk-container')
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
 
-    </script>
-  
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
 
-  
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
 
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      console.log('section.offsetHeight', section.offsetHeight);
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
 
+</script>
 
-
+      </div>
+    </div>
   </body>
 </html>
